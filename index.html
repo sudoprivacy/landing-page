@@ -1078,20 +1078,38 @@
      Section: #scenarios
      ============================================================ -->
 
-<section id="scenarios" class="bg-white py-20 px-4">
-  <div class="max-w-content mx-auto">
+<section id="scenarios" class="relative overflow-hidden bg-gray-900" style="min-height: 680px;">
 
-    <!-- 区块标题 -->
-    <div class="text-center mb-12 fade-up">
-      <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+  <!-- Background images (one per industry) -->
+  <div class="absolute inset-0 z-0">
+    <img class="scenario-bg active" data-tab="sales"        src="assets/images/scenario-sales.jpg"        alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="service"      src="assets/images/scenario-service.jpg"      alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="finance"      src="assets/images/scenario-finance.jpg"      alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="accounting"   src="assets/images/scenario-accounting.jpg"   alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="supply-chain" src="assets/images/scenario-supply-chain.jpg" alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="delivery"     src="assets/images/scenario-delivery.jpg"     alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="dev"          src="assets/images/scenario-dev.jpg"          alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="global"       src="assets/images/scenario-global.jpg"       alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="knowledge"    src="assets/images/scenario-knowledge.jpg"    alt="" aria-hidden="true" />
+    <img class="scenario-bg"        data-tab="hr"           src="assets/images/scenario-hr.jpg"           alt="" aria-hidden="true" />
+    <!-- Dark gradient overlay -->
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/50 to-black/80"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 max-w-content mx-auto px-6 md:px-8 py-20 md:py-28">
+
+    <!-- Section title -->
+    <div class="text-center mb-10 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">
         SudoClaw 在解决什么问题
       </h2>
-      <p class="text-secondary text-lg max-w-2xl mx-auto">
+      <p class="text-white/70 text-lg max-w-2xl mx-auto">
         30+ 个真实业务场景，覆盖 10 大行业，找到与你最相关的场景
       </p>
     </div>
 
-    <!-- Tab 栏 -->
+    <!-- Tab bar -->
     <div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide mb-8 fade-up" role="tablist" aria-label="行业分类">
       <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors"
               data-tab="sales" data-active="true" role="tab" aria-selected="true" aria-controls="panel-sales">
@@ -1137,597 +1155,363 @@
 
     <!-- ── 1. 销售与获客 ── -->
     <div class="tab-panel" id="panel-sales" data-tab="sales" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            销售与获客
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "给客户的方案路演，一天就生成了一个专属网站"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            把客户需求输入 SudoClaw，Worker 自动完成行业数据采集、痛点提炼、方案设计、ROI 测算，直接生成可交互的定制化演示网页。从"改三轮 PPT"变成"出网站等反馈"。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">销售与获客</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"给客户的方案路演，一天就生成了一个专属网站"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">把客户需求输入 SudoClaw，Worker 自动完成行业数据采集、痛点提炼、方案设计、ROI 测算，直接生成可交互的定制化演示网页。从"改三轮 PPT"变成"出网站等反馈"。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            销售与获客
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "投标前的尽调，从翻三天网站变成一句话出报告"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动调取工商信息、资质证书、业绩、中标历史，同步扫描司法风险和税务异常，几分钟内生成结构化对比报告。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">销售与获客</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"投标前的尽调，从翻三天网站变成一句话出报告"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动调取工商信息、资质证书、业绩、中标历史，同步扫描司法风险和税务异常，几分钟内生成结构化对比报告。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            销售与获客
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "招标动态不用人盯了，符合条件的自动推过来"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            按省份、资质要求、项目类型自动筛选招标信息，符合条件的项目实时推送到企微群，再也不漏标。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">销售与获客</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"招标动态不用人盯了，符合条件的自动推过来"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">按省份、资质要求、项目类型自动筛选招标信息，符合条件的项目实时推送到企微群，再也不漏标。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            销售与获客
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "客户跟进全靠记忆，现在 AI 帮我盯着节奏"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动追踪 CRM 商机状态——超期未联系自动提醒，临近续约推送背景摘要，丢单客户定期触发复盘分析。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">销售与获客</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"客户跟进全靠记忆，现在 AI 帮我盯着节奏"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动追踪 CRM 商机状态——超期未联系自动提醒，临近续约推送背景摘要，丢单客户定期触发复盘分析。</p>
         </div>
-
-      </div>
-      <!-- Tab 配图 -->
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-sales.jpg" alt="销售与获客场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 2. 客户服务 ── -->
     <div class="tab-panel hidden" id="panel-service" data-tab="service" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            客户服务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "客服团队轮班的活，AI 接了大半"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            将业务手册拆解为知识规则后接入 SudoClaw，AI 7×24 自动回答咨询，敏感问题自动转人工，多人轮班工作量大幅释放。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">客户服务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"客服团队轮班的活，AI 接了大半"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">将业务手册拆解为知识规则后接入 SudoClaw，AI 7×24 自动回答咨询，敏感问题自动转人工，多人轮班工作量大幅释放。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            客户服务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "上万个企微群的质检，从抽查变全覆盖"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            违规关键词实时扫描，客服超时自动告警，异常自动分类，定时轮扫并生成标准报表。从"抽到算运气"变成"全量无死角"。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">客户服务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"上万个企微群的质检，从抽查变全覆盖"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">违规关键词实时扫描，客服超时自动告警，异常自动分类，定时轮扫并生成标准报表。从"抽到算运气"变成"全量无死角"。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            客户服务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "客户投诉不再石沉大海，每条都有闭环"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动按紧急程度分级、匹配知识库生成方案、分配责任人并跟踪进度，超时未处理自动升级通知管理层。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">客户服务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"客户投诉不再石沉大海，每条都有闭环"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动按紧急程度分级、匹配知识库生成方案、分配责任人并跟踪进度，超时未处理自动升级通知管理层。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            客户服务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "运营商千万级用户的套餐咨询，AI 秒级响应还不说错"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            完整套餐规则库导入后 Worker 自动匹配用户问题生成准确回复，敏感操作自动转人工，规则更新后 Skill 包同步刷新。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">客户服务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"运营商千万级用户的套餐咨询，AI 秒级响应还不说错"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">完整套餐规则库导入后 Worker 自动匹配用户问题生成准确回复，敏感操作自动转人工，规则更新后 Skill 包同步刷新。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-service.jpg" alt="客户服务场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 3. 金融与保险 ── -->
     <div class="tab-panel hidden" id="panel-finance" data-tab="finance" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            金融与保险
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "信贷审批的风控模型，终于用上了外部数据——但数据没出门"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            通过隐私计算底座，Worker 在安全多方计算环境下完成跨机构联邦建模，双方数据"可用不可见"，风控精准度显著提升。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">金融与保险</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"信贷审批的风控模型，终于用上了外部数据——但数据没出门"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">通过隐私计算底座，Worker 在安全多方计算环境下完成跨机构联邦建模，双方数据"可用不可见"，风控精准度显著提升。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            金融与保险
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "保险存量客户激活，精准度翻了将近一倍"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            通过隐私计算与运营商联合建模，生成精准购险意向评分，高意向人群转化率大幅优于传统方式，双方无法反推对方用户信息。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">金融与保险</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"保险存量客户激活，精准度翻了将近一倍"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">通过隐私计算与运营商联合建模，生成精准购险意向评分，高意向人群转化率大幅优于传统方式，双方无法反推对方用户信息。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            金融与保险
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "反欺诈核验，跨机构数据碰撞不再需要'裸奔'"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            通过隐私求交和安全计算完成跨机构身份核验和风险标签碰撞，欺诈识别率提升，没有任何一方的用户明文数据被暴露。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">金融与保险</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"反欺诈核验，跨机构数据碰撞不再需要'裸奔'"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">通过隐私求交和安全计算完成跨机构身份核验和风险标签碰撞，欺诈识别率提升，没有任何一方的用户明文数据被暴露。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            金融与保险
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "数据资产盘点，从手工台账变成自动化管控"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动扫描数据流转链路、识别敏感字段、标注权限异常，生成合规看板。监管检查来了，报告随时可出。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">金融与保险</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"数据资产盘点，从手工台账变成自动化管控"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动扫描数据流转链路、识别敏感字段、标注权限异常，生成合规看板。监管检查来了，报告随时可出。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-finance.jpg" alt="金融与保险场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 4. 财务与合规 ── -->
     <div class="tab-panel hidden" id="panel-accounting" data-tab="accounting" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            财务与合规
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "跨境对账从人工核三天，变成几轮确认就搞定"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动导表、还原公式、标注差异，涉及多张原始报表和大量科目映射，人只做最终确认，几轮即可收敛。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">财务与合规</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"跨境对账从人工核三天，变成几轮确认就搞定"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动导表、还原公式、标注差异，涉及多张原始报表和大量科目映射，人只做最终确认，几轮即可收敛。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            财务与合规
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "政策变了，合规团队当天就出了影响分析"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            新政策发布后 Worker 自动比对现行制度差异、标注受影响业务条线、生成合规整改建议，过去一周的工作当天完成初稿。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">财务与合规</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"政策变了，合规团队当天就出了影响分析"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">新政策发布后 Worker 自动比对现行制度差异、标注受影响业务条线、生成合规整改建议，过去一周的工作当天完成初稿。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            财务与合规
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "每月的费用报销审核，不再靠人逐条翻"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动审核每笔报销——超标自动标记、重复提交自动识别、缺少附件自动退回，财务只需处理异常项。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">财务与合规</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"每月的费用报销审核，不再靠人逐条翻"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动审核每笔报销——超标自动标记、重复提交自动识别、缺少附件自动退回，财务只需处理异常项。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            财务与合规
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "多币种预算编制，汇率波动不再是噩梦"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            接入汇率数据源后 Worker 自动按最新汇率完成多币种换算、预算偏差分析和敞口预警，财务把时间花在分析决策上。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">财务与合规</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"多币种预算编制，汇率波动不再是噩梦"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">接入汇率数据源后 Worker 自动按最新汇率完成多币种换算、预算偏差分析和敞口预警，财务把时间花在分析决策上。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-accounting.jpg" alt="财务与合规场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 5. 运营与供应链 ── -->
     <div class="tab-panel hidden" id="panel-supply-chain" data-tab="supply-chain" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            运营与供应链
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "每天的数据搬运，变成了每早自动推送"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 每天定时自动拉单据、判定、填报表、推送。特殊品类标记人工审批，超时单据分级预警，物流异常自动告警。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">运营与供应链</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"每天的数据搬运，变成了每早自动推送"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 每天定时自动拉单据、判定、填报表、推送。特殊品类标记人工审批，超时单据分级预警，物流异常自动告警。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            运营与供应链
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "供应商到货延迟，不用人追了"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 每天自动比对采购订单和到货状态，延迟的自动催货，严重超期升级给采购经理，附带历史交付准时率统计。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">运营与供应链</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"供应商到货延迟，不用人追了"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 每天自动比对采购订单和到货状态，延迟的自动催货，严重超期升级给采购经理，附带历史交付准时率统计。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            运营与供应链
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "库存预警不再靠 Excel 公式"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 定时拉取库存、销量和在途数据，按 SKU 自动计算安全库存线并推送预警，滞销品和断货风险同时标注。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">运营与供应链</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"库存预警不再靠 Excel 公式"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 定时拉取库存、销量和在途数据，按 SKU 自动计算安全库存线并推送预警，滞销品和断货风险同时标注。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-supply-chain.jpg" alt="运营与供应链场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 6. 专业服务与交付 ── -->
     <div class="tab-panel hidden" id="panel-delivery" data-tab="delivery" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            专业服务与交付
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "一个人 + 五个硅基员工，干了原来一个 squad 的活"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            一个资深顾问搭配五个 Worker 分别负责项目管理、数据清洗、分析报表、模型训练和客户沟通，同样团队规模服务客户数翻倍。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">专业服务与交付</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"一个人 + 五个硅基员工，干了原来一个 squad 的活"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">一个资深顾问搭配五个 Worker 分别负责项目管理、数据清洗、分析报表、模型训练和客户沟通，同样团队规模服务客户数翻倍。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            专业服务与交付
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "项目交付周报，不用每个人汇总了"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动从项目管理系统、代码仓库、数据平台拉取进展，生成结构化周报——完成了什么、卡在哪里、风险预警，审一眼就能发。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">专业服务与交付</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"项目交付周报，不用每个人汇总了"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动从项目管理系统、代码仓库、数据平台拉取进展，生成结构化周报——完成了什么、卡在哪里、风险预警，审一眼就能发。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-delivery.jpg" alt="专业服务与交付场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 7. 研发与技术 ── -->
     <div class="tab-panel hidden" id="panel-dev" data-tab="dev" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            研发与技术
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "新来的开发，第一天就能按团队规范写代码"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            编码规范、架构文档、Code Review 记录做成 Skill 包，新人写代码时 Worker 自动按团队规范审查并给出修改建议。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">研发与技术</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"新来的开发，第一天就能按团队规范写代码"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">编码规范、架构文档、Code Review 记录做成 Skill 包，新人写代码时 Worker 自动按团队规范审查并给出修改建议。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            研发与技术
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "线上告警不再只是一条通知，直接带上下文和建议"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            告警触发后 Worker 自动拉取日志、关联发布变更、匹配历史故障处理记录，生成可执行的排查方案。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">研发与技术</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"线上告警不再只是一条通知，直接带上下文和建议"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">告警触发后 Worker 自动拉取日志、关联发布变更、匹配历史故障处理记录，生成可执行的排查方案。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            研发与技术
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "每周的发版检查清单，不用人手动对了"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动从项目管理和 CI/CD 系统拉取数据，未闭环需求、未通过测试、未合并分支全部标红，发版风险一目了然。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">研发与技术</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"每周的发版检查清单，不用人手动对了"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动从项目管理和 CI/CD 系统拉取数据，未闭环需求、未通过测试、未合并分支全部标红，发版风险一目了然。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-dev.jpg" alt="研发与技术场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 8. 出海与国际业务 ── -->
     <div class="tab-panel hidden" id="panel-global" data-tab="global" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            出海与国际业务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "海外投资尽调报告，从外包两周变成内部一天出初稿"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动整合多国数据源、抓取最新政策法规和行业数据，生成结构化尽调初稿并对关键数据标注置信度和来源。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">出海与国际业务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"海外投资尽调报告，从外包两周变成内部一天出初稿"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动整合多国数据源、抓取最新政策法规和行业数据，生成结构化尽调初稿并对关键数据标注置信度和来源。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            出海与国际业务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "多语种会议纪要和合同审阅，不再卡在翻译上"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            通过 SudoRouter 调度最适合目标语种的模型，Worker 自动完成合同条款提取、会议纪要翻译和关键信息摘要。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">出海与国际业务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"多语种会议纪要和合同审阅，不再卡在翻译上"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">通过 SudoRouter 调度最适合目标语种的模型，Worker 自动完成合同条款提取、会议纪要翻译和关键信息摘要。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            出海与国际业务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "海外票据审核，手写多币种也能自动处理"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            接入 OCR 和汇率数据源后 Worker 自动识别票据内容、匹配币种实时汇率、生成标准化审核记录，异常票据自动标记。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">出海与国际业务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"海外票据审核，手写多币种也能自动处理"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">接入 OCR 和汇率数据源后 Worker 自动识别票据内容、匹配币种实时汇率、生成标准化审核记录，异常票据自动标记。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            出海与国际业务
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "海外舆情监控，从'大海捞针'变成精准推送"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            按企业名称、项目名、关键人物配置精准监控，Worker 实时扫描目标国家新闻和社媒，负面舆情秒级推送并附应对建议。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">出海与国际业务</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"海外舆情监控，从'大海捞针'变成精准推送"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">按企业名称、项目名、关键人物配置精准监控，Worker 实时扫描目标国家新闻和社媒，负面舆情秒级推送并附应对建议。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-global.jpg" alt="出海与国际业务场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 9. 知识管理与决策支持 ── -->
     <div class="tab-panel hidden" id="panel-knowledge" data-tab="knowledge" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            知识管理与决策支持
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "老员工走了，经验没走"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 自动将分散在个人电脑、邮件、聊天记录中的项目资料归档打标签建索引，任何人都可用自然语言检索历史经验。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">知识管理与决策支持</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"老员工走了，经验没走"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 自动将分散在个人电脑、邮件、聊天记录中的项目资料归档打标签建索引，任何人都可用自然语言检索历史经验。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            知识管理与决策支持
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "例行工作不再靠记忆，AI 帮你盯着日历"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            年度计划、资质年审、合同续签等关键节点配置定时任务，到期前自动提醒，逾期自动升级通知管理层。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">知识管理与决策支持</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"例行工作不再靠记忆，AI 帮你盯着日历"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">年度计划、资质年审、合同续签等关键节点配置定时任务，到期前自动提醒，逾期自动升级通知管理层。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            知识管理与决策支持
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "领导要数据，不用再等各部门凑报表"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Copilot 接到一句话，Worker 自动跨 BI、ERP、财务等系统拉数据、交叉比对，生成带结论的分析摘要，分钟级响应。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">知识管理与决策支持</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"领导要数据，不用再等各部门凑报表"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Copilot 接到一句话，Worker 自动跨 BI、ERP、财务等系统拉数据、交叉比对，生成带结论的分析摘要，分钟级响应。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            知识管理与决策支持
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "政务数据共享，跨部门协作不再靠发函"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            搭配隐私计算能力，Worker 在安全环境中完成跨部门数据比对和联合分析，结果可用但原始数据不出域。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">知识管理与决策支持</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"政务数据共享，跨部门协作不再靠发函"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">搭配隐私计算能力，Worker 在安全环境中完成跨部门数据比对和联合分析，结果可用但原始数据不出域。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-knowledge.jpg" alt="知识管理与决策支持场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
     <!-- ── 10. 人力与行政 ── -->
     <div class="tab-panel hidden" id="panel-hr" data-tab="hr" role="tabpanel">
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            人力与行政
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "候选人简历筛选，从刷两天变成看一份报告"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 按岗位 JD 和标准自动评分、标注亮点和风险项、按推荐优先级排序，招聘经理只需看排序清单决定约谁面试。
-          </p>
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">人力与行政</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"候选人简历筛选，从刷两天变成看一份报告"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 按岗位 JD 和标准自动评分、标注亮点和风险项、按推荐优先级排序，招聘经理只需看排序清单决定约谁面试。</p>
         </div>
-
-        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
-          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">
-            人力与行政
-          </span>
-          <h4 class="font-bold text-dark mb-3 leading-snug">
-            "新员工入职手续，AI 全程引导到完成"
-          </h4>
-          <p class="text-sm text-secondary leading-relaxed">
-            Worker 通过企微自动引导完成信息采集、合同签署、账号开通、培训安排，卡在哪个环节自动提醒 HR 介入。
-          </p>
+        <div class="scenario-card fade-up">
+          <span class="scenario-tag">人力与行政</span>
+          <h4 class="font-bold text-white mb-3 leading-snug">"新员工入职手续，AI 全程引导到完成"</h4>
+          <p class="text-sm text-white/75 leading-relaxed">Worker 通过企微自动引导完成信息采集、合同签署、账号开通、培训安排，卡在哪个环节自动提醒 HR 介入。</p>
         </div>
-
-      </div>
-      <div class="mt-8 rounded-2xl overflow-hidden">
-        <img src="assets/images/scenario-hr.jpg" alt="人力与行政场景" class="w-full h-auto rounded-xl" loading="lazy" />
       </div>
     </div>
 
   </div><!-- /.max-w-content -->
 </section>
 
-<!-- Tab 样式 -->
+<!-- Scenarios 样式 -->
 <style>
-  .tab-btn[data-active="true"] {
+  /* Background image transitions */
+  .scenario-bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 0.9s ease;
+  }
+  .scenario-bg.active { opacity: 1; }
+
+  /* Tab dark style */
+  #scenarios .tab-btn {
+    color: rgba(255,255,255,0.65);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+  #scenarios .tab-btn[data-active="true"] {
     background-color: var(--accent);
-    color: #ffffff;
+    color: #111111;
+    border-color: var(--accent);
   }
-  .tab-btn[data-active="false"] {
-    background-color: #f3f4f6;
-    color: #6b7280;
+  #scenarios .tab-btn[data-active="false"]:hover {
+    color: white;
+    background: rgba(255,255,255,0.2);
   }
-  .tab-btn[data-active="false"]:hover {
-    color: var(--text-primary);
+
+  /* Glassmorphism cards */
+  .scenario-card {
+    background: rgba(0,0,0,0.48);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-left: 4px solid var(--accent);
+    border-radius: 1rem;
+    padding: 1.5rem;
   }
-  /* 隐藏滚动条（跨浏览器） */
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+
+  /* Industry tag inside card */
+  .scenario-tag {
+    display: inline-block;
+    padding: 0.2rem 0.75rem;
+    background: rgba(245,158,11,0.25);
+    color: var(--accent);
+    font-size: 0.75rem;
+    font-weight: 500;
+    border-radius: 9999px;
+    margin-bottom: 0.75rem;
   }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
+
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
 </style>
 
-<!-- Tab 切换 JS -->
+<!-- Scenarios Tab + Auto-rotate JS -->
 <script>
   (function () {
-    var tabs = document.querySelectorAll('#scenarios .tab-btn');
+    var tabs   = document.querySelectorAll('#scenarios .tab-btn');
     var panels = document.querySelectorAll('#scenarios .tab-panel');
+    var bgs    = document.querySelectorAll('#scenarios .scenario-bg');
+    var total  = tabs.length;
+    var current = 0;
+    var timer   = null;
+    var INTERVAL = 5000;
 
-    tabs.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var target = btn.dataset.tab;
+    function activate(index) {
+      current = index;
+      var target = tabs[index].dataset.tab;
 
-        // 更新 Tab 状态
-        tabs.forEach(function (b) {
-          b.dataset.active = 'false';
-          b.setAttribute('aria-selected', 'false');
-        });
-        btn.dataset.active = 'true';
-        btn.setAttribute('aria-selected', 'true');
+      // Tabs
+      tabs.forEach(function (b, i) {
+        b.dataset.active = i === index ? 'true' : 'false';
+        b.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      });
+      // Scroll active tab into view
+      tabs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
 
-        // 切换 Panel
-        panels.forEach(function (p) {
-          if (p.dataset.tab === target) {
-            p.classList.remove('hidden');
-          } else {
-            p.classList.add('hidden');
-          }
-        });
-
-        // 触发新显示卡片的 fade-up 动画
-        var activePanel = document.querySelector('#scenarios .tab-panel[data-tab="' + target + '"]');
-        if (activePanel) {
-          activePanel.querySelectorAll('.fade-up').forEach(function (el) {
+      // Panels
+      panels.forEach(function (p) {
+        var show = p.dataset.tab === target;
+        p.classList.toggle('hidden', !show);
+        if (show) {
+          p.querySelectorAll('.fade-up').forEach(function (el) {
             el.classList.remove('visible');
-            // 强制回流后重新添加，触发过渡效果
             void el.offsetWidth;
             el.classList.add('visible');
           });
         }
       });
+
+      // Background images
+      bgs.forEach(function (bg) {
+        bg.classList.toggle('active', bg.dataset.tab === target);
+      });
+    }
+
+    function startAuto() {
+      clearInterval(timer);
+      timer = setInterval(function () { activate((current + 1) % total); }, INTERVAL);
+    }
+
+    // Manual click
+    tabs.forEach(function (btn, i) {
+      btn.addEventListener('click', function () { activate(i); startAuto(); });
     });
 
-    // 初始化：触发首个 panel 的 fade-up
-    if (typeof IntersectionObserver !== 'undefined') {
-      var observer = new IntersectionObserver(function (entries) {
-        entries.forEach(function (entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, { threshold: 0.1 });
+    // Pause on hover
+    var section = document.getElementById('scenarios');
+    section.addEventListener('mouseenter', function () { clearInterval(timer); });
+    section.addEventListener('mouseleave', startAuto);
 
-      document.querySelectorAll('#scenarios .fade-up').forEach(function (el) {
-        observer.observe(el);
-      });
+    // Init
+    activate(0);
+    startAuto();
+
+    // fade-up observer
+    if (typeof IntersectionObserver !== 'undefined') {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add('visible'); });
+      }, { threshold: 0.1 });
+      document.querySelectorAll('#scenarios .fade-up').forEach(function (el) { obs.observe(el); });
     } else {
-      // 降级：直接显示
-      document.querySelectorAll('#scenarios .fade-up').forEach(function (el) {
-        el.classList.add('visible');
-      });
+      document.querySelectorAll('#scenarios .fade-up').forEach(function (el) { el.classList.add('visible'); });
     }
   })();
 </script>
