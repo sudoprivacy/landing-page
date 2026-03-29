@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="SudoWork 博客 — 产品动态、技术洞察与行业思考" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoWork, 博客" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SudoWork" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta property="og:title" content="博客 — SudoWork" />
+  <meta name="theme-color" content="#FAF9F0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAF9F0',
+            dark: '#1a1a1a',
+            'dark-footer': '#111111',
+            accent: '#F59E0B',
+            'accent-hover': '#D97706',
+            'accent-light': '#FEF3C7',
+            teal: '#0D9488',
+            'teal-hover': '#0F766E',
+            border: '#E5E7EB',
+          },
+          fontFamily: {
+            heading: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            body: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+          },
+          maxWidth: {
+            content: '1200px',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-page: #faf9f0;
+      --bg-card: #ffffff;
+      --bg-dark: #1a1a1a;
+      --bg-footer: #111111;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-on-dark: #ffffff;
+      --text-on-dark-muted: rgba(255, 255, 255, 0.7);
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --accent-light: #fef3c7;
+      --teal: #0d9488;
+      --teal-hover: #0f766e;
+      --border: #e5e7eb;
+      --font-heading: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", monospace;
+      --max-width: 1200px;
+      --nav-height: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    h1 { font-weight: 900; }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--teal-hover); }
+
+    img, svg, video { display: block; max-width: 100%; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #mobile-menu {
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+    #mobile-menu.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    #main-nav {
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Prose styles for blog post content */
+    .prose h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary);
+    }
+    .prose h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+    .prose p {
+      margin-bottom: 1rem;
+      line-height: 1.75;
+      color: #374151;
+    }
+    .prose ul {
+      list-style: disc;
+      padding-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+    .prose li {
+      margin-bottom: 0.4rem;
+      color: #374151;
+    }
+    .prose a {
+      color: var(--teal);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+    .prose strong {
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .prose code {
+      font-family: var(--font-mono);
+      background: #f3f4f6;
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      font-size: 0.875em;
+    }
+    .prose pre {
+      background: #1a1a1a;
+      color: #e5e7eb;
+      padding: 1rem 1.25rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin-bottom: 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+    }
+    .prose pre code {
+      background: none;
+      padding: 0;
+      font-size: inherit;
+      color: inherit;
+    }
+    .prose blockquote {
+      border-left: 4px solid var(--accent);
+      padding-left: 1rem;
+      margin-left: 0;
+      color: #6b7280;
+      font-style: italic;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <title>博客 — SudoWork</title>
+</head>
+<body class="bg-page">
+
+<!-- NAV -->
+<header
+  id="main-nav"
+  class="fixed top-0 w-full z-50 h-16 border-b border-transparent"
+  data-scrolled="false"
+>
+  <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoWork 首页">
+      <img
+        src="assets/logo/app.png"
+        alt="SudoWork Logo"
+        class="h-8 w-8 rounded-lg object-contain"
+        onerror="this.style.display='none'"
+      />
+      <span class="font-heading font-black text-xl leading-none select-none">
+        <span id="logo-sudo" class="text-white transition-colors duration-300">Sudo</span><span class="text-accent">Claw</span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
+      <a href="index.html#products" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">产品</a>
+      <a href="index.html#scenarios" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">场景</a>
+      <a href="index.html#opensource" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">开源</a>
+      <a href="index.html#about" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">关于我们</a>
+    </nav>
+
+    <div class="hidden md:flex items-center">
+      <a
+        href="index.html#cta"
+        class="bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200"
+      >预约演示</a>
+    </div>
+
+    <button
+      id="hamburger-btn"
+      class="md:hidden flex flex-col gap-1.5 p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      aria-label="打开菜单"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+    </button>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="hidden fixed inset-0 z-40 bg-dark/95 backdrop-blur-md flex flex-col items-center justify-center gap-8"
+  role="dialog"
+  aria-modal="true"
+  aria-label="移动端导航菜单"
+>
+  <nav class="flex flex-col items-center gap-6" aria-label="移动端主导航">
+    <a href="index.html#products"  class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">产品</a>
+    <a href="index.html#scenarios" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">场景</a>
+    <a href="index.html#opensource" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">开源</a>
+    <a href="index.html#about"     class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">关于我们</a>
+  </nav>
+  <a
+    href="index.html#cta"
+    class="mobile-nav-link bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors"
+  >预约演示</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="pt-16 min-h-screen">
+
+  <!-- Hero -->
+  <section class="bg-dark py-20 text-center">
+    <div class="max-w-content mx-auto px-6">
+      <h1 class="text-4xl md:text-5xl font-black text-white fade-up">博客</h1>
+      <p class="text-white/70 mt-4 text-lg fade-up">产品动态、技术洞察与行业思考</p>
+    </div>
+  </section>
+
+  <!-- Blog Index -->
+  <section id="blog-index" class="py-16 bg-page">
+    <div class="max-w-content mx-auto px-6 md:px-8">
+      <div id="posts-loading" class="text-center text-secondary py-12">
+        <div class="inline-block w-8 h-8 border-2 border-teal border-t-transparent rounded-full animate-spin mb-4"></div>
+        <p>加载文章中…</p>
+      </div>
+      <div id="posts-error" class="hidden text-center text-secondary py-12">
+        <p class="text-lg mb-2">暂时无法加载文章列表</p>
+        <p class="text-sm">请稍后刷新重试</p>
+      </div>
+      <div id="posts-grid" class="hidden grid md:grid-cols-2 gap-6"></div>
+    </div>
+  </section>
+
+  <!-- Post View -->
+  <section id="post-view" class="hidden py-16 bg-page">
+    <div class="max-w-3xl mx-auto px-6 md:px-8">
+      <a
+        href="#"
+        id="back-to-index"
+        class="inline-flex items-center gap-2 text-teal hover:text-teal-hover text-sm font-medium mb-8 transition-colors"
+        onclick="clearHash(); return false;"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+        </svg>
+        返回博客
+      </a>
+      <article>
+        <h1 id="post-title" class="text-3xl md:text-4xl font-black text-dark mb-4"></h1>
+        <div class="flex items-center gap-3 text-secondary text-sm mb-6">
+          <span id="post-date"></span>
+          <span class="text-border">·</span>
+          <span id="post-author"></span>
+        </div>
+        <hr class="border-border mb-8" />
+        <div id="post-content" class="prose"></div>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#111111] text-white/60 py-16">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">产品</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li>
+          <li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li>
+          <li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">场景</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">资源</h4>
+        <ul class="space-y-2">
+          <li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li>
+          <li><a href="docs.html" class="text-sm hover:text-white transition-colors">文档</a></li>
+          <li><a href="blog.html" class="text-sm hover:text-white transition-colors">博客</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">公司</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html#about" class="text-sm hover:text-white transition-colors">关于我们</a></li>
+          <li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li>
+          <li><a href="careers.html" class="text-sm hover:text-white transition-colors">加入我们</a></li>
+          <li><a href="terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li>
+          <li><a href="privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <p class="text-xs text-white/40 order-2 md:order-1">
+          © 2024-2026 数牍科技（北京）有限公司 &nbsp;·&nbsp; sudoprivacy.com
+        </p>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 order-1 md:order-2 text-xs text-white/40">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京ICP备20011614号</a>
+          <span class="hidden sm:inline text-white/20">·</span>
+          <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802035764" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京公网安备 11010802035764号</a>
+        </div>
+        <div class="flex items-center gap-3 order-3 text-white/40">
+          <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-white/30 shrink-0">二维码</div>
+          <span class="text-xs">扫码关注公众号</span>
+        </div>
+      </div>
+      <p class="text-xs text-white/30 text-center mt-6">北京市海淀区成府路28号优盛大厦A座18层</p>
+    </div>
+  </div>
+</footer>
+
+<!-- marked.js for markdown rendering -->
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+
+<script>
+  'use strict';
+
+  // ── Nav behavior ─────────────────────────────────────────────
+  (function () {
+    const nav = document.getElementById('main-nav');
+    const logoSudo = document.getElementById('logo-sudo');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const hamLines = document.querySelectorAll('.ham-line');
+
+    function updateNavOnScroll() {
+      const scrolled = window.scrollY > 50;
+      nav.dataset.scrolled = scrolled ? 'true' : 'false';
+      if (scrolled) {
+        nav.style.backgroundColor = 'rgba(250, 249, 240, 0.9)';
+        nav.style.backdropFilter = 'blur(12px)';
+        nav.style.webkitBackdropFilter = 'blur(12px)';
+        nav.style.borderBottomColor = '#E5E7EB';
+        nav.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+        if (logoSudo) logoSudo.style.color = '#1a1a1a';
+        navLinks.forEach(function (link) { link.style.color = 'rgba(26, 26, 26, 0.75)'; });
+      } else {
+        nav.style.backgroundColor = 'transparent';
+        nav.style.backdropFilter = '';
+        nav.style.webkitBackdropFilter = '';
+        nav.style.borderBottomColor = 'transparent';
+        nav.style.boxShadow = 'none';
+        if (logoSudo) logoSudo.style.color = '#ffffff';
+        navLinks.forEach(function (link) { link.style.color = 'rgba(255, 255, 255, 0.8)'; });
+      }
+    }
+
+    window.addEventListener('scroll', updateNavOnScroll, { passive: true });
+    updateNavOnScroll();
+
+    function openMobileMenu() {
+      mobileMenu.classList.remove('hidden');
+      requestAnimationFrame(function () { mobileMenu.classList.add('open'); });
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      hamburgerBtn.setAttribute('aria-label', '关闭菜单');
+      document.body.style.overflow = 'hidden';
+      if (hamLines.length >= 3) {
+        hamLines[0].style.transform = 'translateY(8px) rotate(45deg)';
+        hamLines[1].style.opacity = '0';
+        hamLines[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      }
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      setTimeout(function () { mobileMenu.classList.add('hidden'); }, 200);
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      hamburgerBtn.setAttribute('aria-label', '打开菜单');
+      document.body.style.overflow = '';
+      if (hamLines.length >= 3) {
+        hamLines[0].style.transform = '';
+        hamLines[1].style.opacity = '';
+        hamLines[2].style.transform = '';
+      }
+    }
+
+    hamburgerBtn.addEventListener('click', function () {
+      this.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu();
+    });
+
+    mobileNavLinks.forEach(function (link) {
+      link.addEventListener('click', function () { closeMobileMenu(); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && hamburgerBtn.getAttribute('aria-expanded') === 'true') {
+        closeMobileMenu();
+        hamburgerBtn.focus();
+      }
+    });
+  })();
+
+  // ── Fade-up observer ─────────────────────────────────────────
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+  })();
+
+  // ── Blog logic ───────────────────────────────────────────────
+  var REPO = 'sudoprivacy/landing-page';
+  var POSTS_PATH = 'blog/posts';
+  var API_URL = 'https://api.github.com/repos/' + REPO + '/contents/' + POSTS_PATH;
+
+  var postsCache = [];
+
+  function parseFrontmatter(text) {
+    var result = { title: '', date: '', author: '', summary: '', body: '' };
+    var match = text.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+    if (!match) { result.body = text; return result; }
+    var fm = match[1];
+    result.body = match[2];
+    fm.split(/\r?\n/).forEach(function (line) {
+      var kv = line.match(/^(\w+):\s*(.*)/);
+      if (kv) result[kv[1]] = kv[2].trim();
+    });
+    return result;
+  }
+
+  function formatDate(dateStr) {
+    if (!dateStr) return '';
+    var parts = dateStr.split('-');
+    if (parts.length !== 3) return dateStr;
+    return parts[0] + '年' + parseInt(parts[1], 10) + '月' + parseInt(parts[2], 10) + '日';
+  }
+
+  function slugFromFilename(filename) {
+    return filename.replace(/\.md$/, '');
+  }
+
+  function renderIndex(posts) {
+    var grid = document.getElementById('posts-grid');
+    if (!posts.length) {
+      grid.innerHTML = '<p class="text-secondary col-span-2 text-center py-12">暂无文章</p>';
+      grid.classList.remove('hidden');
+      document.getElementById('posts-loading').classList.add('hidden');
+      return;
+    }
+    grid.innerHTML = posts.map(function (post) {
+      return '<div class="bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow cursor-pointer fade-up" onclick="navigateToPost(\'' + post.slug + '\')">'
+        + '<h2 class="text-xl font-bold text-dark mb-2 hover:text-teal transition-colors">' + escapeHtml(post.title) + '</h2>'
+        + '<div class="flex items-center gap-2 text-secondary text-xs mb-3">'
+        + '<span>' + escapeHtml(formatDate(post.date)) + '</span>'
+        + '<span class="text-border">·</span>'
+        + '<span>' + escapeHtml(post.author) + '</span>'
+        + '</div>'
+        + '<p class="text-secondary text-sm leading-relaxed mb-4">' + escapeHtml(post.summary) + '</p>'
+        + '<span class="text-teal text-sm font-medium hover:text-teal-hover transition-colors">阅读全文 →</span>'
+        + '</div>';
+    }).join('');
+
+    document.getElementById('posts-loading').classList.add('hidden');
+    grid.classList.remove('hidden');
+
+    // Re-observe new fade-up elements
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      grid.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+    } else {
+      grid.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+    }
+  }
+
+  function renderPost(post) {
+    document.getElementById('post-title').textContent = post.title;
+    document.getElementById('post-date').textContent = formatDate(post.date);
+    document.getElementById('post-author').textContent = post.author;
+    document.getElementById('post-content').innerHTML = marked.parse(post.body);
+
+    document.getElementById('blog-index').classList.add('hidden');
+    document.getElementById('post-view').classList.remove('hidden');
+    window.scrollTo(0, 0);
+  }
+
+  function navigateToPost(slug) {
+    location.hash = slug;
+  }
+
+  function clearHash() {
+    history.pushState('', document.title, location.pathname + location.search);
+    render();
+  }
+
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+
+  function render() {
+    var hash = location.hash.replace('#', '');
+    if (!hash) {
+      document.getElementById('blog-index').classList.remove('hidden');
+      document.getElementById('post-view').classList.add('hidden');
+      renderIndex(postsCache);
+    } else {
+      var post = postsCache.find(function (p) { return p.slug === hash; });
+      if (post) {
+        renderPost(post);
+      } else {
+        // Post not yet loaded — try to load it directly
+        fetchAndRenderSinglePost(hash);
+      }
+    }
+  }
+
+  function fetchAndRenderSinglePost(slug) {
+    var rawUrl = 'https://raw.githubusercontent.com/' + REPO + '/main/' + POSTS_PATH + '/' + slug + '.md';
+    fetch(rawUrl)
+      .then(function (res) {
+        if (!res.ok) throw new Error('not found');
+        return res.text();
+      })
+      .then(function (text) {
+        var parsed = parseFrontmatter(text);
+        parsed.slug = slug;
+        renderPost(parsed);
+      })
+      .catch(function () {
+        document.getElementById('blog-index').classList.remove('hidden');
+        document.getElementById('post-view').classList.add('hidden');
+        renderIndex(postsCache);
+      });
+  }
+
+  function loadPosts() {
+    fetch(API_URL)
+      .then(function (res) {
+        if (!res.ok) throw new Error('API error');
+        return res.json();
+      })
+      .then(function (files) {
+        var mdFiles = files.filter(function (f) { return f.name.endsWith('.md'); });
+        return Promise.all(mdFiles.map(function (f) {
+          return fetch(f.download_url)
+            .then(function (r) { return r.text(); })
+            .then(function (text) {
+              var parsed = parseFrontmatter(text);
+              parsed.slug = slugFromFilename(f.name);
+              return parsed;
+            });
+        }));
+      })
+      .then(function (posts) {
+        // Sort by date descending
+        posts.sort(function (a, b) {
+          return (b.date || '').localeCompare(a.date || '');
+        });
+        postsCache = posts;
+        render();
+      })
+      .catch(function () {
+        document.getElementById('posts-loading').classList.add('hidden');
+        document.getElementById('posts-error').classList.remove('hidden');
+      });
+  }
+
+  window.addEventListener('hashchange', render);
+
+  document.addEventListener('DOMContentLoaded', function () {
+    loadPosts();
+  });
+</script>
+
+</body>
+</html>

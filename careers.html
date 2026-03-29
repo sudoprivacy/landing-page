@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="description" content="加入 SudoWork — 我们正在打造企业 AI 的基础设施，欢迎加入" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoWork, 招聘, 加入我们" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SudoWork" />
+  <link rel="icon" href="assets/favicon.ico" />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta property="og:title" content="加入我们 — SudoWork" />
+  <meta name="theme-color" content="#FAF9F0" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAF9F0',
+            dark: '#1a1a1a',
+            'dark-footer': '#111111',
+            accent: '#F59E0B',
+            'accent-hover': '#D97706',
+            'accent-light': '#FEF3C7',
+            teal: '#0D9488',
+            'teal-hover': '#0F766E',
+            border: '#E5E7EB',
+          },
+          fontFamily: {
+            heading: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            body: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+          },
+          maxWidth: {
+            content: '1200px',
+          },
+        },
+      },
+    }
+  </script>
+
+  <style>
+    :root {
+      --bg-page: #faf9f0;
+      --bg-card: #ffffff;
+      --bg-dark: #1a1a1a;
+      --bg-footer: #111111;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-on-dark: #ffffff;
+      --text-on-dark-muted: rgba(255, 255, 255, 0.7);
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --accent-light: #fef3c7;
+      --teal: #0d9488;
+      --teal-hover: #0f766e;
+      --border: #e5e7eb;
+      --font-heading: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", monospace;
+      --max-width: 1200px;
+      --nav-height: 64px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    h1 { font-weight: 900; }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--teal-hover); }
+
+    img, svg, video { display: block; max-width: 100%; }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    #mobile-menu {
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+    #mobile-menu.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    #main-nav {
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+
+  <title>加入我们 — SudoWork</title>
+</head>
+<body class="bg-page">
+
+<!-- NAV -->
+<header
+  id="main-nav"
+  class="fixed top-0 w-full z-50 h-16 border-b border-transparent"
+  data-scrolled="false"
+>
+  <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoWork 首页">
+      <img
+        src="assets/logo/app.png"
+        alt="SudoWork Logo"
+        class="h-8 w-8 rounded-lg object-contain"
+        onerror="this.style.display='none'"
+      />
+      <span class="font-heading font-black text-xl leading-none select-none">
+        <span id="logo-sudo" class="text-white transition-colors duration-300">Sudo</span><span class="text-accent">Claw</span>
+      </span>
+    </a>
+
+    <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
+      <a href="index.html#products" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">产品</a>
+      <a href="index.html#scenarios" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">场景</a>
+      <a href="index.html#opensource" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">开源</a>
+      <a href="index.html#about" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">关于我们</a>
+    </nav>
+
+    <div class="hidden md:flex items-center">
+      <a
+        href="index.html#cta"
+        class="bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200"
+      >预约演示</a>
+    </div>
+
+    <button
+      id="hamburger-btn"
+      class="md:hidden flex flex-col gap-1.5 p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      aria-label="打开菜单"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+    </button>
+  </div>
+</header>
+
+<div
+  id="mobile-menu"
+  class="hidden fixed inset-0 z-40 bg-dark/95 backdrop-blur-md flex flex-col items-center justify-center gap-8"
+  role="dialog"
+  aria-modal="true"
+  aria-label="移动端导航菜单"
+>
+  <nav class="flex flex-col items-center gap-6" aria-label="移动端主导航">
+    <a href="index.html#products"  class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">产品</a>
+    <a href="index.html#scenarios" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">场景</a>
+    <a href="index.html#opensource" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">开源</a>
+    <a href="index.html#about"     class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">关于我们</a>
+  </nav>
+  <a
+    href="index.html#cta"
+    class="mobile-nav-link bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors"
+  >预约演示</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="pt-16 min-h-screen">
+
+  <!-- Hero -->
+  <section class="bg-dark py-20 text-center">
+    <div class="max-w-content mx-auto px-6">
+      <h1 class="text-4xl md:text-5xl font-black text-white fade-up">加入我们</h1>
+      <p class="text-white/70 mt-4 text-lg max-w-2xl mx-auto leading-relaxed fade-up">
+        我们正在打造企业 AI 的基础设施。如果你相信 AI 应该真正完成工作而不只是回答问题，欢迎加入。
+      </p>
+      <p class="text-white/50 mt-3 text-sm fade-up">📍 北京（海淀）｜远程友好｜期权激励</p>
+    </div>
+  </section>
+
+  <!-- Open Positions -->
+  <section class="py-16 bg-page">
+    <div class="max-w-3xl mx-auto px-6 md:px-8">
+
+      <h2 class="text-2xl font-bold text-dark mb-8 fade-up">开放职位</h2>
+
+      <div class="space-y-6">
+
+        <!-- Position 1 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm fade-up">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-dark">AI 应用工程师（Agent 方向）</h3>
+              <span class="inline-block mt-1 text-xs font-medium text-teal bg-teal/10 px-3 py-1 rounded-full">全职 · 技术</span>
+            </div>
+            <a
+              href="mailto:business@sudoprivacy.com?subject=%E5%BA%94%E8%81%98%EF%BC%9AAI%20%E5%BA%94%E7%94%A8%E5%B7%A5%E7%A8%8B%E5%B8%88"
+              class="shrink-0 bg-accent hover:bg-accent-hover text-dark font-bold px-5 py-2 rounded-lg text-sm transition-colors"
+            >立即申请</a>
+          </div>
+          <p class="text-secondary text-sm leading-relaxed mb-4">
+            负责设计和开发 Worker 智能体，构建 Copilot 任务编排逻辑，深度参与 Nexus OS 核心架构。
+          </p>
+          <div>
+            <p class="text-xs font-bold text-dark mb-2 uppercase tracking-wide">任职要求</p>
+            <ul class="space-y-1.5 text-sm text-secondary">
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>熟悉 Python，有 LLM 应用开发经验（LangChain / LlamaIndex / 自研框架均可）</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>理解 Agent 编排、工具调用（Function Calling）、RAG 等技术</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>有实际落地的 AI 项目经验优先</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Position 2 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm fade-up">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-dark">前端工程师（AI 产品方向）</h3>
+              <span class="inline-block mt-1 text-xs font-medium text-teal bg-teal/10 px-3 py-1 rounded-full">全职 · 技术</span>
+            </div>
+            <a
+              href="mailto:business@sudoprivacy.com?subject=%E5%BA%94%E8%81%98%EF%BC%9A%E5%89%8D%E7%AB%AF%E5%B7%A5%E7%A8%8B%E5%B8%88"
+              class="shrink-0 bg-accent hover:bg-accent-hover text-dark font-bold px-5 py-2 rounded-lg text-sm transition-colors"
+            >立即申请</a>
+          </div>
+          <p class="text-secondary text-sm leading-relaxed mb-4">
+            负责 SudoClaw 客户端和 Web 界面的开发，构建流畅的 AI 交互体验。
+          </p>
+          <div>
+            <p class="text-xs font-bold text-dark mb-2 uppercase tracking-wide">任职要求</p>
+            <ul class="space-y-1.5 text-sm text-secondary">
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>熟练掌握 React / Vue，TypeScript</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>有复杂数据可视化或流式 UI 开发经验</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>关注用户体验，能从产品视角提出改进建议</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Position 3 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm fade-up">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-dark">企业解决方案架构师</h3>
+              <span class="inline-block mt-1 text-xs font-medium text-teal bg-teal/10 px-3 py-1 rounded-full">全职 · 售前 / 技术</span>
+            </div>
+            <a
+              href="mailto:business@sudoprivacy.com?subject=%E5%BA%94%E8%81%98%EF%BC%9A%E4%BC%81%E4%B8%9A%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88%E6%9E%B6%E6%9E%84%E5%B8%88"
+              class="shrink-0 bg-accent hover:bg-accent-hover text-dark font-bold px-5 py-2 rounded-lg text-sm transition-colors"
+            >立即申请</a>
+          </div>
+          <p class="text-secondary text-sm leading-relaxed mb-4">
+            与客户一起设计 AI 落地方案，主导 POC 交付，是公司技术能力对外的窗口。
+          </p>
+          <div>
+            <p class="text-xs font-bold text-dark mb-2 uppercase tracking-wide">任职要求</p>
+            <ul class="space-y-1.5 text-sm text-secondary">
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>有企业级软件（ERP / CRM / RPA / 数据平台）的实施或售前经验</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>能快速理解客户业务流程，将其转化为 AI 任务设计</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>沟通表达能力强，能独立推进项目</span></li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Position 4 -->
+        <div class="bg-white rounded-2xl p-6 shadow-sm fade-up">
+          <div class="flex flex-wrap items-start justify-between gap-4 mb-4">
+            <div>
+              <h3 class="text-xl font-bold text-dark">企业销售（大客户方向）</h3>
+              <span class="inline-block mt-1 text-xs font-medium text-teal bg-teal/10 px-3 py-1 rounded-full">全职 · 商务</span>
+            </div>
+            <a
+              href="mailto:business@sudoprivacy.com?subject=%E5%BA%94%E8%81%98%EF%BC%9A%E4%BC%81%E4%B8%9A%E9%94%80%E5%94%AE"
+              class="shrink-0 bg-accent hover:bg-accent-hover text-dark font-bold px-5 py-2 rounded-lg text-sm transition-colors"
+            >立即申请</a>
+          </div>
+          <p class="text-secondary text-sm leading-relaxed mb-4">
+            负责开拓金融、制造、专业服务等行业的大客户，推动 SudoWork 平台的商业落地。
+          </p>
+          <div>
+            <p class="text-xs font-bold text-dark mb-2 uppercase tracking-wide">任职要求</p>
+            <ul class="space-y-1.5 text-sm text-secondary">
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>有 ToB SaaS 或 AI 产品的销售经验</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>有金融、保险、制造、法律等行业的客户资源优先</span></li>
+              <li class="flex items-start gap-2"><span class="text-accent mt-0.5">•</span><span>目标导向，能独立完成从线索到签单的完整销售周期</span></li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="mt-12 text-center bg-white rounded-2xl p-8 shadow-sm fade-up">
+        <h3 class="text-xl font-bold text-dark mb-2">没有看到合适的职位？</h3>
+        <p class="text-secondary mb-6">我们始终欢迎优秀的人。发送简历和自我介绍至</p>
+        <a
+          href="mailto:business@sudoprivacy.com"
+          class="inline-block bg-accent hover:bg-accent-hover text-dark font-bold px-8 py-3 rounded-lg transition-colors"
+        >business@sudoprivacy.com</a>
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#111111] text-white/60 py-16">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">产品</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li>
+          <li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li>
+          <li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">场景</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li>
+          <li><a href="index.html#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">资源</h4>
+        <ul class="space-y-2">
+          <li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li>
+          <li><a href="docs.html" class="text-sm hover:text-white transition-colors">文档</a></li>
+          <li><a href="blog.html" class="text-sm hover:text-white transition-colors">博客</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">公司</h4>
+        <ul class="space-y-2">
+          <li><a href="index.html#about" class="text-sm hover:text-white transition-colors">关于我们</a></li>
+          <li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li>
+          <li><a href="careers.html" class="text-sm hover:text-white transition-colors">加入我们</a></li>
+          <li><a href="terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li>
+          <li><a href="privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="border-t border-white/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <p class="text-xs text-white/40 order-2 md:order-1">
+          © 2024-2026 数牍科技（北京）有限公司 &nbsp;·&nbsp; sudoprivacy.com
+        </p>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 order-1 md:order-2 text-xs text-white/40">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京ICP备20011614号</a>
+          <span class="hidden sm:inline text-white/20">·</span>
+          <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802035764" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京公网安备 11010802035764号</a>
+        </div>
+        <div class="flex items-center gap-3 order-3 text-white/40">
+          <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-white/30 shrink-0">二维码</div>
+          <span class="text-xs">扫码关注公众号</span>
+        </div>
+      </div>
+      <p class="text-xs text-white/30 text-center mt-6">北京市海淀区成府路28号优盛大厦A座18层</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  'use strict';
+
+  // ── Nav behavior ─────────────────────────────────────────────
+  (function () {
+    const nav = document.getElementById('main-nav');
+    const logoSudo = document.getElementById('logo-sudo');
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const hamLines = document.querySelectorAll('.ham-line');
+
+    function updateNavOnScroll() {
+      const scrolled = window.scrollY > 50;
+      if (scrolled) {
+        nav.style.backgroundColor = 'rgba(250, 249, 240, 0.9)';
+        nav.style.backdropFilter = 'blur(12px)';
+        nav.style.webkitBackdropFilter = 'blur(12px)';
+        nav.style.borderBottomColor = '#E5E7EB';
+        nav.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+        if (logoSudo) logoSudo.style.color = '#1a1a1a';
+        navLinks.forEach(function (link) { link.style.color = 'rgba(26, 26, 26, 0.75)'; });
+      } else {
+        nav.style.backgroundColor = 'transparent';
+        nav.style.backdropFilter = '';
+        nav.style.webkitBackdropFilter = '';
+        nav.style.borderBottomColor = 'transparent';
+        nav.style.boxShadow = 'none';
+        if (logoSudo) logoSudo.style.color = '#ffffff';
+        navLinks.forEach(function (link) { link.style.color = 'rgba(255, 255, 255, 0.8)'; });
+      }
+    }
+
+    window.addEventListener('scroll', updateNavOnScroll, { passive: true });
+    updateNavOnScroll();
+
+    function openMobileMenu() {
+      mobileMenu.classList.remove('hidden');
+      requestAnimationFrame(function () { mobileMenu.classList.add('open'); });
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      hamburgerBtn.setAttribute('aria-label', '关闭菜单');
+      document.body.style.overflow = 'hidden';
+      if (hamLines.length >= 3) {
+        hamLines[0].style.transform = 'translateY(8px) rotate(45deg)';
+        hamLines[1].style.opacity = '0';
+        hamLines[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      }
+    }
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      setTimeout(function () { mobileMenu.classList.add('hidden'); }, 200);
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      hamburgerBtn.setAttribute('aria-label', '打开菜单');
+      document.body.style.overflow = '';
+      if (hamLines.length >= 3) {
+        hamLines[0].style.transform = '';
+        hamLines[1].style.opacity = '';
+        hamLines[2].style.transform = '';
+      }
+    }
+
+    hamburgerBtn.addEventListener('click', function () {
+      this.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu();
+    });
+
+    mobileNavLinks.forEach(function (link) {
+      link.addEventListener('click', function () { closeMobileMenu(); });
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && hamburgerBtn.getAttribute('aria-expanded') === 'true') {
+        closeMobileMenu();
+        hamburgerBtn.focus();
+      }
+    });
+  })();
+
+  // ── Fade-up observer ─────────────────────────────────────────
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('.fade-up').forEach(function (el) { el.classList.add('visible'); });
+      return;
+    }
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    document.querySelectorAll('.fade-up').forEach(function (el) { observer.observe(el); });
+  })();
+</script>
+
+</body>
+</html>
