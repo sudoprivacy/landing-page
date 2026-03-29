@@ -1,0 +1,284 @@
+<!-- ============================================================
+     T6 — 硅基员工产线 + 渐进信任区块
+     Section ID: production-line
+     Background: #1a1a1a (bg-dark)
+     ============================================================ -->
+
+<section id="production-line" class="bg-dark py-20 md:py-28">
+  <div class="max-w-content mx-auto px-6">
+
+    <!-- ── 区块主标题 ──────────────────────────────────────── -->
+    <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16 fade-up">
+      不是做几个机器人，是建一条硅基员工产线
+    </h2>
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- 上半部分：对比表格                                      -->
+    <!-- ══════════════════════════════════════════════════════ -->
+    <div class="fade-up">
+
+      <!-- 概念图 -->
+      <div class="rounded-2xl overflow-hidden mb-10">
+        <img
+          src="assets/images/production-line.jpg"
+          alt="硅基员工产线概念图"
+          class="w-full object-cover max-h-72 md:max-h-96"
+        />
+      </div>
+
+      <!-- 对比卡片 -->
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+
+        <!-- 表头 -->
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-4 text-white/50 text-sm font-medium uppercase tracking-wider border-r border-white/10">
+            传统方式
+          </div>
+          <div class="px-6 py-4 text-accent text-sm font-medium uppercase tracking-wider">
+            SudoClaw 平台化
+          </div>
+        </div>
+
+        <!-- 行 1：首批上线速度 -->
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">首批上线</p>
+            <p class="text-white/50 text-sm">每个 Agent 4–6 周</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">首批上线</p>
+            <p class="text-white/80 text-sm">平台搭建约 1 周，之后每个 Agent ≈1 周</p>
+          </div>
+        </div>
+
+        <!-- 行 2：后续扩展 -->
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">后续扩展</p>
+            <p class="text-white/50 text-sm">每个从零开始</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">后续扩展</p>
+            <p class="text-white/80 text-sm">只需写 Skill + Agent 编排</p>
+          </div>
+        </div>
+
+        <!-- 行 3：系统对接 -->
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">系统对接</p>
+            <p class="text-white/50 text-sm">每个项目重复对接</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">系统对接</p>
+            <p class="text-white/80 text-sm">Extension 装一次，所有 Agent 共享</p>
+          </div>
+        </div>
+
+        <!-- 行 4：运行成本 -->
+        <div class="grid grid-cols-2">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">运行成本</p>
+            <p class="text-white/50 text-sm">全用高端模型，成本线性增长</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">运行成本</p>
+            <p class="text-white/80 text-sm">SudoRouter 智能路由，大幅降低模型成本</p>
+          </div>
+        </div>
+
+      </div><!-- /对比卡片 -->
+
+      <!-- 金句引用 -->
+      <blockquote class="mt-8 border-l-4 border-accent pl-6 text-white/80 italic text-lg">
+        通用大模型是"实习生"——什么都能聊但不懂你的业务。SudoClaw 把规则、流程、知识封装进去，变成"老员工"。
+      </blockquote>
+
+    </div><!-- /上半部分 -->
+
+
+    <!-- ══════════════════════════════════════════════════════ -->
+    <!-- 下半部分：渐进信任时间轴                                 -->
+    <!-- ══════════════════════════════════════════════════════ -->
+
+    <!-- 信任图 -->
+    <div class="rounded-2xl overflow-hidden mt-20 mb-12 fade-up">
+      <img
+        src="assets/images/trust-timeline.jpg"
+        alt="渐进信任四阶段图"
+        class="w-full object-cover max-h-72 md:max-h-96"
+      />
+    </div>
+
+    <h3 class="text-2xl font-bold text-white text-center mb-12 fade-up">
+      信任是渐进建立的
+    </h3>
+
+    <!-- 时间轴容器 -->
+    <div class="relative fade-up" id="trust-timeline">
+
+      <!-- 桌面：水平连接线（绝对定位，位于节点圆心高度） -->
+      <div class="hidden md:block absolute left-0 right-0 top-5 h-0.5 timeline-line" aria-hidden="true"></div>
+
+      <!-- 四阶段节点 -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative">
+
+        <!-- 阶段 1 -->
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">
+            1
+          </div>
+          <!-- 移动端：垂直线 -->
+          <div class="md:hidden absolute left-5 top-10 w-0.5 h-full bg-white/10" aria-hidden="true"></div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">人工确认期</p>
+            <p class="text-white/60 text-sm leading-relaxed">AI 只做提示和建议，所有动作人工确认，每周复盘准确率</p>
+          </div>
+        </div>
+
+        <!-- 阶段 2 -->
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0.2s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">
+            2
+          </div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">半自动期</p>
+            <p class="text-white/60 text-sm leading-relaxed">低风险动作自动执行，高风险仍保留人工确认</p>
+          </div>
+        </div>
+
+        <!-- 阶段 3 -->
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0.4s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">
+            3
+          </div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">全面自动化</p>
+            <p class="text-white/60 text-sm leading-relaxed">仅决策红线保留人工介入，AI 全权负责日常执行</p>
+          </div>
+        </div>
+
+        <!-- 阶段 4 -->
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0.6s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">
+            4
+          </div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">企业专属模型</p>
+            <p class="text-white/60 text-sm leading-relaxed">持续积累标注数据触发微调，产出别人买不到也抄不走的核心资产</p>
+          </div>
+        </div>
+
+      </div><!-- /四阶段节点 -->
+    </div><!-- /时间轴容器 -->
+
+    <!-- 底部安全声明 -->
+    <p class="text-white/60 text-center text-sm mt-12 max-w-2xl mx-auto fade-up">
+      在整个过程中，您的数据始终在自己的服务器上，AI 的每一步操作都在受控沙箱中完成，跨机构协作通过隐私计算实现"可用不可见"。掌控权从第一天到最后一天，都在您手里。
+    </p>
+
+  </div><!-- /max-w-content -->
+</section>
+
+
+<!-- ── Production-line Section Styles ───────────────────────── -->
+<style>
+  /* 时间轴渐变线（桌面水平） */
+  .timeline-line {
+    background: linear-gradient(to right, rgba(255,255,255,0.2), #F59E0B, #F59E0B);
+    transform-origin: left center;
+    animation: timeline-grow 1s ease forwards;
+    animation-play-state: paused;
+  }
+
+  #trust-timeline.visible .timeline-line {
+    animation-play-state: running;
+  }
+
+  @keyframes timeline-grow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+
+  /* 节点淡入（stagger via CSS var) */
+  .trust-node {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: var(--delay, 0s);
+  }
+
+  #trust-timeline.visible .trust-node {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* 移动端垂直连接线 */
+  @media (max-width: 767px) {
+    #trust-timeline {
+      padding-left: 1.25rem; /* indent content, line stays on left */
+    }
+
+    .trust-node {
+      position: relative;
+      padding-left: 1.5rem;
+    }
+
+    /* 竖线连接相邻节点 */
+    .trust-node:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 1.15rem; /* center of the number circle (w-10 = 2.5rem, left offset ~1.25rem) */
+      top: 2.75rem;  /* below circle */
+      bottom: -2rem;
+      width: 2px;
+      background: linear-gradient(to bottom, #F59E0B, rgba(255,255,255,0.15));
+    }
+  }
+
+  /* 覆盖 prefers-reduced-motion */
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-line,
+    .trust-node {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+
+<!-- ── Production-line Section Script ───────────────────────── -->
+<script>
+  (function () {
+    // IntersectionObserver：元素进入视口时触发 fade-up 和时间轴动效
+    if (!('IntersectionObserver' in window)) {
+      // 降级：直接显示
+      document.querySelectorAll('.fade-up, #trust-timeline').forEach(function (el) {
+        el.classList.add('visible');
+      });
+      return;
+    }
+
+    var io = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+
+    document.querySelectorAll('#production-line .fade-up').forEach(function (el) {
+      io.observe(el);
+    });
+
+    // 时间轴整体（控制 timeline-line + trust-node 动效）
+    var timeline = document.getElementById('trust-timeline');
+    if (timeline) io.observe(timeline);
+  })();
+</script>
