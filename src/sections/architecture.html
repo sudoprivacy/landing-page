@@ -1,0 +1,152 @@
+<!-- ============================================================
+     T2 — Copilot + Worker 架构说明区块
+     Section: #architecture
+     依赖: T0 (design-system.html — Tailwind config, fade-up, CSS vars)
+     ============================================================ -->
+<section id="architecture" class="bg-page py-20 md:py-28">
+  <div class="mx-auto px-6 md:px-8" style="max-width: var(--max-width);">
+
+    <!-- 区块标题 -->
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-4 fade-up">
+      核心架构：Copilot + Worker 双引擎
+    </h2>
+    <p class="text-center text-gray-500 text-lg mb-14 fade-up" style="transition-delay: 0.1s;">
+      SudoClaw 独创的双引擎模式，彻底改变人与 AI 的协作方式
+    </p>
+
+    <!-- 双栏卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+
+      <!-- 左栏：Copilot 卡片 -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.15s;">
+        <!-- 图标 -->
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: var(--accent-light);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="16" cy="12" r="7" stroke="#F59E0B" stroke-width="2.5" fill="none"/>
+            <path d="M16 19v2M12 28c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M10 10.5c.5-2.5 2.8-4.5 6-4.5" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: var(--accent-light); color: var(--accent-hover);">
+          Copilot
+        </div>
+
+        <h3 class="text-2xl font-bold text-dark mb-3">您的数字合伙人</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-5">
+          管理者唯一需要交互的界面。理解您的战略意图和业务上下文，将模糊的指令转化为精准的执行任务。
+        </p>
+
+        <ul class="space-y-3 text-sm text-gray-600">
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+            <span>理解战略意图和业务上下文</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+            <span>将模糊指令转化为精准执行任务</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+            <span>不需要写 prompt，像对副手一样下达指示</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 右栏：Worker 卡片 -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.3s;">
+        <!-- 图标 -->
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: #CCFBF1;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <circle cx="16" cy="16" r="5" stroke="#0D9488" stroke-width="2.5" fill="none"/>
+            <circle cx="6" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <circle cx="26" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <circle cx="6" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <circle cx="26" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <path d="M11 16H9M23 16h-2M16 11V9M16 23v-2" stroke="#0D9488" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+
+        <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: #CCFBF1; color: #0F766E;">
+          Worker
+        </div>
+
+        <h3 class="text-2xl font-bold text-dark mb-3">您的数字专员团队</h3>
+
+        <p class="text-gray-600 leading-relaxed mb-5">
+          多个专业 Worker 各司其职、自动协同，代码编写、数据处理、文档生成、ERP 对接，完成从任务拆解到结果交付的完整闭环。
+        </p>
+
+        <ul class="space-y-3 text-sm text-gray-600">
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+            <span>多个专业 Worker 各司其职、自动协同</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+            <span>代码编写、数据处理、文档生成、ERP 对接</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+            <span>任务拆解到结果交付的完整闭环</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 架构流程图 -->
+    <div class="mb-14 fade-up" style="transition-delay: 0.35s;">
+      <img
+        src="assets/images/architecture-flow.jpg"
+        alt="SudoClaw Copilot + Worker 架构流程图"
+        class="w-full rounded-2xl shadow-sm"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- 对比流程 -->
+    <div class="bg-white rounded-2xl p-8 shadow-sm mb-8 fade-up" style="transition-delay: 0.45s;">
+      <h3 class="text-lg font-bold text-dark mb-6 text-center">传统 AI 工具 vs SudoClaw</h3>
+
+      <!-- 传统 AI：灰色 -->
+      <div class="mb-5">
+        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">传统 AI 工具</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-500">人提问</span>
+          <span class="text-gray-300 font-bold text-lg">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-500">AI 回答</span>
+          <span class="text-gray-300 font-bold text-lg">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-500">人再操作</span>
+        </div>
+      </div>
+
+      <div class="border-t border-border my-5"></div>
+
+      <!-- SudoClaw：accent 色 -->
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--accent);">SudoClaw</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-dark" style="background-color: var(--accent-light);">人下达意图</span>
+          <span class="font-bold text-lg" style="color: var(--accent);">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-dark" style="background-color: var(--accent-light);">Copilot 理解拆解</span>
+          <span class="font-bold text-lg" style="color: var(--accent);">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-dark" style="background-color: var(--accent-light);">Worker 并行执行</span>
+          <span class="font-bold text-lg" style="color: var(--accent);">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-white" style="background-color: var(--accent);">结果直接交付</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 真实案例引用 -->
+    <blockquote class="rounded-2xl p-8 fade-up" style="background-color: #FFFBF0; border-left: 4px solid var(--accent); transition-delay: 0.45s;">
+      <p class="text-gray-700 leading-relaxed text-base md:text-lg">
+        <span class="font-semibold text-dark">售前顾问对 Copilot 说"帮我准备下周给客户的方案"。</span>
+        Copilot 将意图拆解为四个任务：行业数据采集、客户痛点提炼、方案架构设计、ROI 测算。四个 Worker 并行执行，当天交付一个带导航、带数据、带架构图的完整定制演示网页——不是 PPT，是一个可交互的网站。
+      </p>
+      <footer class="mt-4 text-sm font-medium" style="color: var(--accent-hover);">— 真实使用案例</footer>
+    </blockquote>
+
+  </div>
+</section>
