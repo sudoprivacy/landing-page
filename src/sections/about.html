@@ -1,0 +1,134 @@
+<!-- ============================================================
+     T7 — 资质背书区块
+     Section: #about
+     Background: #FAF9F0 (bg-page)
+     ============================================================ -->
+
+<section id="about" class="py-24 bg-page">
+  <div class="max-w-content mx-auto px-6">
+
+    <!-- 区块标题 -->
+    <div class="text-center mb-16 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark">关于我们</h2>
+      <p class="text-gray-500 text-lg mt-4">数牍科技——从隐私计算到企业 AI 劳动力平台</p>
+    </div>
+
+    <!-- 公司介绍 -->
+    <div class="max-w-3xl mx-auto text-center mb-16 fade-up">
+      <p class="text-gray-500 leading-relaxed text-base md:text-lg">
+        数牍科技（SudoPrivacy）是国内最早一批将隐私计算技术落地商用的企业，国家级专精特新"小巨人"。核心团队来自
+        Google DeepMind、Meta、Microsoft、Amazon、清华大学、UCLA、剑桥大学等机构，在数据安全、AI
+        基础设施和企业级系统架构领域深耕多年。
+      </p>
+    </div>
+
+    <!-- 数字计数器 -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+
+      <!-- 6 周 -->
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          6<span class="text-3xl">周</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-3">9 个 AI 岗位批量上线</div>
+      </div>
+
+      <!-- 20+ -->
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          <span class="counter" data-target="20">0</span><span class="text-3xl">+</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-3">支持模型供应商数量</div>
+      </div>
+
+      <!-- 8 套 -->
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          <span class="counter" data-target="8">0</span><span class="text-3xl">套</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-3">业务系统对接数量</div>
+      </div>
+
+      <!-- 国家级 -->
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          国家级
+        </div>
+        <div class="text-sm text-gray-500 mt-3">专精特新"小巨人"认定</div>
+      </div>
+
+    </div>
+
+    <!-- 荣誉标签 -->
+    <div class="flex flex-wrap justify-center gap-3 fade-up">
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        国家级专精特新"小巨人"
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        Apache 2.0 开源
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        隐私计算原生支持
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        私有化部署
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        IDC 中国 FinTech 50（连续三年）
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        金融密码杯三项一等奖（首家）
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        信通院双项测评
+      </span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">
+        多地数据交易所首批数商
+      </span>
+    </div>
+
+  </div>
+</section>
+
+<!-- 计数器动画脚本 -->
+<script>
+  (function () {
+    var counters = document.querySelectorAll('#about .counter');
+    if (!counters.length) return;
+
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var duration = 2000;
+      var startTime = null;
+
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        // ease-out cubic
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          el.textContent = target;
+        }
+      }
+
+      requestAnimationFrame(step);
+    }
+
+    var observed = false;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !observed) {
+          observed = true;
+          counters.forEach(animateCounter);
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+
+    var section = document.getElementById('about');
+    if (section) observer.observe(section);
+  })();
+</script>
