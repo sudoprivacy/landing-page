@@ -1456,7 +1456,7 @@
     var timer   = null;
     var INTERVAL = 5000;
 
-    function activate(index) {
+    function activate(index, manual) {
       current = index;
       var target = tabs[index].dataset.tab;
 
@@ -1465,8 +1465,10 @@
         b.dataset.active = i === index ? 'true' : 'false';
         b.setAttribute('aria-selected', i === index ? 'true' : 'false');
       });
-      // Scroll active tab into view
-      tabs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      // Only scroll tab into view on manual click (auto-rotate must not trigger scrollIntoView)
+      if (manual) {
+        tabs[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }
 
       // Panels
       panels.forEach(function (p) {
@@ -1489,18 +1491,13 @@
 
     function startAuto() {
       clearInterval(timer);
-      timer = setInterval(function () { activate((current + 1) % total); }, INTERVAL);
+      timer = setInterval(function () { activate((current + 1) % total, false); }, INTERVAL);
     }
 
-    // Manual click
+    // Manual click — reset timer
     tabs.forEach(function (btn, i) {
-      btn.addEventListener('click', function () { activate(i); startAuto(); });
+      btn.addEventListener('click', function () { activate(i, true); startAuto(); });
     });
-
-    // Pause on hover
-    var section = document.getElementById('scenarios');
-    section.addEventListener('mouseenter', function () { clearInterval(timer); });
-    section.addEventListener('mouseleave', startAuto);
 
     // Init
     activate(0);
