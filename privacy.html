@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <title>隐私政策 — SudoClaw</title>
+
+  <!-- ============================================================
+       SudoPrivacy Landing Page — Design System Head Fragment
+       T0: Design Tokens + Tailwind Config + Global Styles
+       Usage: Copy everything inside <head> into your page's <head>
+       ============================================================ -->
+
+  <!-- 1. Meta charset + viewport -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO meta tags (customize per page) -->
+  <meta name="description" content="SudoClaw 隐私政策 — 数牍科技（上海）有限公司" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoClaw, Nexus OS, SudoRouter, 智能体" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SudoPrivacy" />
+  <meta name="theme-color" content="#FAF9F0" />
+
+  <!-- 2. Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- 3. Tailwind CDN + config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAF9F0',
+            dark: '#1a1a1a',
+            'dark-footer': '#111111',
+            accent: '#F59E0B',
+            'accent-hover': '#D97706',
+            'accent-light': '#FEF3C7',
+            teal: '#0D9488',
+            'teal-hover': '#0F766E',
+            border: '#E5E7EB',
+          },
+          fontFamily: {
+            heading: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            body: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+          },
+          maxWidth: {
+            content: '1200px',
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- 4. CSS Variables + Global Styles + Animations -->
+  <style>
+    /* ── Design Tokens ──────────────────────────────────────── */
+    :root {
+      /* Backgrounds */
+      --bg-page: #faf9f0;
+      --bg-card: #ffffff;
+      --bg-dark: #1a1a1a;
+      --bg-footer: #111111;
+
+      /* Text */
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-on-dark: #ffffff;
+      --text-on-dark-muted: rgba(255, 255, 255, 0.7);
+
+      /* Brand */
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --accent-light: #fef3c7;
+
+      /* Teal — secondary accent */
+      --teal: #0d9488;
+      --teal-hover: #0f766e;
+
+      /* Borders */
+      --border: #e5e7eb;
+
+      /* Typography */
+      --font-heading: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", monospace;
+
+      /* Spacing */
+      --max-width: 1200px;
+      --nav-height: 64px;
+    }
+
+    /* ── Global Reset & Base ────────────────────────────────── */
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* ── Headings ───────────────────────────────────────────── */
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+
+    h1 { font-weight: 900; }
+    h2 { font-weight: 700; }
+    h3 { font-weight: 700; }
+
+    /* ── Links ──────────────────────────────────────────────── */
+    a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    a:hover {
+      color: var(--teal-hover);
+    }
+
+    /* ── Images ─────────────────────────────────────────────── */
+    img,
+    svg,
+    video {
+      display: block;
+      max-width: 100%;
+    }
+
+    /* ── Code / Mono ────────────────────────────────────────── */
+    code,
+    pre,
+    kbd,
+    samp {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+    }
+
+    /* ── Scroll Animations ──────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Reduced Motion ─────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      .fade-up {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── 简化版 Nav（白色背景，无滚动变色） ─────────────────────── -->
+<nav class="bg-white border-b border-gray-100 sticky top-0 z-50">
+  <div class="max-w-content mx-auto px-6 md:px-8 h-16 flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 text-dark font-bold text-lg no-underline hover:text-teal transition-colors">
+      <span class="text-accent font-black">Sudo</span><span>Claw</span>
+    </a>
+
+    <!-- 导航项 -->
+    <div class="hidden md:flex items-center gap-8">
+      <a href="/#products" class="text-sm text-gray-600 hover:text-dark transition-colors">产品</a>
+      <a href="/#scenarios" class="text-sm text-gray-600 hover:text-dark transition-colors">场景</a>
+      <a href="/#architecture" class="text-sm text-gray-600 hover:text-dark transition-colors">架构</a>
+      <a href="/#about" class="text-sm text-gray-600 hover:text-dark transition-colors">关于</a>
+    </div>
+
+    <!-- 返回首页 -->
+    <a href="/" class="text-sm text-teal hover:text-teal-hover font-medium transition-colors">
+      ← 返回首页
+    </a>
+
+  </div>
+</nav>
+
+<!-- ── 主内容 ─────────────────────────────────────────────────── -->
+<main class="max-w-3xl mx-auto px-6 md:px-8 py-16 md:py-20">
+
+  <!-- 面包屑 -->
+  <nav aria-label="面包屑" class="mb-8">
+    <ol class="flex items-center gap-2 text-sm text-gray-500">
+      <li><a href="/" class="hover:text-teal transition-colors">首页</a></li>
+      <li class="text-gray-300">/</li>
+      <li class="text-gray-700" aria-current="page">隐私政策</li>
+    </ol>
+  </nav>
+
+  <!-- 标题 -->
+  <h1 class="text-3xl md:text-4xl font-black text-dark mb-3">SudoClaw 隐私政策</h1>
+  <p class="text-sm text-gray-500 mb-12">最后更新：2026 年 3 月 &nbsp;·&nbsp; 数牍科技（上海）有限公司</p>
+
+  <div class="prose-legal">
+
+    <!-- 1. 数据收集范围 -->
+    <section class="mb-10">
+      <h2 class="text-xl font-bold text-dark mb-4 pb-2 border-b border-gray-200">1. 数据收集范围</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        数牍科技（上海）有限公司（"我们"）在提供 SudoClaw 服务过程中可能收集以下类型的信息：
+      </p>
+      <h3 class="text-base font-bold text-dark mb-2">1.1 账户信息</h3>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+        <li>企业名称、统一社会信用代码等企业资质信息</li>
+        <li>管理员联系人姓名、职务、工作邮箱、手机号码</li>
+        <li>账户登录凭证（加密存储，不存储明文密码）</li>
+      </ul>
+      <h3 class="text-base font-bold text-dark mb-2">1.2 服务使用数据</h3>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+        <li>服务访问日志（时间戳、IP 地址、操作类型）</li>
+        <li>功能使用统计（匿名化，用于改善产品体验）</li>
+        <li>错误报告和性能诊断数据</li>
+      </ul>
+      <h3 class="text-base font-bold text-dark mb-2">1.3 不收集的数据</h3>
+      <p class="text-gray-700 leading-relaxed">
+        在私有化部署场景下，我们不收集任何业务内容数据、对话记录或企业内部文件。所有此类数据仅存储于客户自有基础设施中。
+      </p>
+    </section>
+
+    <!-- 2. 企业数据处理 -->
+    <section class="mb-10">
+      <h2 class="text-xl font-bold text-dark mb-4 pb-2 border-b border-gray-200">2. 企业数据处理</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        我们处理企业数据遵循以下原则：
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+        <li><strong>目的限定：</strong>仅为提供约定服务目的处理数据，不将企业数据用于训练通用 AI 模型。</li>
+        <li><strong>最小必要：</strong>只收集实现服务目标所必需的最少量数据。</li>
+        <li><strong>存储限期：</strong>服务终止后，我们将在 90 天内删除或返还所有企业数据（私有化部署除外）。</li>
+        <li><strong>访问控制：</strong>严格限制内部人员对企业数据的访问，所有访问均有记录可查。</li>
+      </ul>
+      <p class="text-gray-700 leading-relaxed">
+        我们作为数据处理者，按照企业客户（数据控制者）的指令处理数据，并签署数据处理协议（DPA）明确双方权责。
+      </p>
+    </section>
+
+    <!-- 3. PII 脱敏机制 -->
+    <section class="mb-10">
+      <h2 class="text-xl font-bold text-dark mb-4 pb-2 border-b border-gray-200">3. PII 脱敏机制</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        SudoClaw 内置个人身份信息（PII）自动识别与脱敏能力，在数据进入 AI 处理流程前进行预处理：
+      </p>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+        <li>自动识别并遮蔽姓名、身份证号、手机号、银行卡号、电子邮箱等常见 PII 字段</li>
+        <li>支持企业自定义敏感字段规则，满足行业特定合规要求</li>
+        <li>脱敏日志可审计，支持监管机构检查</li>
+        <li>脱敏处理在企业本地环境执行，脱敏前的原始数据不离开企业网络</li>
+      </ul>
+      <p class="text-gray-700 leading-relaxed">
+        具体脱敏策略可根据企业合规要求定制，详情请联系我们的解决方案团队。
+      </p>
+    </section>
+
+    <!-- 4. 私有化部署说明 -->
+    <section class="mb-10">
+      <h2 class="text-xl font-bold text-dark mb-4 pb-2 border-b border-gray-200">4. 私有化部署说明</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        SudoClaw 支持完全私有化部署，满足金融、医疗、政务等对数据主权有严格要求的行业需求。
+      </p>
+      <h3 class="text-base font-bold text-dark mb-2">私有化部署下的数据保障</h3>
+      <ul class="list-disc list-inside space-y-2 text-gray-700 mb-4">
+        <li><strong>数据不出域：</strong>所有数据（包括模型推理请求）均在客户自有网络环境中处理，不经过我们的服务器。</li>
+        <li><strong>离线运行：</strong>支持完全离线部署，无需互联网连接即可正常工作。</li>
+        <li><strong>模型本地化：</strong>AI 模型文件部署于客户服务器，推理计算在本地完成。</li>
+        <li><strong>审计支持：</strong>提供完整的操作审计日志，支持企业内部合规审查。</li>
+      </ul>
+      <p class="text-gray-700 leading-relaxed">
+        私有化部署版本的隐私保护实施细节，以双方签署的部署合同及数据处理协议为准。
+      </p>
+    </section>
+
+    <!-- 5. 联系方式 -->
+    <section class="mb-10 bg-white rounded-2xl p-6 border border-gray-100">
+      <h2 class="text-xl font-bold text-dark mb-4">5. 联系方式</h2>
+      <p class="text-gray-700 leading-relaxed mb-4">
+        如您对本隐私政策有任何疑问，或需要行使数据主体权利（包括数据查阅、更正、删除等），请通过以下方式联系我们：
+      </p>
+      <ul class="space-y-2 text-gray-700 mb-6">
+        <li>公司名称：数牍科技（上海）有限公司</li>
+        <li>个人信息保护负责人：<span class="text-gray-500">[ 待补充 ]</span></li>
+        <li>隐私事务邮箱：<a href="mailto:privacy@sudoprivacy.com" class="text-teal hover:text-teal-hover">privacy@sudoprivacy.com</a></li>
+        <li>通讯地址：北京市海淀区成府路28号优盛大厦A座18层</li>
+      </ul>
+      <p class="text-gray-700 leading-relaxed text-sm">
+        我们将在收到请求后 15 个工作日内予以回复。如您认为我们的处理未满足法律要求，您有权向有管辖权的数据保护监管机构投诉。
+      </p>
+    </section>
+
+  </div>
+</main>
+
+<!-- ── Footer（来自 src/sections/footer-cta.html） ─────────────── -->
+<footer class="bg-[#111111] text-white/60 py-16">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+
+    <!-- 四栏导航 -->
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+
+      <!-- 栏 1：产品 -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">产品</h4>
+        <ul class="space-y-2">
+          <li><a href="#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li>
+          <li>
+            <a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer"
+               class="text-sm hover:text-white transition-colors">Nexus OS</a>
+          </li>
+          <li>
+            <a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer"
+               class="text-sm hover:text-white transition-colors">SudoRouter</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 栏 2：场景 -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">场景</h4>
+        <ul class="space-y-2">
+          <li><a href="/#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li>
+          <li><a href="/#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li>
+          <li><a href="/#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li>
+          <li><a href="/#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li>
+          <li><a href="/#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li>
+        </ul>
+      </div>
+
+      <!-- 栏 3：资源 -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">资源</h4>
+        <ul class="space-y-2">
+          <li>
+            <a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer"
+               class="text-sm hover:text-white transition-colors">GitHub</a>
+          </li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">文档</a></li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">API 参考</a></li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">博客</a></li>
+        </ul>
+      </div>
+
+      <!-- 栏 4：公司 -->
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">公司</h4>
+        <ul class="space-y-2">
+          <li><a href="/#about" class="text-sm hover:text-white transition-colors">关于我们</a></li>
+          <li>
+            <a href="mailto:business@sudoprivacy.com"
+               class="text-sm hover:text-white transition-colors">联系我们</a>
+          </li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">加入我们</a></li>
+          <li><a href="terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li>
+          <li><a href="privacy.html" class="text-sm text-white font-medium" aria-current="page">隐私政策</a></li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 底部信息栏 -->
+    <div class="border-t border-white/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+
+        <!-- 左：版权 -->
+        <p class="text-xs text-white/40 order-2 md:order-1">
+          © 2024-2026 数牍科技（上海）有限公司 &nbsp;·&nbsp; sudoprivacy.com
+        </p>
+
+        <!-- 中：备案信息 -->
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 order-1 md:order-2 text-xs text-white/40">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer"
+             class="hover:text-white/70 transition-colors">
+            京ICP备20011614号
+          </a>
+          <span class="hidden sm:inline text-white/20">·</span>
+          <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802035764"
+             target="_blank" rel="noopener noreferrer"
+             class="hover:text-white/70 transition-colors">
+            京公网安备 11010802035764号
+          </a>
+        </div>
+
+        <!-- 右：微信公众号二维码占位 -->
+        <div class="flex items-center gap-3 order-3 text-white/40">
+          <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-white/30 shrink-0">
+            二维码
+          </div>
+          <span class="text-xs">扫码关注公众号</span>
+        </div>
+
+      </div>
+
+      <!-- 地址 -->
+      <p class="text-xs text-white/30 text-center mt-6">
+        北京市海淀区成府路28号优盛大厦A座18层
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
