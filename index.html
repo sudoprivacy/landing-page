@@ -200,6 +200,8 @@
     /* ── Architecture Carousel ──────────────────────────────── */
     #arch-carousel {
       position: relative;
+    }
+    #arch-overflow {
       overflow: hidden;
     }
 
@@ -232,8 +234,8 @@
     @media (min-width: 768px) {
       #arch-prev, #arch-next { display: flex; align-items: center; justify-content: center; }
     }
-    #arch-prev { left: -1.25rem; }
-    #arch-next { right: -1.25rem; }
+    #arch-prev { left: 0.75rem; }
+    #arch-next { right: 0.75rem; }
 
     #arch-dots {
       display: flex;
@@ -656,12 +658,15 @@
     <!-- 轮播容器 -->
     <div id="arch-carousel">
 
+      <!-- 溢出裁剪层（仅 track 被裁剪，箭头不受影响） -->
+      <div id="arch-overflow">
+
       <!-- 轨道 -->
       <div id="arch-track">
 
         <!-- Slide 1: 双栏卡片 -->
         <div class="arch-slide">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- 左栏：Copilot 卡片 -->
             <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.15s;">
@@ -760,9 +765,10 @@
                class="w-full rounded-2xl shadow-sm" />
         </div>
 
-      </div>
+      </div><!-- /#arch-track -->
+      </div><!-- /#arch-overflow -->
 
-      <!-- 箭头按钮 -->
+      <!-- 箭头按钮（在 overflow 层外，不被裁剪） -->
       <button id="arch-prev" aria-label="上一张">‹</button>
       <button id="arch-next" aria-label="下一张">›</button>
 
