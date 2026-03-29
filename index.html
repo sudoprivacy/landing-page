@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <!-- ============================================================
+       SudoClaw Landing Page — T9 集成版
+       将 T1-T8 所有区块组装为完整单文件 Landing Page
+       ============================================================ -->
+
+  <!-- 1. Meta charset + viewport -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- SEO meta -->
+  <title>SudoClaw — 企业硅基劳动力平台</title>
+  <meta name="description" content="SudoClaw 是企业级 AI 工作平台，Copilot + Worker 双引擎架构，深入业务流程实现端到端自动化。支持私有化部署，内置隐私计算，20+ 模型智能路由。" />
+  <meta name="keywords" content="SudoClaw,企业AI,智能体,Agent,Copilot,隐私计算,私有化部署,数牍科技,SudoPrivacy" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SudoClaw — 企业硅基劳动力平台" />
+  <meta property="og:description" content="不是聊天工具，是企业的硅基员工产线。9 个岗位 · 8 套系统 · 6 周上线。" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://sudoprivacy.github.io/sudoclaw-landing/" />
+  <meta property="og:image" content="assets/images/og-image.jpg" />
+  <meta property="og:site_name" content="SudoPrivacy" />
+  <meta name="theme-color" content="#FAF9F0" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+
+  <!-- 2. Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- 3. Tailwind CDN + config -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAF9F0',
+            dark: '#1a1a1a',
+            'dark-footer': '#111111',
+            accent: '#F59E0B',
+            'accent-hover': '#D97706',
+            'accent-light': '#FEF3C7',
+            teal: '#0D9488',
+            'teal-hover': '#0F766E',
+            border: '#E5E7EB',
+          },
+          fontFamily: {
+            heading: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            body: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+          },
+          maxWidth: {
+            content: '1200px',
+          },
+        },
+      },
+    }
+  </script>
+
+  <!-- 4. CSS Variables + Global Styles + Animations -->
+  <style>
+    /* ── Design Tokens ──────────────────────────────────────── */
+    :root {
+      --bg-page: #faf9f0;
+      --bg-card: #ffffff;
+      --bg-dark: #1a1a1a;
+      --bg-footer: #111111;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-on-dark: #ffffff;
+      --text-on-dark-muted: rgba(255, 255, 255, 0.7);
+      --accent: #f59e0b;
+      --accent-hover: #d97706;
+      --accent-light: #fef3c7;
+      --teal: #0d9488;
+      --teal-hover: #0f766e;
+      --border: #e5e7eb;
+      --font-heading: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-body: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+      --font-mono: "JetBrains Mono", "Fira Code", monospace;
+      --max-width: 1200px;
+      --nav-height: 64px;
+    }
+
+    /* ── Global Reset & Base ────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      margin: 0;
+      background-color: var(--bg-page);
+      color: var(--text-primary);
+      font-family: var(--font-body);
+      font-weight: 400;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    h1, h2, h3, h4, h5, h6 {
+      font-family: var(--font-heading);
+      font-weight: 700;
+      line-height: 1.25;
+      color: var(--text-primary);
+      margin-top: 0;
+      margin-bottom: 0.5em;
+    }
+    h1 { font-weight: 900; }
+    h2 { font-weight: 700; }
+    h3 { font-weight: 700; }
+
+    a {
+      color: var(--teal);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+    a:hover { color: var(--teal-hover); }
+
+    img, svg, video { display: block; max-width: 100%; }
+
+    code, pre, kbd, samp {
+      font-family: var(--font-mono);
+      font-size: 0.875em;
+    }
+
+    /* ── Scroll Animations ──────────────────────────────────── */
+    .fade-up {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ── Hero Entry Animations ──────────────────────────────── */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .hero-animate {
+      animation: fadeInUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    .hero-animate-right {
+      animation: fadeInRight 0.8s ease forwards;
+      opacity: 0;
+    }
+
+    /* ── Geometric Background Animation ────────────────────── */
+    @keyframes geoFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.06; }
+      50%       { transform: translateY(-20px) rotate(180deg); opacity: 0.12; }
+    }
+
+    .geo-shape {
+      position: absolute;
+      border: 1px solid rgba(245, 158, 11, 0.3);
+      animation: geoFloat 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+
+    /* ── Mobile Menu Overlay ────────────────────────────────── */
+    #mobile-menu {
+      transition: opacity 0.2s ease, visibility 0.2s ease;
+    }
+    #mobile-menu.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+    #mobile-menu.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+    }
+
+    /* ── Nav transition ─────────────────────────────────────── */
+    #main-nav {
+      transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* ── Back to Top Button ─────────────────────────────────── */
+    #back-to-top {
+      transition: opacity 0.3s ease;
+    }
+
+    /* ── Reduced Motion ─────────────────────────────────────── */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .fade-up { opacity: 1; transform: none; transition: none; }
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body class="bg-page font-body text-dark">
+
+<!-- ============================================================
+     HEADER / NAV  (T1)
+     ============================================================ -->
+<header
+  id="main-nav"
+  class="fixed top-0 w-full z-50 h-16 border-b border-transparent"
+  data-scrolled="false"
+>
+  <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
+
+    <!-- Logo -->
+    <a href="/" class="flex items-center gap-2 shrink-0" aria-label="SudoClaw 首页">
+      <img
+        src="assets/images/logo.svg"
+        alt="SudoClaw Logo"
+        class="h-8 w-auto"
+        onerror="this.style.display='none'"
+      />
+      <span class="font-heading font-black text-xl leading-none select-none">
+        <span id="logo-sudo" class="text-white transition-colors duration-300">Sudo</span><span class="text-accent">Claw</span>
+      </span>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
+      <a href="#products"  class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative" data-section="products">产品</a>
+      <a href="#scenarios" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative" data-section="scenarios">场景</a>
+      <a href="#opensource" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative" data-section="opensource">开源</a>
+      <a href="#about"     class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200 relative" data-section="about">关于我们</a>
+    </nav>
+
+    <!-- Desktop CTA -->
+    <div class="hidden md:flex items-center">
+      <a
+        href="#cta"
+        class="bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200"
+      >预约演示</a>
+    </div>
+
+    <!-- Mobile Hamburger -->
+    <button
+      id="hamburger-btn"
+      class="md:hidden flex flex-col gap-1.5 p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+      aria-label="打开菜单"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+    >
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============================================================
+     MOBILE MENU OVERLAY  (T1)
+     ============================================================ -->
+<div
+  id="mobile-menu"
+  class="hidden fixed inset-0 z-40 bg-dark/95 backdrop-blur-md flex flex-col items-center justify-center gap-8"
+  role="dialog"
+  aria-modal="true"
+  aria-label="移动端导航菜单"
+>
+  <nav class="flex flex-col items-center gap-6" aria-label="移动端主导航">
+    <a href="#products"   class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors" data-section="products">产品</a>
+    <a href="#scenarios"  class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors" data-section="scenarios">场景</a>
+    <a href="#opensource" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors" data-section="opensource">开源</a>
+    <a href="#about"      class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors" data-section="about">关于我们</a>
+  </nav>
+  <a
+    href="#cta"
+    class="mobile-nav-link bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors"
+  >预约演示</a>
+</div>
+
+<!-- ============================================================
+     HERO SECTION  (T1)
+     ============================================================ -->
+<section
+  id="hero"
+  class="relative min-h-[90vh] flex items-center overflow-hidden"
+  style="background-color: #1a1a1a;"
+>
+  <!-- Background image overlay -->
+  <div
+    class="absolute inset-0 bg-cover bg-center bg-no-repeat"
+    style="background-image: url('assets/images/hero-bg.jpg');"
+    aria-hidden="true"
+  ></div>
+  <!-- Dark overlay -->
+  <div class="absolute inset-0 bg-dark/80" aria-hidden="true"></div>
+
+  <!-- Geometric background decorations -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+    <div class="geo-shape w-32 h-32 rounded-lg" style="top: 10%; left: 5%; animation-delay: 0s;"></div>
+    <div class="geo-shape w-16 h-16 rounded-full" style="top: 60%; left: 8%; animation-delay: 2s;"></div>
+    <div class="geo-shape w-24 h-24 rounded-lg rotate-45" style="top: 20%; right: 10%; animation-delay: 1s;"></div>
+    <div class="geo-shape w-12 h-12 rounded-lg" style="bottom: 20%; right: 15%; animation-delay: 3s;"></div>
+    <div class="geo-shape w-20 h-20 rounded-full" style="bottom: 10%; left: 30%; animation-delay: 4s;"></div>
+  </div>
+
+  <!-- Content -->
+  <div class="relative z-10 w-full max-w-content mx-auto px-6 py-24 pt-32">
+    <div class="flex flex-col md:flex-row items-center gap-12 lg:gap-16">
+
+      <!-- Left: Text Content -->
+      <div class="flex-1 min-w-0 text-center md:text-left">
+
+        <!-- Eyebrow stats -->
+        <p class="hero-animate font-mono text-sm md:text-base mb-6 tracking-wide" style="animation-delay: 0s;">
+          <span class="text-accent font-bold">9</span>
+          <span class="text-white/50"> 个岗位 · </span>
+          <span class="text-accent font-bold">8</span>
+          <span class="text-white/50"> 套系统 · </span>
+          <span class="text-accent font-bold">6</span>
+          <span class="text-white/50"> 周上线</span>
+        </p>
+
+        <!-- Main Heading -->
+        <h1
+          class="hero-animate font-heading font-black text-white text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight mb-6"
+          style="animation-delay: 0.1s;"
+        >
+          您负责思考，<br class="hidden sm:block" />SudoClaw 负责闭环
+        </h1>
+
+        <!-- Sub-heading -->
+        <p
+          class="hero-animate text-white/70 text-lg md:text-xl mt-6 mb-10 max-w-lg mx-auto md:mx-0 leading-relaxed"
+          style="animation-delay: 0.2s;"
+        >
+          不是聊天工具，是企业的硅基员工产线。<br />
+          从任务分发到结果交付，全程 AI 自动闭环。
+        </p>
+
+        <!-- Dual CTA -->
+        <div
+          class="hero-animate flex flex-col sm:flex-row items-center md:items-start gap-4 justify-center md:justify-start"
+          style="animation-delay: 0.4s;"
+        >
+          <a
+            href="#cta"
+            class="w-full sm:w-auto bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-4 rounded-lg transition-colors duration-200 text-center"
+          >预约演示</a>
+          <a
+            href="https://github.com/sudoprivacy/sudowork"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="w-full sm:w-auto border border-white/50 hover:border-white text-white hover:bg-white/10 font-heading font-bold text-lg px-8 py-4 rounded-lg transition-all duration-200 text-center"
+          >了解更多 →</a>
+        </div>
+      </div>
+
+      <!-- Right: Product Mockup -->
+      <div
+        class="hero-animate-right flex-1 min-w-0 w-full max-w-lg mx-auto md:mx-0 shrink-0"
+        style="animation-delay: 0.6s;"
+      >
+        <div class="relative">
+          <div class="absolute -inset-4 bg-accent/10 rounded-3xl blur-2xl" aria-hidden="true"></div>
+          <div class="relative w-full rounded-2xl overflow-hidden border border-white/20 bg-white/10 aspect-video flex items-center justify-center">
+            <img
+              src="assets/images/hero-mockup.jpg"
+              alt="SudoClaw Copilot 产品界面截图"
+              class="w-full h-full object-cover"
+              onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+            />
+            <div class="hidden absolute inset-0 flex-col items-center justify-center gap-3 text-white/30" aria-hidden="true">
+              <svg width="48" height="48" viewBox="0 0 48 48" fill="none">
+                <rect x="4" y="8" width="40" height="28" rx="4" stroke="currentColor" stroke-width="1.5"/>
+                <path d="M16 36l4-4 4 4 4-4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <circle cx="16" cy="20" r="4" stroke="currentColor" stroke-width="1.5"/>
+              </svg>
+              <span class="font-body text-sm">Copilot 界面截图</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/30 animate-bounce" aria-hidden="true">
+    <span class="text-xs font-mono">向下滚动</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ============================================================
+     ARCHITECTURE SECTION  (T2)
+     ============================================================ -->
+<section id="architecture" class="bg-page py-20 md:py-28">
+  <div class="mx-auto px-6 md:px-8" style="max-width: var(--max-width);">
+
+    <h2 class="text-3xl md:text-4xl font-bold text-center text-dark mb-4 fade-up">
+      核心架构：Copilot + Worker 双引擎
+    </h2>
+    <p class="text-center text-gray-500 text-lg mb-14 fade-up" style="transition-delay: 0.1s;">
+      SudoClaw 独创的双引擎模式，彻底改变人与 AI 的协作方式
+    </p>
+
+    <!-- 双栏卡片 -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+
+      <!-- Copilot 卡片 -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.15s;">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: var(--accent-light);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="12" r="7" stroke="#F59E0B" stroke-width="2.5" fill="none"/>
+            <path d="M16 19v2M12 28c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+            <path d="M10 10.5c.5-2.5 2.8-4.5 6-4.5" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: var(--accent-light); color: var(--accent-hover);">
+          Copilot
+        </div>
+        <h3 class="text-2xl font-bold text-dark mb-3">您的数字合伙人</h3>
+        <p class="text-gray-600 leading-relaxed mb-5">
+          管理者唯一需要交互的界面。理解您的战略意图和业务上下文，将模糊的指令转化为精准的执行任务。
+        </p>
+        <ul class="space-y-3 text-sm text-gray-600">
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+            <span>理解战略意图和业务上下文</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+            <span>将模糊指令转化为精准执行任务</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+            <span>不需要写 prompt，像对副手一样下达指示</span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Worker 卡片 -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.3s;">
+        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: #CCFBF1;">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <circle cx="16" cy="16" r="5" stroke="#0D9488" stroke-width="2.5" fill="none"/>
+            <circle cx="6" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <circle cx="26" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <circle cx="6" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <circle cx="26" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+            <path d="M11 16H9M23 16h-2M16 11V9M16 23v-2" stroke="#0D9488" stroke-width="2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: #CCFBF1; color: #0F766E;">
+          Worker
+        </div>
+        <h3 class="text-2xl font-bold text-dark mb-3">您的数字专员团队</h3>
+        <p class="text-gray-600 leading-relaxed mb-5">
+          多个专业 Worker 各司其职、自动协同，代码编写、数据处理、文档生成、ERP 对接，完成从任务拆解到结果交付的完整闭环。
+        </p>
+        <ul class="space-y-3 text-sm text-gray-600">
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+            <span>多个专业 Worker 各司其职、自动协同</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+            <span>代码编写、数据处理、文档生成、ERP 对接</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+            <span>任务拆解到结果交付的完整闭环</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- 架构流程图 -->
+    <div class="mb-14 fade-up" style="transition-delay: 0.35s;">
+      <img
+        src="assets/images/architecture-flow.jpg"
+        alt="SudoClaw Copilot + Worker 架构流程图"
+        class="w-full rounded-2xl shadow-sm"
+        loading="lazy"
+      />
+    </div>
+
+    <!-- 对比流程 -->
+    <div class="bg-white rounded-2xl p-8 shadow-sm mb-8 fade-up" style="transition-delay: 0.45s;">
+      <h3 class="text-lg font-bold text-dark mb-6 text-center">传统 AI 工具 vs SudoClaw</h3>
+      <div class="mb-5">
+        <div class="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">传统 AI 工具</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-500">人提问</span>
+          <span class="text-gray-300 font-bold text-lg">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-500">AI 回答</span>
+          <span class="text-gray-300 font-bold text-lg">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-medium bg-gray-100 text-gray-500">人再操作</span>
+        </div>
+      </div>
+      <div class="border-t border-border my-5"></div>
+      <div>
+        <div class="text-xs font-semibold uppercase tracking-wider mb-2" style="color: var(--accent);">SudoClaw</div>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-dark" style="background-color: var(--accent-light);">人下达意图</span>
+          <span class="font-bold text-lg" style="color: var(--accent);">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-dark" style="background-color: var(--accent-light);">Copilot 理解拆解</span>
+          <span class="font-bold text-lg" style="color: var(--accent);">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-dark" style="background-color: var(--accent-light);">Worker 并行执行</span>
+          <span class="font-bold text-lg" style="color: var(--accent);">→</span>
+          <span class="rounded-full px-4 py-2 text-sm font-semibold text-white" style="background-color: var(--accent);">结果直接交付</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 真实案例引用 -->
+    <blockquote class="rounded-2xl p-8 fade-up" style="background-color: #FFFBF0; border-left: 4px solid var(--accent); transition-delay: 0.45s;">
+      <p class="text-gray-700 leading-relaxed text-base md:text-lg">
+        <span class="font-semibold text-dark">售前顾问对 Copilot 说"帮我准备下周给客户的方案"。</span>
+        Copilot 将意图拆解为四个任务：行业数据采集、客户痛点提炼、方案架构设计、ROI 测算。四个 Worker 并行执行，当天交付一个带导航、带数据、带架构图的完整定制演示网页——不是 PPT，是一个可交互的网站。
+      </p>
+      <footer class="mt-4 text-sm font-medium" style="color: var(--accent-hover);">— 真实使用案例</footer>
+    </blockquote>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     WHY SUDOCLAW  (T3)
+     ============================================================ -->
+<section id="why-sudoclaw" class="bg-white py-20 md:py-28">
+  <div class="mx-auto px-6 md:px-8" style="max-width: var(--max-width);">
+
+    <div class="text-center mb-14 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+        为什么选择 SudoClaw？
+      </h2>
+      <p class="text-base md:text-lg text-secondary max-w-2xl mx-auto leading-relaxed">
+        不是更好的对话框——是一支真正帮企业闭环的 AI 劳动力。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+      <!-- 卡片 1 -->
+      <div class="bg-page rounded-2xl p-8 hover:-translate-y-1 hover:shadow-md transition-all duration-300 fade-up" style="transition-delay: 0.0s;">
+        <div class="w-12 h-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5.5 4.5 L3 8 L3 11 L5.5 14.5 L8 14.5 L10.5 11 L10.5 8 L8 4.5 Z"/>
+            <path d="M13.5 9.5 L11 13 L11 16 L13.5 19.5 L16 19.5 L18.5 16 L18.5 13 L16 9.5 Z"/>
+            <line x1="10.5" y1="9.5" x2="13.5" y2="9.5"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-dark mb-2">Copilot + Worker 双引擎</h3>
+        <p class="text-sm text-secondary leading-relaxed">
+          不是对话框，是一支 AI 团队帮你从头干到尾。下一个意图，Copilot 拆解任务，Worker 并行执行，结果直接交付。
+        </p>
+      </div>
+
+      <!-- 卡片 2 -->
+      <div class="bg-page rounded-2xl p-8 hover:-translate-y-1 hover:shadow-md transition-all duration-300 fade-up" style="transition-delay: 0.1s;">
+        <div class="w-12 h-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="9" width="5" height="6" rx="1.5"/>
+            <rect x="9.5" y="5" width="5" height="6" rx="1.5"/>
+            <rect x="17" y="9" width="5" height="6" rx="1.5"/>
+            <path d="M7 12 L9.5 10"/>
+            <path d="M14.5 10 L17 12"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-dark mb-2">深入业务流</h3>
+        <p class="text-sm text-secondary leading-relaxed">
+          直接嵌入 ERP、数据库、审批流，实现高价值业务场景的端到端自动化，而非停留在"你问我答"。
+        </p>
+      </div>
+
+      <!-- 卡片 3 -->
+      <div class="bg-page rounded-2xl p-8 hover:-translate-y-1 hover:shadow-md transition-all duration-300 fade-up" style="transition-delay: 0.2s;">
+        <div class="w-12 h-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="14" width="16" height="5" rx="1.5"/>
+            <rect x="4" y="9" width="16" height="5" rx="1.5"/>
+            <rect x="4" y="4" width="16" height="5" rx="1.5"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-dark mb-2">企业知识 + 专家技能</h3>
+        <p class="text-sm text-secondary leading-relaxed">
+          对接私有数据库、知识库和行业专家沉淀的 Skill 包，AI 懂你的业务、用你的数据、按你的规范执行。
+        </p>
+      </div>
+
+      <!-- 卡片 4 -->
+      <div class="bg-page rounded-2xl p-8 hover:-translate-y-1 hover:shadow-md transition-all duration-300 fade-up" style="transition-delay: 0.3s;">
+        <div class="w-12 h-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="4.5" cy="12" r="2"/>
+            <circle cx="19.5" cy="5.5" r="2"/>
+            <circle cx="19.5" cy="12" r="2"/>
+            <circle cx="19.5" cy="18.5" r="2"/>
+            <path d="M6.5 12 L13 5.5 M6.5 12 L13 12 M6.5 12 L13 18.5"/>
+            <line x1="15" y1="5.5" x2="17.5" y2="5.5"/>
+            <line x1="15" y1="12" x2="17.5" y2="12"/>
+            <line x1="15" y1="18.5" x2="17.5" y2="18.5"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-dark mb-2">多模型智能路由</h3>
+        <p class="text-sm text-secondary leading-relaxed">
+          内置 SudoRouter，20+ 模型按任务复杂度动态调度。模型降价一键切换，永不锁定供应商。
+        </p>
+      </div>
+
+      <!-- 卡片 5 -->
+      <div class="bg-page rounded-2xl p-8 hover:-translate-y-1 hover:shadow-md transition-all duration-300 fade-up" style="transition-delay: 0.4s;">
+        <div class="w-12 h-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 3 L20 6.5 L20 12 C20 16.5 16.5 20 12 21.5 C7.5 20 4 16.5 4 12 L4 6.5 Z"/>
+            <rect x="9.5" y="11.5" width="5" height="4" rx="1"/>
+            <path d="M10.5 11.5 L10.5 9.5 A1.5 1.5 0 0 1 13.5 9.5 L13.5 11.5"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-dark mb-2">安全是基因，不是功能</h3>
+        <p class="text-sm text-secondary leading-relaxed">
+          全私有化部署，数据不出域。AI 沙箱物理隔离、PII 自动脱敏、细粒度访问控制，从第一行代码为企业安全而建。
+        </p>
+      </div>
+
+      <!-- 卡片 6 -->
+      <div class="bg-page rounded-2xl p-8 hover:-translate-y-1 hover:shadow-md transition-all duration-300 fade-up" style="transition-delay: 0.5s;">
+        <div class="w-12 h-12 bg-accent-light rounded-xl flex items-center justify-center mb-4">
+          <svg class="w-6 h-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="12" r="6"/>
+            <circle cx="15" cy="12" r="6"/>
+            <rect x="10.5" y="11" width="3" height="2.5" rx="0.75"/>
+            <path d="M11 11 L11 10 A1 1 0 0 1 13 10 L13 11"/>
+          </svg>
+        </div>
+        <h3 class="text-lg font-bold text-dark mb-2">内置隐私计算</h3>
+        <p class="text-sm text-secondary leading-relaxed">
+          安全多方计算 + 联邦学习，跨机构数据协作"可用不可见"。不是第三方集成，是平台原生能力。
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     PRODUCTS  (T4)
+     ============================================================ -->
+<section id="products" class="bg-page py-20 md:py-28">
+  <div class="mx-auto px-6 md:px-8" style="max-width: var(--max-width);">
+
+    <div class="text-center mb-16">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark">产品矩阵</h2>
+      <p class="text-secondary mt-4 max-w-2xl mx-auto text-base md:text-lg">
+        SudoClaw 不是单点工具，而是由三大核心组件构成的完整 AI 工作平台
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+      <!-- SudoClaw -->
+      <div class="fade-up bg-white rounded-2xl p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col" style="transition-delay: 0s;">
+        <div class="flex items-center justify-between mb-4">
+          <span class="text-4xl">🖥️</span>
+          <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-accent-light text-amber-700">终端客户端</span>
+        </div>
+        <h3 class="text-xl font-bold text-dark mb-1">SudoClaw</h3>
+        <p class="text-accent text-sm font-medium mb-5">用户与 AI 职场搭子交互的入口</p>
+        <div class="border-t border-border mb-5"></div>
+        <ul class="space-y-3 text-sm text-secondary flex-1">
+          <li class="flex items-start gap-2">
+            <span class="text-teal mt-0.5 leading-none">●</span>
+            <span>企业微信、Web、Telegram、钉钉、飞书多端接入</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-teal mt-0.5 leading-none">●</span>
+            <span>对话、任务下发、进度追踪、结果查看完整工作流</span>
+          </li>
+          <li class="flex items-start gap-2">
+            <span class="text-teal mt-0.5 leading-none">●</span>
+            <span>跨平台支持 macOS、Windows、Linux</span>
+          </li>
+        </ul>
+        <a href="https://github.com/sudoprivacy/sudoclaw" target="_blank" rel="noopener noreferrer"
+           class="text-teal hover:text-teal-hover font-medium text-sm mt-6 inline-flex items-center gap-1.5">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          GitHub →
+        </a>
+      </div>
+
+      <!-- Nexus OS -->
+      <div class="fade-up bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col" style="transition-delay: 0.15s;">
+        <img src="assets/images/product-nexus.jpg" alt="Nexus OS 架构图" class="w-full h-44 object-cover" loading="lazy" />
+        <div class="p-8 flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-4xl">🧠</span>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-teal text-white">Apache 2.0 开源</span>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-1">Nexus OS</h3>
+          <p class="text-accent text-sm font-medium mb-5">承载所有 AI 员工的底层操作系统</p>
+          <div class="border-t border-border mb-5"></div>
+          <ul class="space-y-3 text-sm text-secondary flex-1">
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>Plugin/Extension + Skill + Agent 三层架构</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>内置隐私计算引擎（安全多方计算、联邦学习）</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>不可变版本控制、语义搜索、多租户隔离</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>兼容 Claude Agent SDK、OpenAI Agents 等主流框架</span></li>
+          </ul>
+          <a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer"
+             class="text-teal hover:text-teal-hover font-medium text-sm mt-6 inline-flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            GitHub →
+          </a>
+        </div>
+      </div>
+
+      <!-- SudoRouter -->
+      <div class="fade-up bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-1 transition-all flex flex-col" style="transition-delay: 0.30s;">
+        <img src="assets/images/product-router.jpg" alt="SudoRouter 路由图" class="w-full h-44 object-cover" loading="lazy" />
+        <div class="p-8 flex flex-col flex-1">
+          <div class="flex items-center justify-between mb-4">
+            <span class="text-4xl">⚡</span>
+            <span class="text-xs font-medium px-2.5 py-1 rounded-full bg-accent-light text-amber-700">20+ 模型供应商</span>
+          </div>
+          <h3 class="text-xl font-bold text-dark mb-1">SudoRouter</h3>
+          <p class="text-accent text-sm font-medium mb-5">按任务复杂度动态选择最优模型</p>
+          <div class="border-t border-border mb-5"></div>
+          <ul class="space-y-3 text-sm text-secondary flex-1">
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>支持 20+ 模型供应商（Claude、GPT、Gemini、Qwen、Kimi、GLM 等）</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>三层任务分级：轻量级、主力级、专家级</span></li>
+            <li class="flex items-start gap-2"><span class="text-teal mt-0.5 leading-none">●</span><span>不绑定单一供应商，模型降价一键切换</span></li>
+          </ul>
+          <a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer"
+             class="text-teal hover:text-teal-hover font-medium text-sm mt-6 inline-flex items-center gap-1.5">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
+              <polyline points="15 3 21 3 21 9"/>
+              <line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            了解更多 →
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="mt-12 flex items-center justify-center gap-3 text-sm text-secondary">
+      <span class="inline-flex items-center gap-1.5 font-medium text-dark"><span>🖥️</span> SudoClaw</span>
+      <span class="text-border">→</span>
+      <span class="inline-flex items-center gap-1.5 font-medium text-dark"><span>🧠</span> Nexus OS</span>
+      <span class="text-border">→</span>
+      <span class="inline-flex items-center gap-1.5 font-medium text-dark"><span>⚡</span> SudoRouter</span>
+      <span class="ml-2 text-secondary hidden sm:inline">— 完整 AI 工作平台架构</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================================================
+     SCENARIOS  (T5)
+     ============================================================ -->
+<section id="scenarios" class="bg-white py-20 px-4">
+  <div class="max-w-content mx-auto">
+
+    <div class="text-center mb-12 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">
+        SudoClaw 在解决什么问题
+      </h2>
+      <p class="text-secondary text-lg max-w-2xl mx-auto">
+        30+ 个真实业务场景，覆盖 10 大行业，找到与你最相关的场景
+      </p>
+    </div>
+
+    <!-- Tab 栏 -->
+    <div class="flex gap-2 overflow-x-auto pb-4 scrollbar-hide mb-8 fade-up" role="tablist" aria-label="行业分类">
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="sales" data-active="true" role="tab" aria-selected="true" aria-controls="panel-sales">销售与获客</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="service" data-active="false" role="tab" aria-selected="false" aria-controls="panel-service">客户服务</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="finance" data-active="false" role="tab" aria-selected="false" aria-controls="panel-finance">金融与保险</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="accounting" data-active="false" role="tab" aria-selected="false" aria-controls="panel-accounting">财务与合规</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="supply-chain" data-active="false" role="tab" aria-selected="false" aria-controls="panel-supply-chain">运营与供应链</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="delivery" data-active="false" role="tab" aria-selected="false" aria-controls="panel-delivery">专业服务与交付</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="dev" data-active="false" role="tab" aria-selected="false" aria-controls="panel-dev">研发与技术</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="global" data-active="false" role="tab" aria-selected="false" aria-controls="panel-global">出海与国际业务</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="knowledge" data-active="false" role="tab" aria-selected="false" aria-controls="panel-knowledge">知识管理与决策支持</button>
+      <button class="tab-btn whitespace-nowrap px-4 py-2 rounded-full text-sm font-medium transition-colors" data-tab="hr" data-active="false" role="tab" aria-selected="false" aria-controls="panel-hr">人力与行政</button>
+    </div>
+
+    <!-- 1. 销售与获客 -->
+    <div class="tab-panel" id="panel-sales" data-tab="sales" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">销售与获客</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"给客户的方案路演，一天就生成了一个专属网站"</h4>
+          <p class="text-sm text-secondary leading-relaxed">把客户需求输入 SudoClaw，Worker 自动完成行业数据采集、痛点提炼、方案设计、ROI 测算，直接生成可交互的定制化演示网页。从"改三轮 PPT"变成"出网站等反馈"。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">销售与获客</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"投标前的尽调，从翻三天网站变成一句话出报告"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动调取工商信息、资质证书、业绩、中标历史，同步扫描司法风险和税务异常，几分钟内生成结构化对比报告。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">销售与获客</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"招标动态不用人盯了，符合条件的自动推过来"</h4>
+          <p class="text-sm text-secondary leading-relaxed">按省份、资质要求、项目类型自动筛选招标信息，符合条件的项目实时推送到企微群，再也不漏标。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">销售与获客</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"客户跟进全靠记忆，现在 AI 帮我盯着节奏"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动追踪 CRM 商机状态——超期未联系自动提醒，临近续约推送背景摘要，丢单客户定期触发复盘分析。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-sales.jpg" alt="销售与获客场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 2. 客户服务 -->
+    <div class="tab-panel hidden" id="panel-service" data-tab="service" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">客户服务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"客服团队轮班的活，AI 接了大半"</h4>
+          <p class="text-sm text-secondary leading-relaxed">将业务手册拆解为知识规则后接入 SudoClaw，AI 7×24 自动回答咨询，敏感问题自动转人工，多人轮班工作量大幅释放。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">客户服务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"上万个企微群的质检，从抽查变全覆盖"</h4>
+          <p class="text-sm text-secondary leading-relaxed">违规关键词实时扫描，客服超时自动告警，异常自动分类，定时轮扫并生成标准报表。从"抽到算运气"变成"全量无死角"。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">客户服务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"客户投诉不再石沉大海，每条都有闭环"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动按紧急程度分级、匹配知识库生成方案、分配责任人并跟踪进度，超时未处理自动升级通知管理层。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">客户服务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"运营商千万级用户的套餐咨询，AI 秒级响应还不说错"</h4>
+          <p class="text-sm text-secondary leading-relaxed">完整套餐规则库导入后 Worker 自动匹配用户问题生成准确回复，敏感操作自动转人工，规则更新后 Skill 包同步刷新。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-service.jpg" alt="客户服务场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 3. 金融与保险 -->
+    <div class="tab-panel hidden" id="panel-finance" data-tab="finance" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">金融与保险</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"信贷审批的风控模型，终于用上了外部数据——但数据没出门"</h4>
+          <p class="text-sm text-secondary leading-relaxed">通过隐私计算底座，Worker 在安全多方计算环境下完成跨机构联邦建模，双方数据"可用不可见"，风控精准度显著提升。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">金融与保险</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"保险存量客户激活，精准度翻了将近一倍"</h4>
+          <p class="text-sm text-secondary leading-relaxed">通过隐私计算与运营商联合建模，生成精准购险意向评分，高意向人群转化率大幅优于传统方式，双方无法反推对方用户信息。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">金融与保险</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"反欺诈核验，跨机构数据碰撞不再需要'裸奔'"</h4>
+          <p class="text-sm text-secondary leading-relaxed">通过隐私求交和安全计算完成跨机构身份核验和风险标签碰撞，欺诈识别率提升，没有任何一方的用户明文数据被暴露。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">金融与保险</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"数据资产盘点，从手工台账变成自动化管控"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动扫描数据流转链路、识别敏感字段、标注权限异常，生成合规看板。监管检查来了，报告随时可出。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-finance.jpg" alt="金融与保险场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 4. 财务与合规 -->
+    <div class="tab-panel hidden" id="panel-accounting" data-tab="accounting" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">财务与合规</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"跨境对账从人工核三天，变成几轮确认就搞定"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动导表、还原公式、标注差异，涉及多张原始报表和大量科目映射，人只做最终确认，几轮即可收敛。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">财务与合规</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"政策变了，合规团队当天就出了影响分析"</h4>
+          <p class="text-sm text-secondary leading-relaxed">新政策发布后 Worker 自动比对现行制度差异、标注受影响业务条线、生成合规整改建议，过去一周的工作当天完成初稿。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">财务与合规</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"每月的费用报销审核，不再靠人逐条翻"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动审核每笔报销——超标自动标记、重复提交自动识别、缺少附件自动退回，财务只需处理异常项。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">财务与合规</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"多币种预算编制，汇率波动不再是噩梦"</h4>
+          <p class="text-sm text-secondary leading-relaxed">接入汇率数据源后 Worker 自动按最新汇率完成多币种换算、预算偏差分析和敞口预警，财务把时间花在分析决策上。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-accounting.jpg" alt="财务与合规场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 5. 运营与供应链 -->
+    <div class="tab-panel hidden" id="panel-supply-chain" data-tab="supply-chain" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">运营与供应链</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"每天的数据搬运，变成了每早自动推送"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 每天定时自动拉单据、判定、填报表、推送。特殊品类标记人工审批，超时单据分级预警，物流异常自动告警。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">运营与供应链</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"供应商到货延迟，不用人追了"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 每天自动比对采购订单和到货状态，延迟的自动催货，严重超期升级给采购经理，附带历史交付准时率统计。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">运营与供应链</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"库存预警不再靠 Excel 公式"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 定时拉取库存、销量和在途数据，按 SKU 自动计算安全库存线并推送预警，滞销品和断货风险同时标注。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-supply-chain.jpg" alt="运营与供应链场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 6. 专业服务与交付 -->
+    <div class="tab-panel hidden" id="panel-delivery" data-tab="delivery" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">专业服务与交付</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"一个人 + 五个硅基员工，干了原来一个 squad 的活"</h4>
+          <p class="text-sm text-secondary leading-relaxed">一个资深顾问搭配五个 Worker 分别负责项目管理、数据清洗、分析报表、模型训练和客户沟通，同样团队规模服务客户数翻倍。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">专业服务与交付</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"项目交付周报，不用每个人汇总了"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动从项目管理系统、代码仓库、数据平台拉取进展，生成结构化周报——完成了什么、卡在哪里、风险预警，审一眼就能发。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-delivery.jpg" alt="专业服务与交付场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 7. 研发与技术 -->
+    <div class="tab-panel hidden" id="panel-dev" data-tab="dev" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">研发与技术</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"新来的开发，第一天就能按团队规范写代码"</h4>
+          <p class="text-sm text-secondary leading-relaxed">编码规范、架构文档、Code Review 记录做成 Skill 包，新人写代码时 Worker 自动按团队规范审查并给出修改建议。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">研发与技术</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"线上告警不再只是一条通知，直接带上下文和建议"</h4>
+          <p class="text-sm text-secondary leading-relaxed">告警触发后 Worker 自动拉取日志、关联发布变更、匹配历史故障处理记录，生成可执行的排查方案。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">研发与技术</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"每周的发版检查清单，不用人手动对了"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动从项目管理和 CI/CD 系统拉取数据，未闭环需求、未通过测试、未合并分支全部标红，发版风险一目了然。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-dev.jpg" alt="研发与技术场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 8. 出海与国际业务 -->
+    <div class="tab-panel hidden" id="panel-global" data-tab="global" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">出海与国际业务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"海外投资尽调报告，从外包两周变成内部一天出初稿"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动整合多国数据源、抓取最新政策法规和行业数据，生成结构化尽调初稿并对关键数据标注置信度和来源。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">出海与国际业务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"多语种会议纪要和合同审阅，不再卡在翻译上"</h4>
+          <p class="text-sm text-secondary leading-relaxed">通过 SudoRouter 调度最适合目标语种的模型，Worker 自动完成合同条款提取、会议纪要翻译和关键信息摘要。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">出海与国际业务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"海外票据审核，手写多币种也能自动处理"</h4>
+          <p class="text-sm text-secondary leading-relaxed">接入 OCR 和汇率数据源后 Worker 自动识别票据内容、匹配币种实时汇率、生成标准化审核记录，异常票据自动标记。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">出海与国际业务</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"海外舆情监控，从'大海捞针'变成精准推送"</h4>
+          <p class="text-sm text-secondary leading-relaxed">按企业名称、项目名、关键人物配置精准监控，Worker 实时扫描目标国家新闻和社媒，负面舆情秒级推送并附应对建议。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-global.jpg" alt="出海与国际业务场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 9. 知识管理与决策支持 -->
+    <div class="tab-panel hidden" id="panel-knowledge" data-tab="knowledge" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">知识管理与决策支持</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"老员工走了，经验没走"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 自动将分散在个人电脑、邮件、聊天记录中的项目资料归档打标签建索引，任何人都可用自然语言检索历史经验。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">知识管理与决策支持</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"例行工作不再靠记忆，AI 帮你盯着日历"</h4>
+          <p class="text-sm text-secondary leading-relaxed">年度计划、资质年审、合同续签等关键节点配置定时任务，到期前自动提醒，逾期自动升级通知管理层。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">知识管理与决策支持</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"领导要数据，不用再等各部门凑报表"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Copilot 接到一句话，Worker 自动跨 BI、ERP、财务等系统拉数据、交叉比对，生成带结论的分析摘要，分钟级响应。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">知识管理与决策支持</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"政务数据共享，跨部门协作不再靠发函"</h4>
+          <p class="text-sm text-secondary leading-relaxed">搭配隐私计算能力，Worker 在安全环境中完成跨部门数据比对和联合分析，结果可用但原始数据不出域。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-knowledge.jpg" alt="知识管理与决策支持场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+    <!-- 10. 人力与行政 -->
+    <div class="tab-panel hidden" id="panel-hr" data-tab="hr" role="tabpanel">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">人力与行政</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"候选人简历筛选，从刷两天变成看一份报告"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 按岗位 JD 和标准自动评分、标注亮点和风险项、按推荐优先级排序，招聘经理只需看排序清单决定约谁面试。</p>
+        </div>
+        <div class="bg-page rounded-2xl p-6 border-l-4 border-accent fade-up">
+          <span class="inline-block px-3 py-1 bg-accent-light text-accent text-xs font-medium rounded-full mb-3">人力与行政</span>
+          <h4 class="font-bold text-dark mb-3 leading-snug">"新员工入职手续，AI 全程引导到完成"</h4>
+          <p class="text-sm text-secondary leading-relaxed">Worker 通过企微自动引导完成信息采集、合同签署、账号开通、培训安排，卡在哪个环节自动提醒 HR 介入。</p>
+        </div>
+      </div>
+      <div class="mt-8 rounded-2xl overflow-hidden">
+        <img src="assets/images/scenario-hr.jpg" alt="人力与行政场景" class="w-full h-48 object-cover" loading="lazy" />
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Tab 样式 -->
+<style>
+  .tab-btn[data-active="true"] {
+    background-color: var(--accent);
+    color: #ffffff;
+  }
+  .tab-btn[data-active="false"] {
+    background-color: #f3f4f6;
+    color: #6b7280;
+  }
+  .tab-btn[data-active="false"]:hover {
+    color: var(--text-primary);
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+</style>
+
+<!-- Tab 切换 JS -->
+<script>
+  (function () {
+    var tabs = document.querySelectorAll('#scenarios .tab-btn');
+    var panels = document.querySelectorAll('#scenarios .tab-panel');
+
+    tabs.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var target = btn.dataset.tab;
+        tabs.forEach(function (b) {
+          b.dataset.active = 'false';
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.dataset.active = 'true';
+        btn.setAttribute('aria-selected', 'true');
+        panels.forEach(function (p) {
+          if (p.dataset.tab === target) {
+            p.classList.remove('hidden');
+          } else {
+            p.classList.add('hidden');
+          }
+        });
+        var activePanel = document.querySelector('#scenarios .tab-panel[data-tab="' + target + '"]');
+        if (activePanel) {
+          activePanel.querySelectorAll('.fade-up').forEach(function (el) {
+            el.classList.remove('visible');
+            void el.offsetWidth;
+            el.classList.add('visible');
+          });
+        }
+      });
+    });
+  })();
+</script>
+
+<!-- ============================================================
+     PRODUCTION LINE  (T6)
+     ============================================================ -->
+<section id="production-line" class="bg-dark py-20 md:py-28">
+  <div class="max-w-content mx-auto px-6">
+
+    <h2 class="text-3xl md:text-4xl font-bold text-white text-center mb-16 fade-up">
+      不是做几个机器人，是建一条硅基员工产线
+    </h2>
+
+    <div class="fade-up">
+      <div class="rounded-2xl overflow-hidden mb-10">
+        <img src="assets/images/production-line.jpg" alt="硅基员工产线概念图" class="w-full object-cover max-h-72 md:max-h-96" loading="lazy" />
+      </div>
+
+      <div class="bg-white/5 rounded-2xl border border-white/10 overflow-hidden">
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-4 text-white/50 text-sm font-medium uppercase tracking-wider border-r border-white/10">传统方式</div>
+          <div class="px-6 py-4 text-accent text-sm font-medium uppercase tracking-wider">SudoClaw 平台化</div>
+        </div>
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">首批上线</p>
+            <p class="text-white/50 text-sm">每个 Agent 4–6 周</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">首批上线</p>
+            <p class="text-white/80 text-sm">平台搭建约 1 周，之后每个 Agent ≈1 周</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">后续扩展</p>
+            <p class="text-white/50 text-sm">每个从零开始</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">后续扩展</p>
+            <p class="text-white/80 text-sm">只需写 Skill + Agent 编排</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2 border-b border-white/10">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">系统对接</p>
+            <p class="text-white/50 text-sm">每个项目重复对接</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">系统对接</p>
+            <p class="text-white/80 text-sm">Extension 装一次，所有 Agent 共享</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-2">
+          <div class="px-6 py-5 border-r border-white/10">
+            <p class="text-white/60 text-sm font-medium mb-1">运行成本</p>
+            <p class="text-white/50 text-sm">全用高端模型，成本线性增长</p>
+          </div>
+          <div class="px-6 py-5">
+            <p class="text-white font-medium text-sm mb-1">运行成本</p>
+            <p class="text-white/80 text-sm">SudoRouter 智能路由，大幅降低模型成本</p>
+          </div>
+        </div>
+      </div>
+
+      <blockquote class="mt-8 border-l-4 border-accent pl-6 text-white/80 italic text-lg">
+        通用大模型是"实习生"——什么都能聊但不懂你的业务。SudoClaw 把规则、流程、知识封装进去，变成"老员工"。
+      </blockquote>
+    </div>
+
+    <!-- 渐进信任时间轴 -->
+    <div class="rounded-2xl overflow-hidden mt-20 mb-12 fade-up">
+      <img src="assets/images/trust-timeline.jpg" alt="渐进信任四阶段图" class="w-full object-cover max-h-72 md:max-h-96" loading="lazy" />
+    </div>
+
+    <h3 class="text-2xl font-bold text-white text-center mb-12 fade-up">
+      信任是渐进建立的
+    </h3>
+
+    <div class="relative fade-up" id="trust-timeline">
+      <div class="hidden md:block absolute left-0 right-0 top-5 h-0.5 timeline-line" aria-hidden="true"></div>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-6 relative">
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">1</div>
+          <div class="md:hidden absolute left-5 top-10 w-0.5 h-full bg-white/10" aria-hidden="true"></div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">人工确认期</p>
+            <p class="text-white/60 text-sm leading-relaxed">AI 只做提示和建议，所有动作人工确认，每周复盘准确率</p>
+          </div>
+        </div>
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0.2s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">2</div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">半自动期</p>
+            <p class="text-white/60 text-sm leading-relaxed">低风险动作自动执行，高风险仍保留人工确认</p>
+          </div>
+        </div>
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0.4s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">3</div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">全面自动化</p>
+            <p class="text-white/60 text-sm leading-relaxed">仅决策红线保留人工介入，AI 全权负责日常执行</p>
+          </div>
+        </div>
+        <div class="trust-node flex md:flex-col items-start md:items-center gap-5 md:gap-0" style="--delay: 0.6s">
+          <div class="flex-shrink-0 w-10 h-10 rounded-full bg-accent text-dark font-bold flex items-center justify-center text-sm z-10">4</div>
+          <div class="md:text-center md:mt-6">
+            <p class="text-white font-bold text-base mb-1">企业专属模型</p>
+            <p class="text-white/60 text-sm leading-relaxed">持续积累标注数据触发微调，产出别人买不到也抄不走的核心资产</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p class="text-white/60 text-center text-sm mt-12 max-w-2xl mx-auto fade-up">
+      在整个过程中，您的数据始终在自己的服务器上，AI 的每一步操作都在受控沙箱中完成，跨机构协作通过隐私计算实现"可用不可见"。掌控权从第一天到最后一天，都在您手里。
+    </p>
+
+  </div>
+</section>
+
+<!-- Production-line Section Styles -->
+<style>
+  .timeline-line {
+    background: linear-gradient(to right, rgba(255,255,255,0.2), #F59E0B, #F59E0B);
+    transform-origin: left center;
+    animation: timeline-grow 1s ease forwards;
+    animation-play-state: paused;
+  }
+  #trust-timeline.visible .timeline-line {
+    animation-play-state: running;
+  }
+  @keyframes timeline-grow {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+  }
+  .trust-node {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    transition-delay: var(--delay, 0s);
+  }
+  #trust-timeline.visible .trust-node {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  @media (max-width: 767px) {
+    #trust-timeline { padding-left: 1.25rem; }
+    .trust-node { position: relative; padding-left: 1.5rem; }
+    .trust-node:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 1.15rem;
+      top: 2.75rem;
+      bottom: -2rem;
+      width: 2px;
+      background: linear-gradient(to bottom, #F59E0B, rgba(255,255,255,0.15));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .timeline-line, .trust-node {
+      animation: none !important;
+      transition: none !important;
+      opacity: 1 !important;
+      transform: none !important;
+    }
+  }
+</style>
+
+<!-- Production-line Section Script -->
+<script>
+  (function () {
+    if (!('IntersectionObserver' in window)) {
+      document.querySelectorAll('#production-line .fade-up, #trust-timeline').forEach(function (el) {
+        el.classList.add('visible');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('#production-line .fade-up').forEach(function (el) { io.observe(el); });
+    var timeline = document.getElementById('trust-timeline');
+    if (timeline) io.observe(timeline);
+  })();
+</script>
+
+<!-- ============================================================
+     ABOUT  (T7)
+     ============================================================ -->
+<section id="about" class="py-24 bg-page">
+  <div class="max-w-content mx-auto px-6">
+
+    <div class="text-center mb-16 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark">关于我们</h2>
+      <p class="text-gray-500 text-lg mt-4">数牍科技——从隐私计算到企业 AI 劳动力平台</p>
+    </div>
+
+    <div class="max-w-3xl mx-auto text-center mb-16 fade-up">
+      <p class="text-gray-500 leading-relaxed text-base md:text-lg">
+        数牍科技（SudoPrivacy）是国内最早一批将隐私计算技术落地商用的企业，国家级专精特新"小巨人"。核心团队来自
+        Google DeepMind、Meta、Microsoft、Amazon、清华大学、UCLA、剑桥大学等机构，在数据安全、AI
+        基础设施和企业级系统架构领域深耕多年。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          6<span class="text-3xl">周</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-3">9 个 AI 岗位批量上线</div>
+      </div>
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          <span class="counter" data-target="20">0</span><span class="text-3xl">+</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-3">支持模型供应商数量</div>
+      </div>
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          <span class="counter" data-target="8">0</span><span class="text-3xl">套</span>
+        </div>
+        <div class="text-sm text-gray-500 mt-3">业务系统对接数量</div>
+      </div>
+      <div class="text-center fade-up">
+        <div class="text-5xl font-mono font-bold text-amber-500 leading-none">
+          国家级
+        </div>
+        <div class="text-sm text-gray-500 mt-3">专精特新"小巨人"认定</div>
+      </div>
+    </div>
+
+    <div class="flex flex-wrap justify-center gap-3 fade-up">
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">国家级专精特新"小巨人"</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">Apache 2.0 开源</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">隐私计算原生支持</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">私有化部署</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">IDC 中国 FinTech 50（连续三年）</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">金融密码杯三项一等奖（首家）</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">信通院双项测评</span>
+      <span class="inline-block px-4 py-2 bg-amber-50 text-amber-600 border border-amber-300 text-sm font-medium rounded-full">多地数据交易所首批数商</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- 计数器动画脚本 -->
+<script>
+  (function () {
+    var counters = document.querySelectorAll('#about .counter');
+    if (!counters.length) return;
+    function animateCounter(el) {
+      var target = parseInt(el.getAttribute('data-target'), 10);
+      var duration = 2000;
+      var startTime = null;
+      function step(timestamp) {
+        if (!startTime) startTime = timestamp;
+        var progress = Math.min((timestamp - startTime) / duration, 1);
+        var eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.floor(eased * target);
+        if (progress < 1) { requestAnimationFrame(step); } else { el.textContent = target; }
+      }
+      requestAnimationFrame(step);
+    }
+    var observed = false;
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting && !observed) {
+          observed = true;
+          counters.forEach(animateCounter);
+          observer.disconnect();
+        }
+      });
+    }, { threshold: 0.3 });
+    var section = document.getElementById('about');
+    if (section) observer.observe(section);
+  })();
+</script>
+
+<!-- ============================================================
+     OPENSOURCE  (T8)
+     ============================================================ -->
+<section id="opensource" class="bg-page py-20 md:py-28">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+
+    <div class="text-center mb-12 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark">开源透明，开箱即用</h2>
+      <p class="text-secondary text-center mt-4 max-w-2xl mx-auto leading-relaxed">
+        核心组件全部开源，代码可审计、架构可验证。不需要签合同才能评估——先用起来，再谈合作。
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6">
+      <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-up">
+        <div class="text-3xl mb-3">🖥️</div>
+        <h3 class="text-lg font-bold mb-1 text-dark">SudoClaw</h3>
+        <p class="text-sm text-secondary mb-3">企业级 AI 工作客户端</p>
+        <div class="flex items-center justify-center gap-1 text-xs text-secondary mb-4">
+          <svg class="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>⭐ 开源</span>
+        </div>
+        <a href="https://github.com/sudoprivacy/sudoclaw" target="_blank" rel="noopener noreferrer"
+           class="inline-block border-2 border-teal text-teal hover:bg-teal hover:text-white font-medium px-6 py-2 rounded-lg transition-colors text-sm">
+          GitHub →
+        </a>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-up">
+        <div class="text-3xl mb-3">🧠</div>
+        <h3 class="text-lg font-bold mb-1 text-dark">Nexus OS</h3>
+        <p class="text-sm text-secondary mb-3">智能体操作系统</p>
+        <div class="flex items-center justify-center gap-1 text-xs text-secondary mb-4">
+          <svg class="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>即将开源</span>
+        </div>
+        <a href="#" class="inline-block border-2 border-teal text-teal font-medium px-6 py-2 rounded-lg text-sm cursor-not-allowed opacity-60" aria-disabled="true">敬请期待</a>
+      </div>
+      <div class="bg-white rounded-2xl p-6 text-center shadow-sm hover:shadow-md transition fade-up">
+        <div class="text-3xl mb-3">⚡</div>
+        <h3 class="text-lg font-bold mb-1 text-dark">SudoRouter</h3>
+        <p class="text-sm text-secondary mb-3">多模型智能路由</p>
+        <div class="flex items-center justify-center gap-1 text-xs text-secondary mb-4">
+          <svg class="w-3.5 h-3.5 text-yellow-400" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+          <span>即将开源</span>
+        </div>
+        <a href="#" class="inline-block border-2 border-teal text-teal font-medium px-6 py-2 rounded-lg text-sm cursor-not-allowed opacity-60" aria-disabled="true">敬请期待</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     CTA  (T8)
+     ============================================================ -->
+<section id="cta" class="relative bg-dark py-24 text-center overflow-hidden">
+  <div class="absolute inset-0 z-0">
+    <img src="assets/images/cta-bg.jpg" alt="" aria-hidden="true" class="w-full h-full object-cover opacity-20" loading="lazy" />
+    <div class="absolute inset-0 bg-dark/80"></div>
+  </div>
+  <div class="relative z-10 max-w-content mx-auto px-6 md:px-8">
+    <h2 class="text-3xl md:text-4xl font-bold text-white fade-up">
+      让 AI 从聊天工具，进化为企业的数字劳动力
+    </h2>
+    <p class="text-white/70 mt-4 max-w-xl mx-auto leading-relaxed fade-up">
+      我们的团队通常在<strong class="text-accent">一周内</strong>完成从需求对接到 POC 环境搭建。<br class="hidden md:inline" />
+      私有化部署，数据不出域，合规无忧。
+    </p>
+    <div class="mt-8 fade-up">
+      <a href="#contact" class="inline-block bg-accent hover:bg-accent-hover text-dark font-bold px-10 py-4 text-lg rounded-lg transition-colors shadow-lg">
+        预约演示
+      </a>
+    </div>
+    <p class="text-white/50 text-sm mt-4 fade-up">
+      或发送邮件至
+      <a href="mailto:business@sudoprivacy.com" class="hover:text-accent transition-colors underline underline-offset-2">
+        business@sudoprivacy.com
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     FOOTER  (T8)
+     ============================================================ -->
+<footer class="bg-[#111111] text-white/60 py-16">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">产品</h4>
+        <ul class="space-y-2">
+          <li><a href="#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li>
+          <li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li>
+          <li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">场景</h4>
+        <ul class="space-y-2">
+          <li><a href="#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li>
+          <li><a href="#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li>
+          <li><a href="#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li>
+          <li><a href="#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li>
+          <li><a href="#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">资源</h4>
+        <ul class="space-y-2">
+          <li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">文档</a></li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">API 参考</a></li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">博客</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-white font-bold text-sm mb-4">公司</h4>
+        <ul class="space-y-2">
+          <li><a href="#about" class="text-sm hover:text-white transition-colors">关于我们</a></li>
+          <li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li>
+          <li><a href="#" class="text-sm hover:text-white transition-colors">加入我们</a></li>
+          <li><a href="terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li>
+          <li><a href="privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <p class="text-xs text-white/40 order-2 md:order-1">
+          © 2024-2026 数牍科技（上海）有限公司 &nbsp;·&nbsp; sudoprivacy.com
+        </p>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 order-1 md:order-2 text-xs text-white/40">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京ICP备20011614号</a>
+          <span class="hidden sm:inline text-white/20">·</span>
+          <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802035764" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京公网安备 11010802035764号</a>
+        </div>
+        <div class="flex items-center gap-3 order-3 text-white/40">
+          <div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-white/30 shrink-0">二维码</div>
+          <span class="text-xs">扫码关注公众号</span>
+        </div>
+      </div>
+      <p class="text-xs text-white/30 text-center mt-6">北京市海淀区成府路28号优盛大厦A座18层</p>
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     返回顶部按钮
+     ============================================================ -->
+<button
+  id="back-to-top"
+  class="fixed bottom-8 right-8 w-12 h-12 bg-accent text-dark rounded-full shadow-lg flex items-center justify-center opacity-0 pointer-events-none z-40"
+  onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+  aria-label="返回顶部"
+>
+  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+    <path d="M10 15V5M5 10l5-5 5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</button>
+
+<!-- ============================================================
+     NAV 脚本 (T1) — 滚动变色 + 汉堡菜单 + 区块高亮
+     ============================================================ -->
+<script>
+  (function () {
+    'use strict';
+
+    var nav = document.getElementById('main-nav');
+    var logoSudo = document.getElementById('logo-sudo');
+    var hamburgerBtn = document.getElementById('hamburger-btn');
+    var mobileMenu = document.getElementById('mobile-menu');
+    var navLinks = document.querySelectorAll('.nav-link');
+    var mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    var hamLines = document.querySelectorAll('.ham-line');
+
+    // 1. Nav 滚动变色
+    function updateNavOnScroll() {
+      var scrolled = window.scrollY > 50;
+      nav.dataset.scrolled = scrolled ? 'true' : 'false';
+      if (scrolled) {
+        nav.style.backgroundColor = 'rgba(250, 249, 240, 0.9)';
+        nav.style.backdropFilter = 'blur(12px)';
+        nav.style.webkitBackdropFilter = 'blur(12px)';
+        nav.style.borderBottomColor = '#E5E7EB';
+        nav.style.boxShadow = '0 1px 3px rgba(0,0,0,0.08)';
+        if (logoSudo) logoSudo.style.color = '#1a1a1a';
+        navLinks.forEach(function (link) {
+          if (!link.classList.contains('active')) link.style.color = 'rgba(26, 26, 26, 0.75)';
+        });
+      } else {
+        nav.style.backgroundColor = 'transparent';
+        nav.style.backdropFilter = '';
+        nav.style.webkitBackdropFilter = '';
+        nav.style.borderBottomColor = 'transparent';
+        nav.style.boxShadow = 'none';
+        if (logoSudo) logoSudo.style.color = '#ffffff';
+        navLinks.forEach(function (link) {
+          if (!link.classList.contains('active')) link.style.color = 'rgba(255, 255, 255, 0.8)';
+        });
+      }
+    }
+    window.addEventListener('scroll', updateNavOnScroll, { passive: true });
+    updateNavOnScroll();
+
+    // 2. 汉堡菜单
+    function openMobileMenu() {
+      mobileMenu.classList.remove('hidden');
+      requestAnimationFrame(function () { mobileMenu.classList.add('open'); });
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      hamburgerBtn.setAttribute('aria-label', '关闭菜单');
+      document.body.style.overflow = 'hidden';
+      if (hamLines.length >= 3) {
+        hamLines[0].style.transform = 'translateY(8px) rotate(45deg)';
+        hamLines[1].style.opacity = '0';
+        hamLines[2].style.transform = 'translateY(-8px) rotate(-45deg)';
+      }
+    }
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      setTimeout(function () { mobileMenu.classList.add('hidden'); }, 200);
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      hamburgerBtn.setAttribute('aria-label', '打开菜单');
+      document.body.style.overflow = '';
+      if (hamLines.length >= 3) {
+        hamLines[0].style.transform = '';
+        hamLines[1].style.opacity = '';
+        hamLines[2].style.transform = '';
+      }
+    }
+    hamburgerBtn.addEventListener('click', function () {
+      this.getAttribute('aria-expanded') === 'true' ? closeMobileMenu() : openMobileMenu();
+    });
+    mobileNavLinks.forEach(function (link) {
+      link.addEventListener('click', function () { closeMobileMenu(); });
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && hamburgerBtn.getAttribute('aria-expanded') === 'true') {
+        closeMobileMenu();
+        hamburgerBtn.focus();
+      }
+    });
+
+    // 3. Section 高亮
+    var sections = ['products', 'scenarios', 'opensource', 'about'];
+    var sectionEls = sections.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+    if ('IntersectionObserver' in window && sectionEls.length > 0) {
+      var sectionObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            var id = entry.target.id;
+            var isScrolled = nav.dataset.scrolled === 'true';
+            navLinks.forEach(function (link) {
+              var isActive = link.dataset.section === id;
+              link.classList.toggle('active', isActive);
+              link.style.color = isActive ? '#F59E0B' : (isScrolled ? 'rgba(26,26,26,0.75)' : 'rgba(255,255,255,0.8)');
+            });
+          }
+        });
+      }, { rootMargin: '-50% 0px -50% 0px', threshold: 0 });
+      sectionEls.forEach(function (el) { sectionObserver.observe(el); });
+    }
+  })();
+</script>
+
+<!-- ============================================================
+     全局 JS — fade-up IntersectionObserver + 返回顶部
+     ============================================================ -->
+<script>
+  (function () {
+    'use strict';
+
+    // ── 1. 全局 fade-up 动画 ──────────────────────────────────
+    if ('IntersectionObserver' in window) {
+      var fadeObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      // 观察所有未加 visible 的 fade-up 元素
+      // （production-line section 有自己的 observer，但重复 observe 无害）
+      document.querySelectorAll('.fade-up:not(#production-line .fade-up)').forEach(function (el) {
+        fadeObserver.observe(el);
+      });
+    } else {
+      // 降级：直接显示
+      document.querySelectorAll('.fade-up').forEach(function (el) {
+        el.classList.add('visible');
+      });
+    }
+
+    // ── 2. 返回顶部按钮 ───────────────────────────────────────
+    var backToTop = document.getElementById('back-to-top');
+    if (backToTop) {
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 500) {
+          backToTop.style.opacity = '1';
+          backToTop.style.pointerEvents = 'auto';
+        } else {
+          backToTop.style.opacity = '0';
+          backToTop.style.pointerEvents = 'none';
+        }
+      }, { passive: true });
+    }
+
+  })();
+</script>
+
+</body>
+</html>
