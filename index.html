@@ -196,6 +196,65 @@
         transition-duration: 0.01ms !important;
       }
     }
+
+    /* ── Architecture Carousel ──────────────────────────────── */
+    #arch-carousel {
+      position: relative;
+      overflow: hidden;
+    }
+
+    #arch-track {
+      display: flex;
+      transition: transform 0.4s ease;
+      will-change: transform;
+    }
+
+    .arch-slide {
+      min-width: 100%;
+      box-sizing: border-box;
+    }
+
+    #arch-prev, #arch-next {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 10;
+      background: white;
+      border: 1px solid #e5e7eb;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.25rem;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      display: none;
+    }
+    @media (min-width: 768px) {
+      #arch-prev, #arch-next { display: flex; align-items: center; justify-content: center; }
+    }
+    #arch-prev { left: -1.25rem; }
+    #arch-next { right: -1.25rem; }
+
+    #arch-dots {
+      display: flex;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-top: 1.5rem;
+    }
+    .arch-dot {
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 9999px;
+      background: #d1d5db;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s, width 0.2s;
+      padding: 0;
+    }
+    .arch-dot.active {
+      background: var(--accent);
+      width: 1.5rem;
+    }
   </style>
 
   <title>SudoClaw — 企业硅基劳动力平台</title>
@@ -594,102 +653,126 @@
       SudoClaw 独创的双引擎模式，彻底改变人与 AI 的协作方式
     </p>
 
-    <!-- 双栏卡片 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+    <!-- 轮播容器 -->
+    <div id="arch-carousel">
 
-      <!-- 左栏：Copilot 卡片 -->
-      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.15s;">
-        <!-- 图标 -->
-        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: var(--accent-light);">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="16" cy="12" r="7" stroke="#F59E0B" stroke-width="2.5" fill="none"/>
-            <path d="M16 19v2M12 28c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
-            <path d="M10 10.5c.5-2.5 2.8-4.5 6-4.5" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+      <!-- 轨道 -->
+      <div id="arch-track">
+
+        <!-- Slide 1: 双栏卡片 -->
+        <div class="arch-slide">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-14">
+
+            <!-- 左栏：Copilot 卡片 -->
+            <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.15s;">
+              <!-- 图标 -->
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: var(--accent-light);">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="16" cy="12" r="7" stroke="#F59E0B" stroke-width="2.5" fill="none"/>
+                  <path d="M16 19v2M12 28c0-2.21 1.79-4 4-4s4 1.79 4 4" stroke="#F59E0B" stroke-width="2.5" stroke-linecap="round"/>
+                  <path d="M10 10.5c.5-2.5 2.8-4.5 6-4.5" stroke="#F59E0B" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: var(--accent-light); color: var(--accent-hover);">
+                Copilot
+              </div>
+
+              <h3 class="text-2xl font-bold text-dark mb-3">您的数字合伙人</h3>
+
+              <p class="text-gray-600 leading-relaxed mb-5">
+                管理者唯一需要交互的界面。理解您的战略意图和业务上下文，将模糊的指令转化为精准的执行任务。
+              </p>
+
+              <ul class="space-y-3 text-sm text-gray-600">
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+                  <span>理解战略意图和业务上下文</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+                  <span>将模糊指令转化为精准执行任务</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
+                  <span>不需要写 prompt，像对副手一样下达指示</span>
+                </li>
+              </ul>
+            </div>
+
+            <!-- 右栏：Worker 卡片 -->
+            <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.3s;">
+              <!-- 图标 -->
+              <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: #CCFBF1;">
+                <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <circle cx="16" cy="16" r="5" stroke="#0D9488" stroke-width="2.5" fill="none"/>
+                  <circle cx="6" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+                  <circle cx="26" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+                  <circle cx="6" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+                  <circle cx="26" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
+                  <path d="M11 16H9M23 16h-2M16 11V9M16 23v-2" stroke="#0D9488" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+              </div>
+
+              <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: #CCFBF1; color: #0F766E;">
+                Worker
+              </div>
+
+              <h3 class="text-2xl font-bold text-dark mb-3">您的数字专员团队</h3>
+
+              <p class="text-gray-600 leading-relaxed mb-5">
+                多个专业 Worker 各司其职、自动协同，代码编写、数据处理、文档生成、ERP 对接，完成从任务拆解到结果交付的完整闭环。
+              </p>
+
+              <ul class="space-y-3 text-sm text-gray-600">
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+                  <span>多个专业 Worker 各司其职、自动协同</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+                  <span>代码编写、数据处理、文档生成、ERP 对接</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
+                  <span>任务拆解到结果交付的完整闭环</span>
+                </li>
+              </ul>
+            </div>
+
+          </div>
         </div>
 
-        <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: var(--accent-light); color: var(--accent-hover);">
-          Copilot
+        <!-- Slide 2: 架构流程图 -->
+        <div class="arch-slide">
+          <img
+            src="assets/images/architecture-flow.jpg"
+            alt="SudoClaw Copilot + Worker 架构流程图"
+            class="w-full rounded-2xl shadow-sm"
+            loading="lazy"
+          />
         </div>
 
-        <h3 class="text-2xl font-bold text-dark mb-3">您的数字合伙人</h3>
+        <!-- Slide 3: 对比图 -->
+        <div class="arch-slide">
+          <img src="assets/images/architecture-comparison.jpg"
+               alt="传统 AI 工具 vs SudoClaw"
+               class="w-full rounded-2xl shadow-sm" />
+        </div>
 
-        <p class="text-gray-600 leading-relaxed mb-5">
-          管理者唯一需要交互的界面。理解您的战略意图和业务上下文，将模糊的指令转化为精准的执行任务。
-        </p>
-
-        <ul class="space-y-3 text-sm text-gray-600">
-          <li class="flex items-start gap-2">
-            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
-            <span>理解战略意图和业务上下文</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
-            <span>将模糊指令转化为精准执行任务</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: var(--accent-light); color: var(--accent-hover);">✓</span>
-            <span>不需要写 prompt，像对副手一样下达指示</span>
-          </li>
-        </ul>
       </div>
 
-      <!-- 右栏：Worker 卡片 -->
-      <div class="bg-white rounded-2xl p-8 shadow-sm hover:shadow-md transition fade-up" style="transition-delay: 0.3s;">
-        <!-- 图标 -->
-        <div class="w-14 h-14 rounded-xl flex items-center justify-center mb-6" style="background-color: #CCFBF1;">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <circle cx="16" cy="16" r="5" stroke="#0D9488" stroke-width="2.5" fill="none"/>
-            <circle cx="6" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
-            <circle cx="26" cy="10" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
-            <circle cx="6" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
-            <circle cx="26" cy="22" r="3" stroke="#0D9488" stroke-width="2" fill="none"/>
-            <path d="M11 16H9M23 16h-2M16 11V9M16 23v-2" stroke="#0D9488" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-        </div>
+      <!-- 箭头按钮 -->
+      <button id="arch-prev" aria-label="上一张">‹</button>
+      <button id="arch-next" aria-label="下一张">›</button>
 
-        <div class="inline-block text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full mb-3" style="background-color: #CCFBF1; color: #0F766E;">
-          Worker
-        </div>
-
-        <h3 class="text-2xl font-bold text-dark mb-3">您的数字专员团队</h3>
-
-        <p class="text-gray-600 leading-relaxed mb-5">
-          多个专业 Worker 各司其职、自动协同，代码编写、数据处理、文档生成、ERP 对接，完成从任务拆解到结果交付的完整闭环。
-        </p>
-
-        <ul class="space-y-3 text-sm text-gray-600">
-          <li class="flex items-start gap-2">
-            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
-            <span>多个专业 Worker 各司其职、自动协同</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
-            <span>代码编写、数据处理、文档生成、ERP 对接</span>
-          </li>
-          <li class="flex items-start gap-2">
-            <span class="mt-0.5 flex-shrink-0 w-5 h-5 rounded-full flex items-center justify-center text-xs font-bold" style="background-color: #CCFBF1; color: #0F766E;">✓</span>
-            <span>任务拆解到结果交付的完整闭环</span>
-          </li>
-        </ul>
+      <!-- 指示点 -->
+      <div id="arch-dots">
+        <button class="arch-dot active" aria-label="第1张"></button>
+        <button class="arch-dot" aria-label="第2张"></button>
+        <button class="arch-dot" aria-label="第3张"></button>
       </div>
 
-    </div>
-
-    <!-- 架构流程图 -->
-    <div class="mb-14 fade-up" style="transition-delay: 0.35s;">
-      <img
-        src="assets/images/architecture-flow.jpg"
-        alt="SudoClaw Copilot + Worker 架构流程图"
-        class="w-full rounded-2xl shadow-sm"
-        loading="lazy"
-      />
-    </div>
-
-    <div class="mb-8 fade-up" style="transition-delay: 0.45s;">
-      <img src="assets/images/architecture-comparison.jpg"
-           alt="传统 AI 工具 vs SudoClaw"
-           class="w-full rounded-2xl shadow-sm" />
     </div>
 
     <!-- 真实案例引用 -->
@@ -2270,6 +2353,33 @@
       openLightbox(img.src, img.alt);
     });
   })();
+</script>
+
+<script>
+(function() {
+  const track = document.getElementById('arch-track');
+  const dots = document.querySelectorAll('.arch-dot');
+  const total = 3;
+  let current = 0;
+  let startX = 0;
+
+  function goTo(index) {
+    current = (index + total) % total;
+    track.style.transform = `translateX(-${current * 100}%)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+  }
+
+  document.getElementById('arch-prev').addEventListener('click', () => goTo(current - 1));
+  document.getElementById('arch-next').addEventListener('click', () => goTo(current + 1));
+
+  dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+
+  track.addEventListener('touchstart', e => { startX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = startX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
+  });
+})();
 </script>
 </body>
 </html>
