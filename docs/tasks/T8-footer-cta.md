@@ -118,7 +118,7 @@
 
 `border-t border-white/10 mt-12 pt-8`，三栏布局（flex justify-between）：
 
-**左：** © 2024-2026 数牍科技 sudoprivacy.com
+**左：** © 2019-2026 数牍科技 sudoprivacy.com
 
 **中：**
 - [京ICP备20011614号](https://beian.miit.gov.cn/) — `text-xs`
