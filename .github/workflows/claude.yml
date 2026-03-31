@@ -37,10 +37,9 @@ jobs:
         uses: anthropics/claude-code-action@v1
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
-          direct_prompt: |
-            When making any code changes, you MUST:
-            1. Create a new branch (never commit directly to main)
-            2. Commit all changes to that new branch
-            3. Open a pull request targeting main for review
+          claude_args: '--model claude-opus-4-6 --allowedTools "Bash(gh pr create:*)" "Bash(gh pr view:*)"'
+
           additional_permissions: |
             actions: read
+            contents: write
+            pull_requests: write
