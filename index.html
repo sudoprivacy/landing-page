@@ -257,11 +257,16 @@
       background: var(--accent);
       width: 1.5rem;
     }
+
+    #download a:focus-visible {
+      outline: 2px solid var(--teal);
+      outline-offset: 2px;
+    }
   </style>
 
   <title>SudoClaw — 企业硅基劳动力平台</title>
 </head>
-<body class="bg-dark">
+<body class="bg-page">
 
 <!-- ============================================================
      HEADER / NAV
@@ -315,7 +320,19 @@
     </nav>
 
     <!-- Desktop CTA -->
-    <div class="hidden md:flex items-center">
+    <div class="hidden md:flex items-center gap-3">
+      <a
+        href="#download"
+        class="inline-flex items-center gap-2 bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200"
+        aria-label="前往下载区域"
+      >
+        <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        下载
+      </a>
       <a
         href="#cta"
         class="bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200"
@@ -354,6 +371,20 @@
     <a href="#about"     class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors" data-section="about">关于我们</a>
     <a href="blog.html" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">博客</a>
   </nav>
+
+  <a
+    href="#download"
+    class="mobile-nav-link inline-flex items-center justify-center gap-2 bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors"
+    aria-label="前往下载区域"
+  >
+    <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+      <polyline points="7 10 12 15 17 10"/>
+      <line x1="12" y1="15" x2="12" y2="3"/>
+    </svg>
+    下载
+  </a>
+
   <a
     href="#cta"
     class="mobile-nav-link bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors"
@@ -998,9 +1029,30 @@
             </li>
             <li class="flex items-start gap-2">
               <span class="text-teal mt-0.5 leading-none">●</span>
-              <span>跨平台支持 macOS、Windows、Linux</span>
+              <span>跨平台支持 macOS、Windows</span>
             </li>
           </ul>
+
+          <!-- Download Links -->
+          <div class="mt-5 pt-4 border-t border-border">
+            <p class="text-xs text-secondary mb-3">下载客户端：</p>
+            <div class="flex flex-wrap gap-2">
+              <a href="#download-macos"
+                 class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-gray-100 hover:bg-accent-light text-gray-700 hover:text-accent transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.8-1.53-.02-1.99.81-3.32.84-1.34.03-2.37-1.21-3.21-2.45-1.87-2.55-3.34-7.2-.76-10.33 1.34-1.62 3.42-2.63 5.44-2.66 1.33-.02 2.56.73 3.29.74.72.01 2.03-.92 3.51-.8.6.03 2.31.24 3.42 1.81-2.87 1.73-2.32 5.53.47 7.19zM15.5 5.5c.65-1.12 1.02-2.41.94-3.73-1.28.05-2.67.79-3.53 1.85-.77 1.02-1.2 2.33-1.07 3.59 1.38.04 2.75-.58 3.66-1.71z"/>
+                </svg>
+                macOS
+              </a>
+              <a href="#download-windows"
+                 class="inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-md bg-gray-100 hover:bg-accent-light text-gray-700 hover:text-accent transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M0 3.449L9.75 2.1v9.451H0V3.449zm10.4 0L24 0v11.4H10.4V3.449zM0 12.6h9.75v9.451L0 20.699V12.6zM10.4 12.6H24V24l-13.6-2.1V12.6z"/>
+                </svg>
+                Windows
+              </a>
+            </div>
+          </div>
 
           <!-- GitHub Link -->
           <a href="https://github.com/sudoprivacy/sudowork"
@@ -2106,6 +2158,96 @@
   </div>
 </section>
 
+<!-- ── 下载区块（与全站：米白底、page 卡片、琥珀主按钮、teal 链接） ── -->
+<section id="download" class="bg-white py-20 md:py-28">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+
+    <div class="text-center mb-12 md:mb-14 fade-up">
+      <h2 class="text-3xl md:text-4xl font-bold text-dark mb-4">下载 SudoClaw</h2>
+      <p class="text-base md:text-lg text-secondary max-w-2xl mx-auto leading-relaxed">
+        支持 macOS 与 Windows
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6 md:gap-8 max-w-4xl mx-auto">
+
+      <!-- macOS -->
+      <div
+        id="download-macos"
+        class="bg-page rounded-2xl p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 fade-up text-center"
+      >
+        <p class="text-sm text-secondary mb-6">macOS 12.0+</p>
+
+        <div class="flex items-center justify-center gap-3 mb-8">
+          <div class="w-14 h-14 bg-accent-light rounded-xl flex items-center justify-center shadow-sm">
+            <svg class="w-8 h-8 text-gray-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.8-1.53-.02-1.99.81-3.32.84-1.34.03-2.37-1.21-3.21-2.45-1.87-2.55-3.34-7.2-.76-10.33 1.34-1.62 3.42-2.63 5.44-2.66 1.33-.02 2.56.73 3.29.74.72.01 2.03-.92 3.51-.8.6.03 2.31.24 3.42 1.81-2.87 1.73-2.32 5.53.47 7.19zM15.5 5.5c.65-1.12 1.02-2.41.94-3.73-1.28.05-2.67.79-3.53 1.85-.77 1.02-1.2 2.33-1.07 3.59 1.38.04 2.75-.58 3.66-1.71z"/>
+            </svg>
+          </div>
+          <span class="text-2xl md:text-3xl font-bold font-heading tracking-wide text-dark">MAC</span>
+        </div>
+
+        <div class="text-left max-w-sm mx-auto">
+          <p class="text-sm font-medium text-dark mb-2">.dmg（Apple 芯片）</p>
+          <a
+            id="download-macos-arm"
+            href="https://sudoclaw-download-1309794936.cos.ap-beijing.myqcloud.com/sudowork/release/latest/Sudowork-latest-mac-arm64.dmg"
+            class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
+            aria-label="下载 macOS Apple 芯片版"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span class="min-w-0 flex-1 text-center"><span class="dl-btn-text">点击下载</span></span>
+          </a>
+        </div>
+      </div>
+
+      <!-- Windows -->
+      <div
+        id="download-windows"
+        class="bg-page rounded-2xl p-8 shadow-sm hover:shadow-md hover:-translate-y-1 transition-all duration-300 fade-up text-center"
+      >
+        <p class="text-sm text-secondary mb-6">Windows 10 / 11</p>
+
+        <div class="flex items-center justify-center gap-3 mb-8">
+          <div class="w-14 h-14 bg-accent-light rounded-xl flex items-center justify-center shadow-sm">
+            <svg class="w-8 h-8 text-gray-700" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M0 3.449L9.75 2.1v9.451H0V3.449zm10.4 0L24 0v11.4H10.4V3.449zM0 12.6h9.75v9.451L0 20.699V12.6zM10.4 12.6H24V24l-13.6-2.1V12.6z"/>
+            </svg>
+          </div>
+          <span class="text-2xl md:text-3xl font-bold font-heading text-dark">Windows</span>
+        </div>
+
+        <div class="text-left max-w-sm mx-auto">
+          <p class="text-sm font-medium text-dark mb-2">Windows x64</p>
+          <a
+            id="download-windows-x64"
+            href="https://sudoclaw-download-1309794936.cos.ap-beijing.myqcloud.com/sudowork/release/latest/Sudowork-latest-win-x64.exe"
+            class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
+            aria-label="下载 Windows x64 版"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span class="min-w-0 flex-1 text-center"><span class="dl-btn-text">点击下载</span></span>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
 <!-- ── 底部 CTA 区块 ──────────────────────────────────────────── -->
 <section id="cta" class="relative bg-dark py-24 text-center overflow-hidden">
 
@@ -2298,6 +2440,89 @@
       });
     }, { threshold: 0.5 });
     counters.forEach(function(el) { observer.observe(el); });
+  })();
+
+  // ── #download: 当前系统对应按钮显示「（推荐）」 ───────────────
+  // 说明：仅用 UA 里的 arm64 不可靠（Safari 在 Apple Silicon 上常仍显示 Intel Mac OS X）。
+  // 优先 User-Agent Client Hints 的 architecture，其次 WebGL 渲染器，再回退 UA。
+  (function () {
+    var map = {
+      'macos-arm': { id: 'download-macos-arm', aria: '下载 macOS Apple 芯片版（推荐）' },
+      windows: { id: 'download-windows-x64', aria: '下载 Windows x64 版（推荐）' }
+    };
+
+    function apply(variant) {
+      if (!variant || !map[variant]) return;
+      var cfg = map[variant];
+      var btn = document.getElementById(cfg.id);
+      if (!btn) return;
+      var label = btn.querySelector('.dl-btn-text');
+      if (label) label.textContent = '点击下载（推荐）';
+      btn.setAttribute('aria-label', cfg.aria);
+    }
+
+    function isMac() {
+      var platform = (navigator.platform || '').toLowerCase();
+      var ua = (navigator.userAgent || '').toLowerCase();
+      return platform.indexOf('mac') !== -1 || ua.indexOf('mac os') !== -1 || ua.indexOf('macintosh') !== -1;
+    }
+
+    function isWindows() {
+      var platform = (navigator.platform || '').toLowerCase();
+      var ua = (navigator.userAgent || '').toLowerCase();
+      return platform.indexOf('win') !== -1 || ua.indexOf('windows') !== -1;
+    }
+
+    /** @returns {'arm'|'intel'|null} */
+    function macArchFromWebGL() {
+      try {
+        var canvas = document.createElement('canvas');
+        var gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+        if (!gl) return null;
+        var ext = gl.getExtension('WEBGL_debug_renderer_info');
+        if (!ext) return null;
+        var r = gl.getParameter(ext.UNMASKED_RENDERER_WEBGL) || '';
+        if (/Apple M[0-9]|Apple GPU/i.test(r)) return 'arm';
+        if (/Intel|AMD|Radeon|NVIDIA|GeForce|Iris|UHD Graphics|HD Graphics/i.test(r)) return 'intel';
+        return null;
+      } catch (e) {
+        return null;
+      }
+    }
+
+    /** 同步推断（无 Client Hints 时）：UA arm64 或 WebGL Apple 芯片；Intel 机型无单独下载包，不标推荐 */
+    function macVariantSync() {
+      var ua = navigator.userAgent || '';
+      if (/arm64|aarch64/i.test(ua)) return 'macos-arm';
+      var arch = macArchFromWebGL();
+      if (arch === 'arm') return 'macos-arm';
+      return null;
+    }
+
+    if (isWindows()) {
+      apply('windows');
+      return;
+    }
+    if (!isMac()) return;
+
+    if (navigator.userAgentData && typeof navigator.userAgentData.getHighEntropyValues === 'function') {
+      navigator.userAgentData.getHighEntropyValues(['architecture']).then(function (h) {
+        var arch = (h && h.architecture) || '';
+        if (arch === 'arm') {
+          apply('macos-arm');
+          return;
+        }
+        if (arch === 'x86' || arch === 'x86_64') {
+          return;
+        }
+        apply(macVariantSync());
+      }).catch(function () {
+        apply(macVariantSync());
+      });
+      return;
+    }
+
+    apply(macVariantSync());
   })();
 </script>
 
