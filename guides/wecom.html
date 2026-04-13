@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SudoClaw 企业微信接入指南 — 通过 WebSocket 长连接将 SudoClaw 接入企业微信，随时随地远程操控完成任务" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoClaw, 企业微信接入, WeCom" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SudoClaw" />
+  <link rel="icon" href="../assets/favicon.ico" />
+  <meta name="theme-color" content="#FAF9F0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAF9F0', dark: '#1a1a1a', 'dark-footer': '#111111',
+            accent: '#F59E0B', 'accent-hover': '#D97706', 'accent-light': '#FEF3C7',
+            teal: '#0D9488', 'teal-hover': '#0F766E', border: '#E5E7EB',
+          },
+          fontFamily: {
+            heading: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            body: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+          },
+          maxWidth: { content: '1200px' },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root {
+      --bg-page:#faf9f0;--bg-card:#fff;--bg-dark:#1a1a1a;--bg-footer:#111;
+      --text-primary:#1a1a1a;--text-secondary:#6b7280;
+      --text-on-dark:#fff;--text-on-dark-muted:rgba(255,255,255,.7);
+      --accent:#f59e0b;--accent-hover:#d97706;--accent-light:#fef3c7;
+      --teal:#0d9488;--teal-hover:#0f766e;--border:#e5e7eb;
+      --font-heading:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+      --font-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+      --font-mono:"JetBrains Mono","Fira Code",monospace;
+      --nav-height:64px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg-page);color:var(--text-primary);font-family:var(--font-body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);font-weight:700;line-height:1.25;color:var(--text-primary);margin:0 0 .5em}
+    h1{font-weight:900}
+    a{color:var(--teal);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--teal-hover)}
+    img,svg,video{display:block;max-width:100%}
+    code,pre,kbd,samp{font-family:var(--font-mono);font-size:.875em}
+
+
+    #mobile-menu{transition:opacity .2s,visibility .2s}
+    #mobile-menu.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    #mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
+    #main-nav{transition:background-color .3s,border-color .3s,box-shadow .3s}
+
+    .guide-nav-link{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:8px;font-size:14px;color:#6b7280;transition:background .15s,color .15s}
+    .guide-nav-link:hover{background:rgba(0,0,0,.04);color:#1a1a1a}
+    .guide-nav-link.active{background:var(--accent-light);color:#1a1a1a;font-weight:600}
+    .guide-nav-link .guide-icon{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+    }
+  </style>
+  <title>企业微信接入指南 — SudoClaw</title>
+</head>
+<body class="bg-page">
+
+<!-- NAV -->
+<header id="main-nav" class="fixed top-0 w-full z-50 h-16 border-b border-transparent">
+  <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoClaw 首页">
+      <img src="../assets/logo/app.png" alt="SudoClaw Logo" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'" />
+      <span class="font-heading font-black text-xl leading-none select-none"><span class="text-dark font-black">Sudo</span><span class="text-accent">Claw</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
+      <a href="../index.html#products" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">产品</a>
+      <a href="../index.html#scenarios" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">场景</a>
+      <a href="../index.html#opensource" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">开源</a>
+      <a href="../index.html#about" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">关于我们</a>
+    </nav>
+    <div class="hidden md:flex items-center">
+      <a href="../index.html#cta" class="bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200">预约演示</a>
+    </div>
+    <button id="hamburger-btn" class="md:hidden flex flex-col gap-1.5 p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+    </button>
+  </div>
+</header>
+
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-dark/95 backdrop-blur-md flex flex-col items-center justify-center gap-8" role="dialog" aria-modal="true" aria-label="移动端导航菜单">
+  <nav class="flex flex-col items-center gap-6" aria-label="移动端主导航">
+    <a href="../index.html#products" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">产品</a>
+    <a href="../index.html#scenarios" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">场景</a>
+    <a href="../index.html#opensource" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">开源</a>
+    <a href="../index.html#about" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">关于我们</a>
+  </nav>
+  <a href="../index.html#cta" class="mobile-nav-link bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors">预约演示</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="pt-16 min-h-screen">
+
+  <!-- Hero -->
+  <section class="bg-dark py-20 text-center">
+    <div class="max-w-content mx-auto px-6">
+      <h1 class="text-4xl md:text-5xl font-black text-white">企业微信接入指南</h1>
+      <p class="text-white/70 mt-4 text-lg">通过 SudoClaw 的企业微信渠道配置，将 SudoClaw 接入企业微信，随时随地远程操控完成任务</p>
+    </div>
+  </section>
+
+  <!-- Content: Side Nav + Main -->
+  <div class="max-w-content mx-auto px-6 md:px-8 py-12">
+    <div class="flex gap-10">
+
+      <!-- Left: Guide Navigation -->
+      <aside class="hidden lg:block w-52 shrink-0">
+        <nav class="sticky top-24" aria-label="平台接入指南">
+          <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">平台接入指南</p>
+          <div class="flex flex-col gap-1">
+            <a href="weixin-clawbot.html" class="guide-nav-link">个人微信接入指南</a>
+            <a href="wecom.html" class="guide-nav-link active">企业微信接入指南</a>
+            <a href="feishu.html" class="guide-nav-link">飞书接入指南</a>
+            <a href="dingtalk.html" class="guide-nav-link">钉钉接入指南</a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Right: Main Content -->
+      <div class="flex-1 min-w-0 max-w-3xl space-y-16">
+
+        <!-- 前提条件 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">前提条件</h2>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>已在电脑上安装并登录 <strong>SudoClaw</strong></span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>拥有一个可创建智能机器人的<strong>企业微信账号</strong></span></li>
+          </ul>
+          <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg mt-5">
+            <p class="text-sm text-dark/80 m-0">SudoClaw 通过 <strong>WebSocket 长连接</strong>方式接入企业微信，无需配置 Webhook URL，只需填写 Bot ID 和 Secret 即可完成绑定。</p>
+          </div>
+        </section>
+
+        <!-- 步骤一 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤一：创建企业微信智能机器人</h2>
+
+          <!-- 1）选择创建入口 -->
+          <h3 class="text-lg font-bold text-dark mb-4">1）选择创建入口</h3>
+          <p class="text-gray-700 mb-4">可根据您的账号角色选择不同入口：</p>
+          <div class="space-y-4 mb-5">
+            <div class="bg-white rounded-2xl p-5 shadow-sm">
+              <h4 class="font-bold text-dark mb-2 text-sm">管理员</h4>
+              <p class="text-gray-600 text-sm leading-relaxed m-0">打开浏览器，访问<a href="https://work.weixin.qq.com/wework_admin/frame" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-hover underline underline-offset-2">企业微信管理后台</a>，使用管理员账号登录后，依次点击「安全与管理」→「管理工具」→「智能机器人」→「创建机器人」</p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm">
+              <h4 class="font-bold text-dark mb-2 text-sm">普通成员</h4>
+              <p class="text-gray-600 text-sm leading-relaxed m-0">打开企业微信客户端，进入「工作台」→「智能机器人应用」→「创建机器人」</p>
+            </div>
+          </div>
+          <img src="images/wecom-guide-1.BEQ8dvDd.png" alt="企业微信创建机器人入口" class="w-full rounded-xl border border-border" />
+
+          <!-- 2）进入 API 模式创建流程 -->
+          <h3 class="text-lg font-bold text-dark mb-4 mt-8">2）进入 API 模式创建流程</h3>
+          <p class="text-gray-700 mb-4">进入机器人创建页面后，按以下方式切换到 API 模式：</p>
+          <div class="space-y-4 mb-5">
+            <div class="bg-white rounded-2xl p-5 shadow-sm">
+              <h4 class="font-bold text-dark mb-2 text-sm">管理员</h4>
+              <p class="text-gray-600 text-sm leading-relaxed m-0">在创建页面直接选择 <strong>「API 模式创建」</strong></p>
+            </div>
+            <div class="bg-white rounded-2xl p-5 shadow-sm">
+              <h4 class="font-bold text-dark mb-2 text-sm">普通成员</h4>
+              <p class="text-gray-600 text-sm leading-relaxed m-0">如果先进入 AI 自动生成页面，请点击左下角的 <strong>「手动创建」</strong>，再选择 <strong>「API 模式创建」</strong></p>
+            </div>
+          </div>
+          <img src="images/wecom-guide-2.DlrX2Hk3.png" alt="选择 API 模式创建" class="w-full rounded-xl border border-border mb-4" />
+          <img src="images/manual-create.h9BezxEX.png" alt="手动创建入口" class="w-full rounded-xl border border-border mb-4" />
+          <img src="images/api-mode-create.png" alt="API 模式创建" class="w-full rounded-xl border border-border mb-5" />
+
+          <p class="text-gray-700 mb-4">进入 API 模式页面后，填写机器人基本信息并保存：</p>
+          <ol class="space-y-4">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">填写机器人名称，建议填写如「SudoClaw 助手」</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">设置可见范围，选择需要使用机器人的成员、部门或标签</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">点击页面底部的 <strong>「保存」</strong></p></li>
+          </ol>
+        </section>
+
+        <!-- 步骤二 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤二：获取 Bot ID 和 Secret</h2>
+          <p class="text-gray-700 mb-4">保存基本信息后，在右侧「API 配置」区域选择「使用长连接」：</p>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">复制 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Bot ID</code></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击「点击获取」获取 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Secret</code>，并妥善保存</p></li>
+          </ol>
+          <img src="images/longlink-bot-credentials.png" alt="获取 Bot ID 和 Secret" class="w-full rounded-xl border border-border mb-5" />
+          <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg">
+            <p class="text-sm text-dark/80 m-0">长连接模式不需要再填写 URL、Token 或 Encoding-AESKey。请务必保存好 Bot ID 和 Secret。</p>
+          </div>
+        </section>
+
+        <!-- 步骤三 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤三：在 SudoClaw 中完成绑定</h2>
+          <ol class="space-y-4">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开 <strong>SudoClaw</strong></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">进入 <strong>远程连接</strong> → <strong>渠道配置</strong></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">在集成列表中找到 <strong>企业微信</strong>，并点击</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">4</div><p class="text-gray-700">填入刚才复制的 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Bot ID</code> 和 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Secret</code></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">5</div><p class="text-gray-700">点击 <strong>「测试并连接」</strong> 完成绑定</p></li>
+          </ol>
+          <img src="images/wecom-bind-config.png" alt="企业微信渠道配置" class="w-full rounded-xl border border-border mt-5" />
+        </section>
+
+        <!-- 步骤四 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤四：开始使用</h2>
+          <p class="text-gray-700 mb-4">配置完成后，您就可以在企业微信中直接与机器人对话了。</p>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">在企业微信通讯录的「企业创建的」分组下找到刚刚创建的机器人</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击「发消息」即可开始下发任务</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">发送一条简单消息（例如「你好」）进行联通测试</p></li>
+          </ol>
+          <img src="images/connected-chat.png" alt="联通后对话效果" class="w-full rounded-xl border border-border mb-5" />
+          <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg">
+            <p class="text-sm text-dark/80 m-0">如果配置正确，SudoClaw 会接收到消息并在企业微信中返回回复。您也可以在 企业微信渠道配置中选择使用的 Agent（默认为 SudoClaw）。</p>
+          </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">常见问题</h2>
+          <div class="space-y-5">
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-dark mb-2">机器人没有响应怎么办？</h3>
+              <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
+                <li><strong>检查 SudoClaw 状态</strong>：确保电脑上的 SudoClaw 正在运行，且渠道配置服务已开启</li>
+                <li><strong>核对接入方式</strong>：确认企业微信侧选择的是「使用长连接」</li>
+                <li><strong>检查凭据</strong>：核对 Bot ID 和 Secret 是否正确，避免带入多余空格</li>
+                <li><strong>检查网络连接</strong>：确保电脑能够正常访问网络</li>
+              </ol>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-dark mb-2">测试并连接失败怎么办？</h3>
+              <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
+                <li>确认企业微信侧已选择「使用长连接」</li>
+                <li>重新复制 Bot ID 和 Secret，避免带入多余空格</li>
+                <li>如 Secret 已失效，可在企业微信后台重新获取后再次尝试</li>
+              </ol>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-dark mb-2">在企业微信中找不到机器人怎么办？</h3>
+              <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
+                <li>确认机器人的可见范围包含您的账号</li>
+                <li>在企业微信通讯录的「企业创建的」分组下查找</li>
+                <li>尝试刷新企业微信客户端</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#111111] text-white/60 py-16">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+      <div><h4 class="text-white font-bold text-sm mb-4">产品</h4><ul class="space-y-2"><li><a href="../index.html#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li><li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li><li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">场景</h4><ul class="space-y-2"><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">资源</h4><ul class="space-y-2"><li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li><li><a href="../docs.html" class="text-sm hover:text-white transition-colors">文档</a></li><li><a href="../blog.html" class="text-sm hover:text-white transition-colors">博客</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">公司</h4><ul class="space-y-2"><li><a href="../index.html#about" class="text-sm hover:text-white transition-colors">关于我们</a></li><li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li><li><a href="../careers.html" class="text-sm hover:text-white transition-colors">加入我们</a></li><li><a href="../terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li><li><a href="../privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li></ul></div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <p class="text-xs text-white/40 order-2 md:order-1">&copy; 2019-2026 数牍科技（北京）有限公司 &middot; sudoprivacy.com</p>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 order-1 md:order-2 text-xs text-white/40">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京ICP备20011614号</a>
+          <span class="hidden sm:inline text-white/20">&middot;</span>
+          <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802035764" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京公网安备 11010802035764号</a>
+        </div>
+        <div class="flex items-center gap-3 order-3 text-white/40"><div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-white/30 shrink-0">二维码</div><span class="text-xs">扫码关注公众号</span></div>
+      </div>
+      <p class="text-xs text-white/30 text-center mt-6">北京市海淀区成府路28号优盛大厦A座18层</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+(function(){
+  var nav=document.getElementById('main-nav'),hamburgerBtn=document.getElementById('hamburger-btn'),mobileMenu=document.getElementById('mobile-menu'),navLinks=document.querySelectorAll('.nav-link'),mobileNavLinks=document.querySelectorAll('.mobile-nav-link'),hamLines=document.querySelectorAll('.ham-line');
+  function updateNavOnScroll(){var s=window.scrollY>50;if(s){nav.style.backgroundColor='rgba(250,249,240,0.9)';nav.style.backdropFilter='blur(12px)';nav.style.webkitBackdropFilter='blur(12px)';nav.style.borderBottomColor='#E5E7EB';nav.style.boxShadow='0 1px 3px rgba(0,0,0,0.08)';navLinks.forEach(function(l){l.style.color='rgba(26,26,26,0.75)'});hamLines.forEach(function(l){l.style.backgroundColor='#1a1a1a'})}else{nav.style.backgroundColor='transparent';nav.style.backdropFilter='';nav.style.webkitBackdropFilter='';nav.style.borderBottomColor='transparent';nav.style.boxShadow='none';navLinks.forEach(function(l){l.style.color='rgba(255,255,255,0.8)'});hamLines.forEach(function(l){l.style.backgroundColor='#fff'})}}
+  window.addEventListener('scroll',updateNavOnScroll,{passive:true});updateNavOnScroll();
+  function openMobileMenu(){mobileMenu.classList.remove('hidden');requestAnimationFrame(function(){mobileMenu.classList.add('open')});hamburgerBtn.setAttribute('aria-expanded','true');hamburgerBtn.setAttribute('aria-label','关闭菜单');document.body.style.overflow='hidden';if(hamLines.length>=3){hamLines[0].style.transform='translateY(8px) rotate(45deg)';hamLines[1].style.opacity='0';hamLines[2].style.transform='translateY(-8px) rotate(-45deg)'}}
+  function closeMobileMenu(){mobileMenu.classList.remove('open');setTimeout(function(){mobileMenu.classList.add('hidden')},200);hamburgerBtn.setAttribute('aria-expanded','false');hamburgerBtn.setAttribute('aria-label','打开菜单');document.body.style.overflow='';if(hamLines.length>=3){hamLines[0].style.transform='';hamLines[1].style.opacity='';hamLines[2].style.transform=''}}
+  hamburgerBtn.addEventListener('click',function(){this.getAttribute('aria-expanded')==='true'?closeMobileMenu():openMobileMenu()});
+  mobileNavLinks.forEach(function(l){l.addEventListener('click',closeMobileMenu)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hamburgerBtn.getAttribute('aria-expanded')==='true'){closeMobileMenu();hamburgerBtn.focus()}});
+})();
+</script>
+</body>
+</html>
