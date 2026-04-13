@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SudoClaw 飞书接入指南 — 通过 WebSocket 长连接将 SudoClaw 接入飞书，随时随地远程操控完成任务" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoClaw, 飞书接入, Lark" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="SudoClaw" />
+  <link rel="icon" href="../assets/favicon.ico" />
+  <meta name="theme-color" content="#FAF9F0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            page: '#FAF9F0', dark: '#1a1a1a', 'dark-footer': '#111111',
+            accent: '#F59E0B', 'accent-hover': '#D97706', 'accent-light': '#FEF3C7',
+            teal: '#0D9488', 'teal-hover': '#0F766E', border: '#E5E7EB',
+          },
+          fontFamily: {
+            heading: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            body: ['"Noto Sans SC"', '"PingFang SC"', '"Microsoft YaHei"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', '"Fira Code"', 'monospace'],
+          },
+          maxWidth: { content: '1200px' },
+        },
+      },
+    }
+  </script>
+  <style>
+    :root {
+      --bg-page:#faf9f0;--bg-card:#fff;--bg-dark:#1a1a1a;--bg-footer:#111;
+      --text-primary:#1a1a1a;--text-secondary:#6b7280;
+      --text-on-dark:#fff;--text-on-dark-muted:rgba(255,255,255,.7);
+      --accent:#f59e0b;--accent-hover:#d97706;--accent-light:#fef3c7;
+      --teal:#0d9488;--teal-hover:#0f766e;--border:#e5e7eb;
+      --font-heading:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+      --font-body:"Noto Sans SC","PingFang SC","Microsoft YaHei",sans-serif;
+      --font-mono:"JetBrains Mono","Fira Code",monospace;
+      --nav-height:64px;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+    body{margin:0;background:var(--bg-page);color:var(--text-primary);font-family:var(--font-body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+    h1,h2,h3,h4,h5,h6{font-family:var(--font-heading);font-weight:700;line-height:1.25;color:var(--text-primary);margin:0 0 .5em}
+    h1{font-weight:900}
+    a{color:var(--teal);text-decoration:none;transition:color .2s}
+    a:hover{color:var(--teal-hover)}
+    img,svg,video{display:block;max-width:100%}
+    code,pre,kbd,samp{font-family:var(--font-mono);font-size:.875em}
+
+
+    #mobile-menu{transition:opacity .2s,visibility .2s}
+    #mobile-menu.hidden{opacity:0;visibility:hidden;pointer-events:none}
+    #mobile-menu.open{opacity:1;visibility:visible;pointer-events:auto}
+    #main-nav{transition:background-color .3s,border-color .3s,box-shadow .3s}
+
+    .guide-nav-link{display:flex;align-items:center;gap:10px;padding:8px 14px;border-radius:8px;font-size:14px;color:#6b7280;transition:background .15s,color .15s}
+    .guide-nav-link:hover{background:rgba(0,0,0,.04);color:#1a1a1a}
+    .guide-nav-link.active{background:var(--accent-light);color:#1a1a1a;font-weight:600}
+    .guide-nav-link .guide-icon{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0}
+
+    @media(prefers-reduced-motion:reduce){
+      html{scroll-behavior:auto}
+    }
+  </style>
+  <title>飞书接入指南 — SudoClaw</title>
+</head>
+<body class="bg-page">
+
+<!-- NAV -->
+<header id="main-nav" class="fixed top-0 w-full z-50 h-16 border-b border-transparent">
+  <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoClaw 首页">
+      <img src="../assets/logo/app.png" alt="SudoClaw Logo" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'" />
+      <span class="font-heading font-black text-xl leading-none select-none"><span class="text-dark font-black">Sudo</span><span class="text-accent">Claw</span></span>
+    </a>
+    <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
+      <a href="../index.html#products" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">产品</a>
+      <a href="../index.html#scenarios" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">场景</a>
+      <a href="../index.html#opensource" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">开源</a>
+      <a href="../index.html#about" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">关于我们</a>
+    </nav>
+    <div class="hidden md:flex items-center">
+      <a href="../index.html#cta" class="bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-sm px-5 py-2 rounded-lg transition-colors duration-200">预约演示</a>
+    </div>
+    <button id="hamburger-btn" class="md:hidden flex flex-col gap-1.5 p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-accent" aria-label="打开菜单" aria-expanded="false" aria-controls="mobile-menu">
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+      <span class="ham-line block w-6 h-0.5 bg-white rounded transition-all duration-300"></span>
+    </button>
+  </div>
+</header>
+
+<div id="mobile-menu" class="hidden fixed inset-0 z-40 bg-dark/95 backdrop-blur-md flex flex-col items-center justify-center gap-8" role="dialog" aria-modal="true" aria-label="移动端导航菜单">
+  <nav class="flex flex-col items-center gap-6" aria-label="移动端主导航">
+    <a href="../index.html#products" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">产品</a>
+    <a href="../index.html#scenarios" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">场景</a>
+    <a href="../index.html#opensource" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">开源</a>
+    <a href="../index.html#about" class="mobile-nav-link text-2xl font-heading font-bold text-white hover:text-accent transition-colors">关于我们</a>
+  </nav>
+  <a href="../index.html#cta" class="mobile-nav-link bg-accent hover:bg-accent-hover text-dark font-heading font-bold text-lg px-8 py-3 rounded-lg transition-colors">预约演示</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<main class="pt-16 min-h-screen">
+
+  <!-- Hero -->
+  <section class="bg-dark py-20 text-center">
+    <div class="max-w-content mx-auto px-6">
+      <h1 class="text-4xl md:text-5xl font-black text-white">飞书接入指南</h1>
+      <p class="text-white/70 mt-4 text-lg">通过 SudoClaw 的飞书渠道配置，将 SudoClaw 接入飞书，随时随地远程操控完成任务</p>
+    </div>
+  </section>
+
+  <!-- Content: Side Nav + Main -->
+  <div class="max-w-content mx-auto px-6 md:px-8 py-12">
+    <div class="flex gap-10">
+
+      <!-- Left: Guide Navigation -->
+      <aside class="hidden lg:block w-52 shrink-0">
+        <nav class="sticky top-24" aria-label="平台接入指南">
+          <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-3">平台接入指南</p>
+          <div class="flex flex-col gap-1">
+            <a href="weixin-clawbot.html" class="guide-nav-link">个人微信接入指南</a>
+            <a href="wecom.html" class="guide-nav-link">企业微信接入指南</a>
+            <a href="feishu.html" class="guide-nav-link active">飞书接入指南</a>
+            <a href="dingtalk.html" class="guide-nav-link">钉钉接入指南</a>
+          </div>
+        </nav>
+      </aside>
+
+      <!-- Right: Main Content -->
+      <div class="flex-1 min-w-0 max-w-3xl space-y-16">
+
+        <!-- 前提条件 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">前提条件</h2>
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>已在电脑上安装并登录 <strong>SudoClaw</strong></span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>拥有一个飞书企业账号（需要有<strong>创建应用的权限</strong>）</span></li>
+          </ul>
+          <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg mt-5">
+            <p class="text-sm text-dark/80 m-0">SudoClaw 通过 <strong>WebSocket 长连接</strong>方式接入飞书，无需配置事件回调地址或 Webhook URL，只需填写 App ID 和 App Secret 即可完成连接。</p>
+          </div>
+        </section>
+
+        <!-- 步骤一 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤一：创建飞书应用</h2>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开浏览器，访问<a href="https://open.feishu.cn/app" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-hover underline underline-offset-2">飞书开放平台</a>，使用企业账号登录</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击「创建企业自建应用」</p></li>
+          </ol>
+          <img src="images/feishu-guide-1.DVtlT-_d.png" alt="创建企业自建应用" class="w-full rounded-xl border border-border mt-4 mb-4" />
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">填写应用信息</p></li>
+          </ol>
+          <div class="overflow-x-auto mb-0">
+            <table class="w-full border border-border text-sm">
+              <thead><tr class="bg-gray-50"><th class="text-left px-4 py-3 font-bold text-dark border-b border-border">配置项</th><th class="text-left px-4 py-3 font-bold text-dark border-b border-border">说明</th></tr></thead>
+              <tbody>
+                <tr><td class="px-4 py-3 border-b border-border text-gray-700">应用名称</td><td class="px-4 py-3 border-b border-border text-gray-700">给应用起一个名字，如「SudoClaw 助手」</td></tr>
+                <tr><td class="px-4 py-3 border-b border-border text-gray-700">应用描述</td><td class="px-4 py-3 border-b border-border text-gray-700">简单描述应用的功能</td></tr>
+                <tr><td class="px-4 py-3 text-gray-700">应用图标</td><td class="px-4 py-3 text-gray-700">上传一个应用图标</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="text-gray-700 mt-4">填写完成后，点击「创建」按钮。应用创建成功后会自动跳转到应用详情页面。</p>
+          <img src="images/feishu-guide-2.png" alt="填写应用信息" class="w-full rounded-xl border border-border mt-4" />
+        </section>
+
+        <!-- 步骤二 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤二：添加机器人能力</h2>
+          <p class="text-gray-700 mb-4">在应用详情页的「添加应用能力」区域，找到「机器人」卡片，点击「添加」按钮。</p>
+          <img src="images/feishu-guide-3.CquowSwv.png" alt="添加机器人能力" class="w-full rounded-xl border border-border mt-5" />
+          <img src="images/feishu-guide-4.Bvf_VP1c.png" alt="配置机器人信息" class="w-full rounded-xl border border-border mt-4" />
+          <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg">
+            <p class="text-sm text-dark/80 m-0">添加机器人能力后，请填写机器人的基本信息（名称、描述、预览图），然后点击「确认发布」。</p>
+          </div>
+        </section>
+
+        <!-- 步骤三 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤三：配置应用权限</h2>
+          <p class="text-gray-700 mb-4">为了让机器人能够正常收发消息，需要为应用添加必要的权限。</p>
+
+          <h3 class="text-lg font-bold text-dark mb-4">1）进入权限管理</h3>
+          <p class="text-gray-700 mb-4">在应用详情页左侧菜单中，点击「<strong>权限管理</strong>」，然后选择「<strong>批量导入 / 导出权限</strong>」。</p>
+          <img src="images/feishu-guide-5.BMDln-1L.png" alt="权限管理页面" class="w-full rounded-xl border border-border mb-5" />
+
+          <h3 class="text-lg font-bold text-dark mb-4">2）批量导入权限</h3>
+          <p class="text-gray-700 mb-4">在弹出的窗口中：</p>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">清空输入框中的所有内容</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">将下方的权限列表完整复制并粘贴进去</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">点击「<strong>确定新增权限</strong>」</p></li>
+          </ol>
+
+          <p class="text-gray-700 mb-3 font-bold">需要导入的权限列表：</p>
+          <div class="bg-gray-900 text-gray-100 rounded-lg p-4 font-mono text-sm overflow-x-auto mb-5">
+            <pre class="m-0 whitespace-pre-wrap break-all">{
+  "scopes": {
+    "tenant": [
+      "contact:contact.base:readonly",
+      "docx:document:readonly",
+      "im:chat:read",
+      "im:chat:update",
+      "im:message.group_at_msg:readonly",
+      "im:message.p2p_msg:readonly",
+      "im:message.pins:read",
+      "im:message.pins:write_only",
+      "im:message.reactions:read",
+      "im:message.reactions:write_only",
+      "im:message:readonly",
+      "im:message:recall",
+      "im:message:send_as_bot",
+      "im:message:send_multi_users",
+      "im:message:send_sys_msg",
+      "im:message:update",
+      "im:resource",
+      "application:application:self_manage",
+      "cardkit:card:write",
+      "cardkit:card:read"
+    ],
+    "user": [
+      "contact:user.employee_id:readonly",
+      "offline_access",
+      "base:app:copy",
+      "base:field:create",
+      "base:field:delete",
+      "base:field:read",
+      "base:field:update",
+      "base:record:create",
+      "base:record:delete",
+      "base:record:retrieve",
+      "base:record:update",
+      "base:table:create",
+      "base:table:delete",
+      "base:table:read",
+      "base:table:update",
+      "base:view:read",
+      "base:view:write_only",
+      "base:app:create",
+      "base:app:update",
+      "base:app:read",
+      "board:whiteboard:node:create",
+      "board:whiteboard:node:read",
+      "calendar:calendar:read",
+      "calendar:calendar.event:create",
+      "calendar:calendar.event:delete",
+      "calendar:calendar.event:read",
+      "calendar:calendar.event:reply",
+      "calendar:calendar.event:update",
+      "calendar:calendar.free_busy:read",
+      "contact:contact.base:readonly",
+      "contact:user.base:readonly",
+      "contact:user:search",
+      "docs:document.comment:create",
+      "docs:document.comment:read",
+      "docs:document.comment:update",
+      "docs:document.media:download",
+      "docs:document:copy",
+      "docx:document:create",
+      "docx:document:readonly",
+      "docx:document:write_only",
+      "drive:drive.metadata:readonly",
+      "drive:file:download",
+      "drive:file:upload",
+      "im:chat.members:read",
+      "im:chat:read",
+      "im:message",
+      "im:message.group_msg:get_as_user",
+      "im:message.p2p_msg:get_as_user",
+      "im:message:readonly",
+      "search:docs:read",
+      "search:message",
+      "space:document:delete",
+      "space:document:move",
+      "space:document:retrieve",
+      "task:comment:read",
+      "task:comment:write",
+      "task:task:read",
+      "task:task:write",
+      "task:task:writeonly",
+      "task:tasklist:read",
+      "task:tasklist:write",
+      "wiki:node:copy",
+      "wiki:node:create",
+      "wiki:node:move",
+      "wiki:node:read",
+      "wiki:node:retrieve",
+      "wiki:space:read",
+      "wiki:space:retrieve",
+      "wiki:space:write_only"
+    ]
+  }
+}</pre>
+          </div>
+
+          <img src="images/feishu-guide-6.CKT55pRC.png" alt="批量导入权限" class="w-full rounded-xl border border-border mt-5 mb-4" />
+          <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg">
+            <p class="text-sm text-dark/80 m-0">等待几秒钟，页面会显示权限已成功添加。以上权限涵盖消息收发、文档、日历、通讯录等常用能力。</p>
+          </div>
+          <img src="images/feishu-guide-7.DvbUEU9F.png" alt="权限导入成功" class="w-full rounded-xl border border-border mt-5" />
+        </section>
+
+        <!-- 步骤四 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤四：获取应用凭证</h2>
+          <p class="text-gray-700 mb-4">在应用详情页左侧菜单中，点击「凭证与基础信息」，获取以下凭证：</p>
+          <img src="images/feishu-guide-8.CpdvKWGY.png" alt="获取应用凭证" class="w-full rounded-xl border border-border mb-5" />
+          <div class="overflow-x-auto mb-5">
+            <table class="w-full border border-border text-sm">
+              <thead><tr class="bg-gray-50"><th class="text-left px-4 py-3 font-bold text-dark border-b border-border">凭证</th><th class="text-left px-4 py-3 font-bold text-dark border-b border-border">说明</th></tr></thead>
+              <tbody>
+                <tr><td class="px-4 py-3 border-b border-border text-gray-700"><code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">App ID</code></td><td class="px-4 py-3 border-b border-border text-gray-700">应用的唯一标识</td></tr>
+                <tr><td class="px-4 py-3 border-b border-border text-gray-700"><code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">App Secret</code></td><td class="px-4 py-3 border-b border-border text-gray-700">应用的密钥（点击「查看」获取）</td></tr>
+                <tr><td class="px-4 py-3 border-b border-border text-gray-700"><code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Encrypt Key</code>（可选）</td><td class="px-4 py-3 border-b border-border text-gray-700">事件加密密钥，如需启用可自行配置</td></tr>
+                <tr><td class="px-4 py-3 text-gray-700"><code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Verification Token</code>（可选）</td><td class="px-4 py-3 text-gray-700">事件验证令牌，如需启用可自行配置</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg">
+            <p class="text-sm text-dark/80 m-0">请务必妥善保管 App Secret，不要泄露给他人。Encrypt Key 和 Verification Token 为可选项，SudoClaw 不强制要求填写。</p>
+          </div>
+        </section>
+
+        <!-- 步骤五 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤五：在 SudoClaw 中完成连接</h2>
+          <ol class="space-y-4">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开 <strong>SudoClaw</strong></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">进入 <strong>远程连接</strong> → <strong>渠道配置</strong></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">在集成列表中找到 <strong>飞书</strong>，并点击</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">4</div><p class="text-gray-700">填入 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">App ID</code> 和 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">App Secret</code></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">5</div><p class="text-gray-700">点击 <strong>「测试并连接」</strong> 完成连接</p></li>
+          </ol>
+          <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg mt-5">
+            <p class="text-sm text-dark/80 m-0">SudoClaw 使用 WebSocket 长连接与飞书通信，无需在飞书开放平台配置事件回调地址。连接成功后，可在 飞书渠道配置中选择使用的 Agent（默认为 SudoClaw）。</p>
+          </div>
+          <img src="images/feishu-bind-config.png" alt="飞书渠道配置" class="w-full rounded-xl border border-border mt-5" />
+        </section>
+
+        <!-- 步骤六：配置飞书事件回调 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤六：配置飞书事件回调</h2>
+          <p class="text-gray-700 mb-4">接下来，我们需要告诉飞书将消息发送到哪里。</p>
+
+          <h3 class="text-lg font-bold text-dark mb-4">1）配置事件订阅</h3>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">返回<a href="https://open.feishu.cn/app" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-hover underline underline-offset-2">飞书开放平台</a>，进入应用详情页</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">在左侧菜单中，点击「<strong>事件与回调</strong>」</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">在「订阅方式」中选择「<strong>将事件发送至开发者服务器</strong>」</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">4</div><p class="text-gray-700">将 SudoClaw 中获取的 Webhook 地址粘贴到输入框中</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">5</div><p class="text-gray-700">点击「<strong>保存</strong>」</p></li>
+          </ol>
+          <img src="images/feishu-guide-13.CUvVeJbT.png" alt="配置事件订阅" class="w-full rounded-xl border border-border mb-5" />
+
+          <h3 class="text-lg font-bold text-dark mb-4">2）添加消息接收事件</h3>
+          <p class="text-gray-700 mb-4">在「事件配置」区域，点击「添加事件」，搜索并添加「<strong>接收消息</strong>」事件。</p>
+          <img src="images/feishu-guide-14.PEN-b6c0.png" alt="添加消息接收事件" class="w-full rounded-xl border border-border mb-5" />
+
+          <h3 class="text-lg font-bold text-dark mb-4">3）配置卡片回调</h3>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">切换到「<strong>回调配置</strong>」页签</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">搜索「<strong>卡片回传交互</strong>」</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">点击「<strong>确认添加</strong>」</p></li>
+          </ol>
+          <img src="images/feishu-guide-15.D7Us2LUf.png" alt="搜索卡片回传交互" class="w-full rounded-xl border border-border mb-4" />
+          <img src="images/feishu-guide-16.CBUtnaq6.png" alt="卡片回调配置完成" class="w-full rounded-xl border border-border" />
+        </section>
+
+        <!-- 步骤七 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤七：发布应用</h2>
+          <p class="text-gray-700 mb-4">应用必须发布后才能在飞书中使用。</p>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">点击页面上方的「创建版本」按钮，填写版本号和版本描述（如「集成 SudoClaw」）</p></li>
+          </ol>
+          <img src="images/feishu-create-release.DkAkt14R.png" alt="创建版本" class="w-full rounded-xl border border-border mb-4" />
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">创建成功后，点击版本右侧的「发布」按钮</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">等待审核通过（企业管理员通常会自动审批通过）</p></li>
+          </ol>
+          <img src="images/feishu-release.C_dxs14W.png" alt="发布应用" class="w-full rounded-xl border border-border mb-5" />
+        </section>
+
+        <!-- 步骤七 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤八：开始使用</h2>
+          <ol class="space-y-4 mb-5">
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">在飞书的搜索框中，输入刚才创建的机器人名称进行搜索</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击机器人进入对话窗口，或点击「打开应用」开始使用</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">直接发送您的需求，SudoClaw 会在电脑上自动执行任务，并将结果返回给您</p></li>
+          </ol>
+          <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg">
+            <p class="text-sm text-dark/80 m-0">如果机器人能够正常回复，说明您已成功完成 SudoClaw 与飞书的对接！</p>
+          </div>
+        </section>
+
+        <!-- 常见问题 -->
+        <section>
+          <h2 class="text-2xl font-bold text-dark mb-6">常见问题</h2>
+          <div class="space-y-5">
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-dark mb-2">机器人没有响应怎么办？</h3>
+              <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
+                <li><strong>检查应用状态</strong>：确认应用已成功发布</li>
+                <li><strong>检查 SudoClaw</strong>：确保电脑上的 SudoClaw 正在运行，且渠道配置服务已开启</li>
+                <li><strong>核对凭据</strong>：确认 App ID 和 App Secret 是否正确</li>
+                <li><strong>检查权限</strong>：确保消息相关权限已正确开通</li>
+              </ol>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-dark mb-2">测试并连接 失败怎么办？</h3>
+              <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
+                <li>确认 App ID 和 App Secret 填写正确，没有多余空格</li>
+                <li>确认飞书应用已发布</li>
+                <li>如 App Secret 已泄露或失效，在飞书开放平台重新生成后再次尝试</li>
+              </ol>
+            </div>
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+              <h3 class="font-bold text-dark mb-2">收不到消息怎么办？</h3>
+              <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
+                <li>确认消息相关权限（如 im:message）已正确开通</li>
+                <li>确认 SudoClaw 与飞书的连接状态为已连接</li>
+                <li>尝试重新启动 SudoClaw 后再次测试</li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-[#111111] text-white/60 py-16">
+  <div class="max-w-content mx-auto px-6 md:px-8">
+    <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
+      <div><h4 class="text-white font-bold text-sm mb-4">产品</h4><ul class="space-y-2"><li><a href="../index.html#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li><li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li><li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">场景</h4><ul class="space-y-2"><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">资源</h4><ul class="space-y-2"><li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li><li><a href="../docs.html" class="text-sm hover:text-white transition-colors">文档</a></li><li><a href="../blog.html" class="text-sm hover:text-white transition-colors">博客</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">公司</h4><ul class="space-y-2"><li><a href="../index.html#about" class="text-sm hover:text-white transition-colors">关于我们</a></li><li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li><li><a href="../careers.html" class="text-sm hover:text-white transition-colors">加入我们</a></li><li><a href="../terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li><li><a href="../privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li></ul></div>
+    </div>
+    <div class="border-t border-white/10 mt-12 pt-8">
+      <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+        <p class="text-xs text-white/40 order-2 md:order-1">&copy; 2019-2026 数牍科技（北京）有限公司 &middot; sudoprivacy.com</p>
+        <div class="flex flex-col sm:flex-row items-start sm:items-center gap-2 order-1 md:order-2 text-xs text-white/40">
+          <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京ICP备20011614号</a>
+          <span class="hidden sm:inline text-white/20">&middot;</span>
+          <a href="https://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802035764" target="_blank" rel="noopener noreferrer" class="hover:text-white/70 transition-colors">京公网安备 11010802035764号</a>
+        </div>
+        <div class="flex items-center gap-3 order-3 text-white/40"><div class="w-12 h-12 bg-white/10 rounded flex items-center justify-center text-xs text-white/30 shrink-0">二维码</div><span class="text-xs">扫码关注公众号</span></div>
+      </div>
+      <p class="text-xs text-white/30 text-center mt-6">北京市海淀区成府路28号优盛大厦A座18层</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+'use strict';
+(function(){
+  var nav=document.getElementById('main-nav'),hamburgerBtn=document.getElementById('hamburger-btn'),mobileMenu=document.getElementById('mobile-menu'),navLinks=document.querySelectorAll('.nav-link'),mobileNavLinks=document.querySelectorAll('.mobile-nav-link'),hamLines=document.querySelectorAll('.ham-line');
+  function updateNavOnScroll(){var s=window.scrollY>50;if(s){nav.style.backgroundColor='rgba(250,249,240,0.9)';nav.style.backdropFilter='blur(12px)';nav.style.webkitBackdropFilter='blur(12px)';nav.style.borderBottomColor='#E5E7EB';nav.style.boxShadow='0 1px 3px rgba(0,0,0,0.08)';navLinks.forEach(function(l){l.style.color='rgba(26,26,26,0.75)'});hamLines.forEach(function(l){l.style.backgroundColor='#1a1a1a'})}else{nav.style.backgroundColor='transparent';nav.style.backdropFilter='';nav.style.webkitBackdropFilter='';nav.style.borderBottomColor='transparent';nav.style.boxShadow='none';navLinks.forEach(function(l){l.style.color='rgba(255,255,255,0.8)'});hamLines.forEach(function(l){l.style.backgroundColor='#fff'})}}
+  window.addEventListener('scroll',updateNavOnScroll,{passive:true});updateNavOnScroll();
+  function openMobileMenu(){mobileMenu.classList.remove('hidden');requestAnimationFrame(function(){mobileMenu.classList.add('open')});hamburgerBtn.setAttribute('aria-expanded','true');hamburgerBtn.setAttribute('aria-label','关闭菜单');document.body.style.overflow='hidden';if(hamLines.length>=3){hamLines[0].style.transform='translateY(8px) rotate(45deg)';hamLines[1].style.opacity='0';hamLines[2].style.transform='translateY(-8px) rotate(-45deg)'}}
+  function closeMobileMenu(){mobileMenu.classList.remove('open');setTimeout(function(){mobileMenu.classList.add('hidden')},200);hamburgerBtn.setAttribute('aria-expanded','false');hamburgerBtn.setAttribute('aria-label','打开菜单');document.body.style.overflow='';if(hamLines.length>=3){hamLines[0].style.transform='';hamLines[1].style.opacity='';hamLines[2].style.transform=''}}
+  hamburgerBtn.addEventListener('click',function(){this.getAttribute('aria-expanded')==='true'?closeMobileMenu():openMobileMenu()});
+  mobileNavLinks.forEach(function(l){l.addEventListener('click',closeMobileMenu)});
+  document.addEventListener('keydown',function(e){if(e.key==='Escape'&&hamburgerBtn.getAttribute('aria-expanded')==='true'){closeMobileMenu();hamburgerBtn.focus()}});
+})();
+</script>
+</body>
+</html>
