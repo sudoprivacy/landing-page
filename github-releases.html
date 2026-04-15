@@ -300,9 +300,25 @@
 
 <main class="max-w-content mx-auto px-6 md:px-8 py-8 md:py-10">
 
+  <!-- 单 tag 模式横幅（通过 ?tag=xxx 进入时显示） -->
+  <div id="tag-banner" hidden class="mb-6 md:mb-8 bg-accent-light border border-accent/40 rounded-2xl px-5 py-4 flex flex-col md:flex-row md:items-center gap-3">
+    <div class="flex-1 min-w-0">
+      <div class="text-sm text-dark font-medium">
+        当前仅显示 tag：<code id="tag-banner-name" class="font-mono text-xs bg-white/70 border border-accent/30 px-1.5 py-0.5 rounded ml-1 break-all"></code>
+      </div>
+      <p class="mt-1 text-xs text-secondary">
+        页面已通过 <code class="font-mono bg-white/60 px-1 rounded">?tag=</code> 参数锁定到单个 release。如需浏览所有版本，请点击右侧按钮。
+      </p>
+    </div>
+    <a id="tag-banner-back" href="?" class="shrink-0 inline-flex items-center gap-1.5 border border-border bg-white hover:bg-gray-50 text-dark text-sm font-medium px-4 py-2 rounded-lg transition">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+      查看全部 releases
+    </a>
+  </div>
+
   <!-- 控制栏：筛选 + 镜像 + 刷新 -->
   <section class="mb-6 md:mb-8 flex flex-col gap-4">
-    <div class="flex flex-wrap items-center gap-3">
+    <div id="type-filter-row" class="flex flex-wrap items-center gap-3">
       <span class="text-sm text-secondary font-medium">版本类型：</span>
       <div class="flex flex-wrap gap-2" role="tablist" aria-label="版本类型筛选">
         <button type="button" class="filter-btn active border border-border bg-white text-dark text-sm font-medium px-4 py-1.5 rounded-full transition" data-filter="all" role="tab" aria-selected="true">全部</button>
@@ -376,6 +392,10 @@
           <p id="error-msg" class="text-sm text-secondary mb-4">无法从 GitHub API 获取版本信息。</p>
           <div class="flex flex-wrap gap-2">
             <button id="retry-btn" type="button" class="bg-accent hover:bg-accent-hover text-dark font-bold text-sm px-4 py-2 rounded-lg transition">重试</button>
+            <a id="error-back-to-all" hidden href="?" class="bg-dark hover:bg-black text-white font-bold text-sm px-4 py-2 rounded-lg transition inline-flex items-center gap-1.5">
+              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              查看全部 releases
+            </a>
             <a href="https://github.com/sudoprivacy/sudowork/releases" target="_blank" rel="noopener noreferrer" class="border border-border hover:bg-gray-50 text-dark font-medium text-sm px-4 py-2 rounded-lg transition">前往 GitHub</a>
           </div>
         </div>
@@ -419,6 +439,7 @@
   var OWNER = 'sudoprivacy';
   var REPO = 'sudowork';
   var API_URL = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/releases?per_page=100';
+  var API_TAG_URL = 'https://api.github.com/repos/' + OWNER + '/' + REPO + '/releases/tags/';
 
   // 国内可用的 GitHub 加速镜像
   // 每个函数接受原始 github.com 的下载 URL，返回加速后的 URL
@@ -450,8 +471,31 @@
     releases: [],        // 原始数据（已按 published_at DESC 排序）
     filter: 'all',       // all | release | prerelease
     mirror: 'ghfast',    // 选中镜像
-    fetchedAt: null
+    fetchedAt: null,
+    tag: null            // 若通过 ?tag=xxx 进入，则仅显示该 tag 对应的 release
   };
+
+  // 读取 URL 中的 ?tag= 参数（不存在则返回 null）
+  function getTagFromQuery() {
+    try {
+      var params = new URLSearchParams(window.location.search);
+      var t = params.get('tag');
+      if (!t) return null;
+      t = t.trim();
+      return t || null;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  // 返回"查看全部 releases"的 href（当前路径，去除 query）
+  function allReleasesHref() {
+    try {
+      return window.location.pathname || 'github-releases.html';
+    } catch (e) {
+      return 'github-releases.html';
+    }
+  }
 
   // ── 工具函数 ─────────────────────────────────────────────────
   function $(sel) { return document.querySelector(sel); }
@@ -537,7 +581,13 @@
   // ── 数据加载 ─────────────────────────────────────────────────
   function load() {
     showLoading();
-    var url = API_URL + '&_t=' + Date.now(); // 破缓存
+    var url;
+    if (state.tag) {
+      // 按 tag 拉取单个 release。GitHub 对不存在的 tag 返回 404。
+      url = API_TAG_URL + encodeURIComponent(state.tag) + '?_t=' + Date.now();
+    } else {
+      url = API_URL + '&_t=' + Date.now(); // 破缓存
+    }
 
     fetch(url, {
       headers: { 'Accept': 'application/vnd.github+json' },
@@ -547,27 +597,41 @@
         if (!res.ok) {
           var hint = '';
           if (res.status === 403) hint = '（可能触发了 GitHub API 的速率限制，请稍后重试）';
-          if (res.status === 404) hint = '（仓库不存在或已私有）';
-          throw new Error('HTTP ' + res.status + ' ' + res.statusText + ' ' + hint);
+          else if (res.status === 404) {
+            hint = state.tag
+              ? '（未找到 tag "' + state.tag + '" 对应的 release，请确认 tag 是否存在且已发布）'
+              : '（仓库不存在或已私有）';
+          }
+          var err = new Error('HTTP ' + res.status + ' ' + res.statusText + ' ' + hint);
+          err.status = res.status;
+          throw err;
         }
         return res.json();
       })
       .then(function (data) {
-        if (!Array.isArray(data)) throw new Error('返回数据格式异常');
-
-        // 过滤 draft，按 published_at DESC 排序（prerelease 也按时间参与排序）
-        var list = data
-          .filter(function (r) { return !r.draft; })
-          .slice()
-          .sort(function (a, b) {
-            var ta = a.published_at ? new Date(a.published_at).getTime() : 0;
-            var tb = b.published_at ? new Date(b.published_at).getTime() : 0;
-            if (tb !== ta) return tb - ta;
-            // 次级排序：created_at
-            var ca = a.created_at ? new Date(a.created_at).getTime() : 0;
-            var cb = b.created_at ? new Date(b.created_at).getTime() : 0;
-            return cb - ca;
-          });
+        var list;
+        if (state.tag) {
+          // 单个 release 对象
+          if (!data || typeof data !== 'object' || Array.isArray(data)) {
+            throw new Error('返回数据格式异常');
+          }
+          list = data.draft ? [] : [data];
+        } else {
+          if (!Array.isArray(data)) throw new Error('返回数据格式异常');
+          // 过滤 draft，按 published_at DESC 排序（prerelease 也按时间参与排序）
+          list = data
+            .filter(function (r) { return !r.draft; })
+            .slice()
+            .sort(function (a, b) {
+              var ta = a.published_at ? new Date(a.published_at).getTime() : 0;
+              var tb = b.published_at ? new Date(b.published_at).getTime() : 0;
+              if (tb !== ta) return tb - ta;
+              // 次级排序：created_at
+              var ca = a.created_at ? new Date(a.created_at).getTime() : 0;
+              var cb = b.created_at ? new Date(b.created_at).getTime() : 0;
+              return cb - ca;
+            });
+        }
 
         state.releases = list;
         state.fetchedAt = new Date();
@@ -592,6 +656,16 @@
     $('#empty').hidden = true;
     $('#meta').hidden = true;
     $('#error-msg').textContent = msg || '未知错误';
+    // 在 tag 模式下显示"查看全部 releases"快捷按钮
+    var backBtn = $('#error-back-to-all');
+    if (backBtn) {
+      if (state.tag) {
+        backBtn.hidden = false;
+        backBtn.href = allReleasesHref();
+      } else {
+        backBtn.hidden = true;
+      }
+    }
   }
 
   // ── 渲染 ─────────────────────────────────────────────────────
@@ -625,12 +699,16 @@
     container.appendChild(frag);
 
     // meta
-    var total = state.releases.length;
-    var stable = state.releases.filter(function (r) { return !r.prerelease; }).length;
-    var pre = total - stable;
     $('#meta').hidden = false;
-    $('#meta-count').textContent =
-      '共 ' + total + ' 个版本（正式版 ' + stable + '，预发布 ' + pre + '）· 当前筛选：' + list.length + ' 个';
+    if (state.tag) {
+      $('#meta-count').textContent = '仅显示 tag: ' + state.tag;
+    } else {
+      var total = state.releases.length;
+      var stable = state.releases.filter(function (r) { return !r.prerelease; }).length;
+      var pre = total - stable;
+      $('#meta-count').textContent =
+        '共 ' + total + ' 个版本（正式版 ' + stable + '，预发布 ' + pre + '）· 当前筛选：' + list.length + ' 个';
+    }
     $('#meta-fetched').textContent = '拉取时间 ' + formatDate(state.fetchedAt.toISOString());
   }
 
@@ -646,7 +724,8 @@
     var title = r.name && r.name.trim() ? r.name.trim() : r.tag_name || '(未命名)';
     var tag = r.tag_name || '';
     var isPre = !!r.prerelease;
-    var isLatest = !isPre && r === firstStableRelease();
+    // tag 模式下只取到单个 release，不能判断它是否真的是最新稳定版，因此不标记 Latest
+    var isLatest = !state.tag && !isPre && r === firstStableRelease();
 
     var badges = '';
     if (isPre) {
@@ -877,6 +956,31 @@
     $('#retry-btn').addEventListener('click', function () { load(); });
   }
 
+  // 应用 tag 模式下的 UI 调整
+  function applyTagModeUI() {
+    var banner = $('#tag-banner');
+    var typeRow = $('#type-filter-row');
+    if (state.tag) {
+      // 显示横幅
+      if (banner) {
+        banner.hidden = false;
+        var nameEl = $('#tag-banner-name');
+        if (nameEl) nameEl.textContent = state.tag;
+        var backEl = $('#tag-banner-back');
+        if (backEl) backEl.href = allReleasesHref();
+      }
+      // 隐藏正式版/预发布 Tab（按 tag 过滤时没有意义）
+      if (typeRow) typeRow.hidden = true;
+      // 标题里强调 tag
+      try {
+        document.title = 'SudoWork Release · ' + state.tag + ' — 版本下载';
+      } catch (e) {}
+    } else {
+      if (banner) banner.hidden = true;
+      if (typeRow) typeRow.hidden = false;
+    }
+  }
+
   // ── 启动 ─────────────────────────────────────────────────────
   (function init() {
     // 恢复镜像偏好
@@ -887,6 +991,10 @@
         $('#mirror-select').value = saved;
       }
     } catch (e) {}
+
+    // 解析 ?tag=xxx
+    state.tag = getTagFromQuery();
+    applyTagModeUI();
 
     bindEvents();
     load();
