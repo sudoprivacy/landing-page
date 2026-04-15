@@ -161,13 +161,14 @@
             <div class="bg-white rounded-2xl p-5 shadow-sm">
               <h4 class="font-bold text-dark mb-2 text-sm">管理员</h4>
               <p class="text-gray-600 text-sm leading-relaxed m-0">打开浏览器，访问<a href="https://work.weixin.qq.com/wework_admin/frame" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-hover underline underline-offset-2">企业微信管理后台</a>，使用管理员账号登录后，依次点击「安全与管理」→「管理工具」→「智能机器人」→「创建机器人」</p>
+              <img src="images/wecom-guide-1.BEQ8dvDd.png" alt="创建机器人" class="w-full rounded-lg border border-border mt-3" />
             </div>
             <div class="bg-white rounded-2xl p-5 shadow-sm">
               <h4 class="font-bold text-dark mb-2 text-sm">普通成员</h4>
               <p class="text-gray-600 text-sm leading-relaxed m-0">打开企业微信客户端，进入「工作台」→「智能机器人应用」→「创建机器人」</p>
+              <img src="images/wecom-guide-create-bot-member.jpg" alt="普通成员创建机器人" class="w-full rounded-lg border border-border mt-3" />
             </div>
           </div>
-          <img src="images/wecom-guide-1.BEQ8dvDd.png" alt="企业微信创建机器人入口" class="w-full rounded-xl border border-border" />
 
           <!-- 2）进入 API 模式创建流程 -->
           <h3 class="text-lg font-bold text-dark mb-4 mt-8">2）进入 API 模式创建流程</h3>
@@ -176,15 +177,17 @@
             <div class="bg-white rounded-2xl p-5 shadow-sm">
               <h4 class="font-bold text-dark mb-2 text-sm">管理员</h4>
               <p class="text-gray-600 text-sm leading-relaxed m-0">在创建页面直接选择 <strong>「API 模式创建」</strong></p>
+              <img src="images/wecom-guide-2.DlrX2Hk3.png" alt="选择 API 模式创建" class="w-full rounded-lg border border-border mt-3" />
+              <img src="images/manual-create.h9BezxEX.png" alt="手动创建入口" class="w-full rounded-lg border border-border mt-3" />
+              <img src="images/api-mode-create.png" alt="API 模式创建" class="w-full rounded-lg border border-border mt-3" />
             </div>
             <div class="bg-white rounded-2xl p-5 shadow-sm">
               <h4 class="font-bold text-dark mb-2 text-sm">普通成员</h4>
               <p class="text-gray-600 text-sm leading-relaxed m-0">如果先进入 AI 自动生成页面，请点击左下角的 <strong>「手动创建」</strong>，再选择 <strong>「API 模式创建」</strong></p>
+              <img src="images/wecom-guide-manual-create-1.png" alt="手动创建" class="w-full rounded-lg border border-border mt-3" />
+              <img src="images/wecom-guide-manual-create-2.jpg" alt="手动创建入口" class="w-full rounded-lg border border-border mt-3" />
             </div>
           </div>
-          <img src="images/wecom-guide-2.DlrX2Hk3.png" alt="选择 API 模式创建" class="w-full rounded-xl border border-border mb-4" />
-          <img src="images/manual-create.h9BezxEX.png" alt="手动创建入口" class="w-full rounded-xl border border-border mb-4" />
-          <img src="images/api-mode-create.png" alt="API 模式创建" class="w-full rounded-xl border border-border mb-5" />
 
           <p class="text-gray-700 mb-4">进入 API 模式页面后，填写机器人基本信息并保存：</p>
           <ol class="space-y-4">
@@ -198,11 +201,22 @@
         <section>
           <h2 class="text-2xl font-bold text-dark mb-6">步骤二：获取 Bot ID 和 Secret</h2>
           <p class="text-gray-700 mb-4">保存基本信息后，在右侧「API 配置」区域选择「使用长连接」：</p>
-          <ol class="space-y-4 mb-5">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">复制 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Bot ID</code></p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击「点击获取」获取 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">Secret</code>，并妥善保存</p></li>
-          </ol>
-          <img src="images/longlink-bot-credentials.png" alt="获取 Bot ID 和 Secret" class="w-full rounded-xl border border-border mb-5" />
+          <div class="bg-white rounded-2xl p-5 shadow-sm mb-5">
+            <h4 class="font-bold text-dark mb-2 text-sm">管理员</h4>
+            <ol class="text-gray-600 text-sm leading-relaxed space-y-2 list-decimal list-inside m-0">
+              <li>复制 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-xs">Bot ID</code></li>
+              <li>点击「点击获取」获取 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-xs">Secret</code>，并妥善保存</li>
+            </ol>
+            <img src="images/longlink-bot-credentials.png" alt="获取 Bot ID 和 Secret" class="w-full rounded-lg border border-border mt-3" />
+          </div>
+          <div class="bg-white rounded-2xl p-5 shadow-sm mb-5">
+            <h4 class="font-bold text-dark mb-2 text-sm">普通成员</h4>
+            <ol class="text-gray-600 text-sm leading-relaxed space-y-2 list-decimal list-inside m-0">
+              <li>创建完成后，在机器人详情页复制 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-xs">Bot ID</code></li>
+              <li>点击「点击获取」获取 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-xs">Secret</code>，并妥善保存</li>
+            </ol>
+            <img src="images/wecom-guide-manual-create-3.jpg" alt="普通成员获取 Bot ID 和 Secret" class="w-full rounded-lg border border-border mt-3" />
+          </div>
           <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg">
             <p class="text-sm text-dark/80 m-0">长连接模式不需要再填写 URL、Token 或 Encoding-AESKey。请务必保存好 Bot ID 和 Secret。</p>
           </div>
@@ -227,6 +241,9 @@
           <p class="text-gray-700 mb-4">配置完成后，您就可以在企业微信中直接与机器人对话了。</p>
           <ol class="space-y-4 mb-5">
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">在企业微信通讯录的「企业创建的」分组下找到刚刚创建的机器人</p></li>
+          </ol>
+          <img src="images/wecom-find-robot.png" alt="找到创建的机器人" class="w-full rounded-xl border border-border mb-5" />
+          <ol class="space-y-4">
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击「发消息」即可开始下发任务</p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">发送一条简单消息（例如「你好」）进行联通测试</p></li>
           </ol>

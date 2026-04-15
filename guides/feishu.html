@@ -204,7 +204,8 @@
           </ol>
 
           <p class="text-gray-700 mb-3 font-bold">需要导入的权限列表：</p>
-          <div class="bg-gray-900 text-gray-100 rounded-lg p-4 font-mono text-sm overflow-x-auto mb-5">
+          <div class="bg-gray-900 text-gray-100 rounded-lg p-4 font-mono text-sm overflow-x-auto mb-5 relative">
+            <button onclick="copyCode(this)" class="absolute top-2 right-2 bg-gray-700 hover:bg-gray-600 text-gray-300 text-xs px-2 py-1 rounded transition-colors cursor-pointer">复制</button>
             <pre class="m-0 whitespace-pre-wrap break-all">{
   "scopes": {
     "tenant": [
@@ -348,38 +349,9 @@
           <img src="images/feishu-bind-config.png" alt="飞书渠道配置" class="w-full rounded-xl border border-border mt-5" />
         </section>
 
-        <!-- 步骤六：配置飞书事件回调 -->
+        <!-- 步骤六 -->
         <section>
-          <h2 class="text-2xl font-bold text-dark mb-6">步骤六：配置飞书事件回调</h2>
-          <p class="text-gray-700 mb-4">接下来，我们需要告诉飞书将消息发送到哪里。</p>
-
-          <h3 class="text-lg font-bold text-dark mb-4">1）配置事件订阅</h3>
-          <ol class="space-y-4 mb-5">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">返回<a href="https://open.feishu.cn/app" target="_blank" rel="noopener noreferrer" class="text-teal hover:text-teal-hover underline underline-offset-2">飞书开放平台</a>，进入应用详情页</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">在左侧菜单中，点击「<strong>事件与回调</strong>」</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">在「订阅方式」中选择「<strong>将事件发送至开发者服务器</strong>」</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">4</div><p class="text-gray-700">将 SudoClaw 中获取的 Webhook 地址粘贴到输入框中</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">5</div><p class="text-gray-700">点击「<strong>保存</strong>」</p></li>
-          </ol>
-          <img src="images/feishu-guide-13.CUvVeJbT.png" alt="配置事件订阅" class="w-full rounded-xl border border-border mb-5" />
-
-          <h3 class="text-lg font-bold text-dark mb-4">2）添加消息接收事件</h3>
-          <p class="text-gray-700 mb-4">在「事件配置」区域，点击「添加事件」，搜索并添加「<strong>接收消息</strong>」事件。</p>
-          <img src="images/feishu-guide-14.PEN-b6c0.png" alt="添加消息接收事件" class="w-full rounded-xl border border-border mb-5" />
-
-          <h3 class="text-lg font-bold text-dark mb-4">3）配置卡片回调</h3>
-          <ol class="space-y-4 mb-5">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">切换到「<strong>回调配置</strong>」页签</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">搜索「<strong>卡片回传交互</strong>」</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">点击「<strong>确认添加</strong>」</p></li>
-          </ol>
-          <img src="images/feishu-guide-15.D7Us2LUf.png" alt="搜索卡片回传交互" class="w-full rounded-xl border border-border mb-4" />
-          <img src="images/feishu-guide-16.CBUtnaq6.png" alt="卡片回调配置完成" class="w-full rounded-xl border border-border" />
-        </section>
-
-        <!-- 步骤七 -->
-        <section>
-          <h2 class="text-2xl font-bold text-dark mb-6">步骤七：发布应用</h2>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤六：发布应用</h2>
           <p class="text-gray-700 mb-4">应用必须发布后才能在飞书中使用。</p>
           <ol class="space-y-4 mb-5">
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">点击页面上方的「创建版本」按钮，填写版本号和版本描述（如「集成 SudoClaw」）</p></li>
@@ -394,14 +366,15 @@
 
         <!-- 步骤七 -->
         <section>
-          <h2 class="text-2xl font-bold text-dark mb-6">步骤八：开始使用</h2>
-          <ol class="space-y-4 mb-5">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">在飞书的搜索框中，输入刚才创建的机器人名称进行搜索</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">点击机器人进入对话窗口，或点击「打开应用」开始使用</p></li>
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">直接发送您的需求，SudoClaw 会在电脑上自动执行任务，并将结果返回给您</p></li>
-          </ol>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤七：完成配对</h2>
+          <p class="text-gray-700 mb-4">等待开发者小助手发消息提示「应用审批通过，已发布成功」。</p>
+          <img src="images/feishu-pairing-1.png" alt="开发者小助手通知应用发布成功" class="w-full rounded-xl border border-border mb-5" />
+          <p class="text-gray-700 mb-4">打开飞书手机端找到机器人，发送消息，系统会提示配对信息，如下图：</p>
+          <img src="images/feishu-pairing-2.png" alt="手机端配对界面" class="w-full rounded-xl border border-border mb-5" />
+          <p class="text-gray-700 mb-4">回到电脑端，进入 <strong>SudoClaw</strong> → <strong>远程连接</strong>，在「待批准」界面点击「授权」。</p>
+          <img src="images/feishu-pairing-3.png" alt="电脑端待批准授权界面" class="w-full rounded-xl border border-border mb-5" />
           <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg">
-            <p class="text-sm text-dark/80 m-0">如果机器人能够正常回复，说明您已成功完成 SudoClaw 与飞书的对接！</p>
+            <p class="text-sm text-dark/80 m-0">授权成功后，回到手机端飞书即可正常会话。</p>
           </div>
         </section>
 
@@ -467,6 +440,7 @@
 </footer>
 
 <script>
+function copyCode(btn){var pre=btn.parentElement.querySelector('pre');navigator.clipboard.writeText(pre.textContent).then(function(){btn.textContent='已复制';setTimeout(function(){btn.textContent='复制'},1500)})}
 'use strict';
 (function(){
   var nav=document.getElementById('main-nav'),hamburgerBtn=document.getElementById('hamburger-btn'),mobileMenu=document.getElementById('mobile-menu'),navLinks=document.querySelectorAll('.nav-link'),mobileNavLinks=document.querySelectorAll('.mobile-nav-link'),hamLines=document.querySelectorAll('.ham-line');
