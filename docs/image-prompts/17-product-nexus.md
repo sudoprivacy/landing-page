@@ -14,7 +14,7 @@ Bottom layer (foundation): "Extension / Plugin" — shown as a row of modular bl
 
 Middle layer: "Skill" — shown as a collection of specialized knowledge cards or skill badges in amber (#F59E0B), representing packaged expertise and rules
 
-Top layer: "Agent" — shown as assembled AI worker cubes (amber hexagons from the SudoClaw logo style), representing the complete AI employees that combine skills and extensions
+Top layer: "Agent" — shown as assembled AI worker cubes (amber hexagons from the SudoWork logo style), representing the complete AI employees that combine skills and extensions
 
 Vertical connection lines between layers show how Agents use Skills which access Extensions. A shield icon on the side represents the built-in privacy computing engine. An "Apache 2.0" open-source badge in the corner.
 

@@ -22,7 +22,7 @@
   <header>              <!-- T1: Nav -->
   <section id="hero">   <!-- T1: Hero -->
   <section id="architecture">  <!-- T2: Copilot + Worker -->
-  <section id="why-sudoclaw">  <!-- T3: 差异化卡片 -->
+  <section id="why-sudowork">  <!-- T3: 差异化卡片 -->
   <section id="products">      <!-- T4: 产品矩阵 -->
   <section id="scenarios">     <!-- T5: 场景案例 -->
   <section id="production-line"> <!-- T6: 产线 + 信任 -->
@@ -42,13 +42,13 @@
 ```html
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SudoClaw — 企业硅基劳动力平台</title>
-<meta name="description" content="SudoClaw 是企业级 AI 工作平台，Copilot + Worker 双引擎架构，深入业务流程实现端到端自动化。支持私有化部署，内置隐私计算，20+ 模型智能路由。">
-<meta name="keywords" content="SudoClaw,企业AI,智能体,Agent,Copilot,隐私计算,私有化部署,数牍科技,SudoPrivacy">
-<meta property="og:title" content="SudoClaw — 企业硅基劳动力平台">
+<title>SudoWork — 企业硅基劳动力平台</title>
+<meta name="description" content="SudoWork 是企业级 AI 工作平台，Copilot + Worker 双引擎架构，深入业务流程实现端到端自动化。支持私有化部署，内置隐私计算，20+ 模型智能路由。">
+<meta name="keywords" content="SudoWork,企业AI,智能体,Agent,Copilot,隐私计算,私有化部署,数牍科技,SudoPrivacy">
+<meta property="og:title" content="SudoWork — 企业硅基劳动力平台">
 <meta property="og:description" content="不是聊天工具，是企业的硅基员工产线。9 个岗位 · 8 套系统 · 6 周上线。">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://sudoprivacy.github.io/sudoclaw-landing/">
+<meta property="og:url" content="https://sudoprivacy.github.io/sudowork-landing/">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,..."> <!-- 简单 SVG favicon -->
 
 <!-- Google Fonts -->

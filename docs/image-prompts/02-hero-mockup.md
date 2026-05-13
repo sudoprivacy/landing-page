@@ -8,7 +8,7 @@
 
 A clean, modern software application interface mockup on a dark background. The interface shows an AI copilot workspace:
 
-Top: A dark title bar with three window control dots (red/yellow/green) and the text "SudoClaw Copilot" in the center.
+Top: A dark title bar with three window control dots (red/yellow/green) and the text "SudoWork Copilot" in the center.
 
 Main area (white/light gray background):
 - Left side: A chat-like interface where a user message says "帮我准备下周给客户的方案" (in Chinese) in a gray bubble.

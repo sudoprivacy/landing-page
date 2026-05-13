@@ -15,14 +15,14 @@
 
 ### 布局
 ```
-[SudoClaw Logo]    产品  场景  开源  关于我们    [预约演示]
+[SudoWork Logo]    产品  场景  开源  关于我们    [预约演示]
 ```
 
 ### 规格
 - 高度 `64px`，固定在顶部 `fixed top-0 w-full z-50`
 - 初始状态：背景透明（Hero 是深色的，Nav 文字白色）
 - 滚动 > 50px 后：背景 `rgba(250,249,240,0.9)` + `backdrop-blur-md` + 底部 `border-b border-gray-200`，文字变深色
-- Logo："SudoClaw" 文字，font-heading weight-900，左侧。"Sudo" 用白色（滚动后深色），"Claw" 用 accent 色
+- Logo："SudoWork" 文字，font-heading weight-900，左侧。"Sudo" 用白色（滚动后深色），"Work" 用 accent 色
 - 导航项：字号 text-sm，font-medium，间距 gap-8。点击后 smooth scroll 到对应 section `#products` `#scenarios` `#opensource` `#about`
 - CTA 按钮："预约演示"，amber-600 实心，rounded-lg，px-5 py-2 text-sm
 - 移动端（< 768px）：隐藏导航项 + CTA，显示汉堡按钮（三横线），点击展开全屏菜单覆盖层

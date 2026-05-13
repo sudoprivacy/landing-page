@@ -26,22 +26,22 @@
 **选项 B：创建专用仓库**
 ```bash
 # 创建新仓库（公开）
-gh repo create sudoprivacy/sudoclaw-landing --public --description "SudoClaw Landing Page" --confirm
+gh repo create sudoprivacy/sudowork-landing --public --description "SudoWork Landing Page" --confirm
 
 # 克隆到本地
-git clone https://github.com/sudoprivacy/sudoclaw-landing.git
-cd sudoclaw-landing
+git clone https://github.com/sudoprivacy/sudowork-landing.git
+cd sudowork-landing
 ```
 
 ### Step 2：组织文件结构
 
 ```
-sudoclaw-landing/
+sudowork-landing/
 ├── index.html          ← T9 产出的完整页面
 ├── terms.html          ← T10 服务条款
 ├── privacy.html        ← T10 隐私政策
 ├── .nojekyll           ← 告诉 GitHub 不用 Jekyll 处理
-├── CNAME               ← 自定义域名（可选，如 sudoclaw.com）
+├── CNAME               ← 自定义域名（可选，如 sudowork.com）
 ├── assets/             ← 静态资源目录
 │   ├── images/
 │   │   ├── logo.svg          ← Logo（待提供）
@@ -64,7 +64,7 @@ touch .nojekyll
 
 ```bash
 git add .
-git commit -m "feat: SudoClaw landing page v1.0"
+git commit -m "feat: SudoWork landing page v1.0"
 git push origin main
 ```
 
@@ -72,7 +72,7 @@ git push origin main
 
 ```bash
 # 使用 GitHub CLI 启用 Pages
-gh api repos/sudoprivacy/sudoclaw-landing/pages \
+gh api repos/sudoprivacy/sudowork-landing/pages \
   --method POST \
   --field source='{"branch":"main","path":"/"}' \
   --field build_type="legacy"
@@ -88,19 +88,19 @@ gh api repos/sudoprivacy/sudoclaw-landing/pages \
 ```bash
 # 等待部署完成（通常 1-3 分钟）
 # 检查部署状态
-gh api repos/sudoprivacy/sudoclaw-landing/pages
+gh api repos/sudoprivacy/sudowork-landing/pages
 
 # 访问网站
-open https://sudoprivacy.github.io/sudoclaw-landing/
+open https://sudoprivacy.github.io/sudowork-landing/
 ```
 
 ### Step 7：（可选）配置自定义域名
 
-如果要用自定义域名（如 `www.sudoclaw.com`）：
+如果要用自定义域名（如 `www.sudowork.com`）：
 
 1. 创建 CNAME 文件：
 ```bash
-echo "www.sudoclaw.com" > CNAME
+echo "www.sudowork.com" > CNAME
 git add CNAME && git commit -m "add custom domain" && git push
 ```
 
@@ -112,7 +112,7 @@ git add CNAME && git commit -m "add custom domain" && git push
 
 ## 验收清单
 
-- [ ] `https://sudoprivacy.github.io/sudoclaw-landing/` 可正常访问
+- [ ] `https://sudoprivacy.github.io/sudowork-landing/` 可正常访问
 - [ ] 页面加载时间 < 3s（纯静态 HTML，应该很快）
 - [ ] 移动端访问正常（用手机浏览器测试）
 - [ ] `terms.html` 和 `privacy.html` 链接正常

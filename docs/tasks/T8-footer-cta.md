@@ -2,7 +2,7 @@
 
 > **依赖：** T0（设计规范）
 > **产出：** `<section id="opensource">` + `<section id="cta">` + `<footer>` 完整 HTML
-> **内容来源：** `SudoClaw-宣传资料.md` 第 246-268 行 + sudoprivacy.com 法律信息
+> **内容来源：** `SudoWork-宣传资料.md` 第 246-268 行 + sudoprivacy.com 法律信息
 
 ---
 
@@ -39,7 +39,7 @@
 
 | 图标 | 产品 | 描述 | 链接 |
 |---|---|---|---|
-| 🖥️ | SudoClaw | 企业级 AI 工作客户端 | https://github.com/sudoprivacy/sudowork |
+| 🖥️ | SudoWork | 企业级 AI 工作客户端 | https://github.com/sudoprivacy/sudowork |
 | 🧠 | Nexus OS | 智能体操作系统 | https://github.com/nexi-lab/nexus |
 | ⚡ | SudoRouter | 多模型智能路由 | https://sudorouter.ai |
 
@@ -80,7 +80,7 @@
 ```
 
 #### 栏 1：产品
-- SudoClaw → #hero
+- SudoWork → #hero
 - Nexus OS → https://github.com/nexi-lab/nexus
 - SudoRouter → https://sudorouter.ai
 

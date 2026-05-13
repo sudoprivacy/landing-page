@@ -9,7 +9,7 @@
 Minimalist isometric illustration of a sales workflow being automated by AI. Scene elements:
 
 - A laptop screen showing a presentation/proposal being auto-generated (visible slides with charts)
-- Small geometric AI agent figures (represented as amber hexagonal cubes, referencing the SudoClaw logo) carrying documents, analyzing data charts, and assembling a presentation
+- Small geometric AI agent figures (represented as amber hexagonal cubes, referencing the SudoWork logo) carrying documents, analyzing data charts, and assembling a presentation
 - A funnel shape on the left side suggesting lead generation, with data flowing in
 - A neat stack of completed proposals on the right side
 - Floating data cards with bar charts and trend lines around the scene

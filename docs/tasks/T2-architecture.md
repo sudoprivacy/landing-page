@@ -2,13 +2,13 @@
 
 > **依赖：** T0（设计规范）
 > **产出：** `<section id="architecture">` 完整 HTML
-> **内容来源：** `SudoClaw-宣传资料.md` 第 19-35 行
+> **内容来源：** `SudoWork-宣传资料.md` 第 19-35 行
 
 ---
 
 ## 目标
 
-紧跟 Hero 下方，解释 SudoClaw 的核心架构差异——Copilot + Worker 双引擎。这是全站最重要的产品理解区块，让访客明白"你们跟 ChatGPT 类工具有什么本质不同"。
+紧跟 Hero 下方，解释 SudoWork 的核心架构差异——Copilot + Worker 双引擎。这是全站最重要的产品理解区块，让访客明白"你们跟 ChatGPT 类工具有什么本质不同"。
 
 ## 设计
 
@@ -61,7 +61,7 @@
 **传统 AI 工具：**
 `人提问` → `AI 回答` → `人再操作` （灰色调，表示低效）
 
-**SudoClaw：**
+**SudoWork：**
 `人下达意图` → `Copilot 理解拆解` → `Worker 并行执行` → `结果直接交付` （accent 色调，表示高效）
 
 实现方式：flex 横排，每个步骤是 pill 形状 `rounded-full px-4 py-2`，箭头用 `→` 字符或 SVG。移动端可换行。

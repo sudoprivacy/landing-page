@@ -1,8 +1,8 @@
-# T3 — "为什么选择 SudoClaw" 差异化卡片区块
+# T3 — "为什么选择 SudoWork" 差异化卡片区块
 
 > **依赖：** T0（设计规范）
-> **产出：** `<section id="why-sudoclaw">` 完整 HTML
-> **内容来源：** `SudoClaw-宣传资料.md` 第 38-67 行
+> **产出：** `<section id="why-sudowork">` 完整 HTML
+> **内容来源：** `SudoWork-宣传资料.md` 第 38-67 行
 
 ---
 
@@ -16,7 +16,7 @@
 白色 `bg-white`（与米白页面底色微区分，制造层次）
 
 ### 区块标题
-"为什么选择 SudoClaw？" — `text-3xl md:text-4xl font-bold text-center`
+"为什么选择 SudoWork？" — `text-3xl md:text-4xl font-bold text-center`
 
 ### 卡片网格
 - 桌面：`grid grid-cols-3 gap-6`（3×2）
@@ -50,4 +50,4 @@
 
 ## 产出要求
 
-输出完整的 `<section id="why-sudoclaw">` HTML 代码，含所有 Tailwind 类名和内容文字。
+输出完整的 `<section id="why-sudowork">` HTML 代码，含所有 Tailwind 类名和内容文字。
