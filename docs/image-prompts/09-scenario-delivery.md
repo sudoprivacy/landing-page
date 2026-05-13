@@ -22,4 +22,4 @@ Minimalist isometric illustration showing "one human + five AI workers" as a ser
 Color palette: Amber (#F59E0B) for AI agents, teal (#0D9488) for connections, dark gray for the human figure, warm cream (#FAF9F0) background. Flat geometric style. The image should instantly communicate "one person empowered by multiple AI specialists = team multiplication."
 
 ## 用途说明
-代表"1 个顾问 + 5 个硅基员工 = 一个 squad"的服务交付新模式。这是 SudoClaw 最有说服力的场景之一。
+代表"1 个顾问 + 5 个硅基员工 = 一个 squad"的服务交付新模式。这是 SudoWork 最有说服力的场景之一。

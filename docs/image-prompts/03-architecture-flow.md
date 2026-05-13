@@ -23,4 +23,4 @@ From left to right:
 Style: Flat, geometric, minimal. Lines are clean with slight rounded ends. The Copilot node is visually dominant (larger, amber fill). Worker nodes are smaller (teal outline, white fill). Connection lines have subtle animated-flow dots suggestion (static dots along the path suggesting data movement). No gradients except very subtle ones on the Copilot node. Chinese labels in clean sans-serif font.
 
 ## 用途说明
-解释 SudoClaw 的核心工作原理：用户给 Copilot 一个意图，Copilot 拆解后 Worker 并行执行。这张图需要一眼就能传达"一个指令 → 多个 AI 并行干活 → 结果交付"。
+解释 SudoWork 的核心工作原理：用户给 Copilot 一个意图，Copilot 拆解后 Worker 并行执行。这张图需要一眼就能传达"一个指令 → 多个 AI 并行干活 → 结果交付"。

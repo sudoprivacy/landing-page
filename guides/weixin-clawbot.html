@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SudoClaw 个人微信接入指南 — 将 SudoClaw 接入微信，直接在微信中发送任务并接收执行结果" />
-  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoClaw, 微信接入, ClawBot" />
+  <meta name="description" content="SudoWork 个人微信接入指南 — 将 SudoWork 接入微信，直接在微信中发送任务并接收执行结果" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoWork, 微信接入, WorkBot" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="SudoClaw" />
+  <meta property="og:site_name" content="SudoWork" />
   <link rel="icon" href="../assets/favicon.ico" />
   <meta name="theme-color" content="#FAF9F0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,16 +69,16 @@
       html{scroll-behavior:auto}
     }
   </style>
-  <title>个人微信接入指南 — SudoClaw</title>
+  <title>个人微信接入指南 — SudoWork</title>
 </head>
 <body class="bg-page">
 
 <!-- NAV -->
 <header id="main-nav" class="fixed top-0 w-full z-50 h-16 border-b border-transparent">
   <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
-    <a href="../index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoClaw 首页">
-      <img src="../assets/logo/app.png" alt="SudoClaw Logo" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'" />
-      <span class="font-heading font-black text-xl leading-none select-none"><span class="text-dark font-black">Sudo</span><span class="text-accent">Claw</span></span>
+    <a href="../index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoWork 首页">
+      <img src="../assets/logo/app.png" alt="SudoWork Logo" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'" />
+      <span class="font-heading font-black text-xl leading-none select-none"><span class="text-dark font-black">Sudo</span><span class="text-accent">Work</span></span>
     </a>
     <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
       <a href="../index.html#products" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">产品</a>
@@ -114,7 +114,7 @@
   <section class="bg-dark py-20 text-center">
     <div class="max-w-content mx-auto px-6">
       <h1 class="text-4xl md:text-5xl font-black text-white">个人微信接入指南</h1>
-      <p class="text-white/70 mt-4 text-lg">通过 SudoClaw 的个人微信渠道配置，将 SudoClaw 接入微信，直接在微信中发送任务并接收执行结果</p>
+      <p class="text-white/70 mt-4 text-lg">通过 SudoWork 的个人微信渠道配置，将 SudoWork 接入微信，直接在微信中发送任务并接收执行结果</p>
     </div>
   </section>
 
@@ -142,7 +142,7 @@
         <section>
           <h2 class="text-2xl font-bold text-dark mb-6">前提条件</h2>
           <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>已在电脑上安装并登录 <strong>SudoClaw</strong></span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>已在电脑上安装并登录 <strong>SudoWork</strong></span></li>
             <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>手机上已登录一个可正常使用的 <strong>微信 >= 8.0.70</strong></span></li>
           </ul>
           <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg mt-5">
@@ -154,7 +154,7 @@
         <section>
           <h2 class="text-2xl font-bold text-dark mb-6">步骤一：打开渠道配置</h2>
           <ol class="space-y-4">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开 <strong>SudoClaw</strong></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开 <strong>SudoWork</strong></p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">进入 <strong>远程连接 → 渠道配置</strong></p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">在集成列表中找到 <strong>个人微信</strong></p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">4</div><p class="text-gray-700">点击 <strong>个人微信</strong>，点击下方的 <strong>连接微信</strong></p></li>
@@ -179,15 +179,15 @@
         <!-- 步骤三 -->
         <section>
           <h2 class="text-2xl font-bold text-dark mb-6">步骤三：开始使用</h2>
-          <p class="text-gray-700 mb-4">绑定完成后，您就可以直接在微信里和 SudoClaw 对话，例如：</p>
+          <p class="text-gray-700 mb-4">绑定完成后，您就可以直接在微信里和 SudoWork 对话，例如：</p>
           <ul class="space-y-2 text-gray-700 mb-5">
             <li class="flex items-start gap-3"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal shrink-0"></span><span>帮我总结今天桌面上最新的会议记录</span></li>
             <li class="flex items-start gap-3"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal shrink-0"></span><span>帮我检查这个项目最近改过的接口有没有明显问题</span></li>
             <li class="flex items-start gap-3"><span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-teal shrink-0"></span><span>帮我生成一个登录页原型</span></li>
           </ul>
-          <p class="text-gray-700 mb-5">SudoClaw 会在电脑上自动执行任务，并把执行过程和最终结果同步回微信聊天窗口。</p>
+          <p class="text-gray-700 mb-5">SudoWork 会在电脑上自动执行任务，并把执行过程和最终结果同步回微信聊天窗口。</p>
           <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg">
-            <p class="text-sm text-dark/80 m-0">当微信消息到达时，SudoClaw 会自动切换到对应的会话并处理任务，无需手动切换。</p>
+            <p class="text-sm text-dark/80 m-0">当微信消息到达时，SudoWork 会自动切换到对应的会话并处理任务，无需手动切换。</p>
           </div>
         </section>
 
@@ -198,9 +198,9 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
               <h3 class="font-bold text-dark mb-2">页面一直停留在「绑定中...」怎么办？</h3>
               <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
-                <li>确认电脑上的 SudoClaw 正在运行，且网络连接正常</li>
+                <li>确认电脑上的 SudoWork 正在运行，且网络连接正常</li>
                 <li>关闭当前配置窗口后重新进入个人微信配置</li>
-                <li>如果问题仍然存在，重启 SudoClaw 后重新绑定</li>
+                <li>如果问题仍然存在，重启 SudoWork 后重新绑定</li>
               </ol>
             </div>
             <div class="bg-white rounded-2xl p-6 shadow-sm">
@@ -214,7 +214,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
               <h3 class="font-bold text-dark mb-2">微信里发消息没有响应怎么办？</h3>
               <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
-                <li>确认电脑上的 SudoClaw 仍在运行，且渠道配置服务未关闭</li>
+                <li>确认电脑上的 SudoWork 仍在运行，且渠道配置服务未关闭</li>
                 <li>返回「远程连接」 → 「渠道配置」检查 WeChat 状态是否仍为「已连接」</li>
                 <li>如有必要，可先解绑后重新扫码绑定</li>
               </ol>
@@ -231,7 +231,7 @@
 <footer class="bg-[#111111] text-white/60 py-16">
   <div class="max-w-content mx-auto px-6 md:px-8">
     <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
-      <div><h4 class="text-white font-bold text-sm mb-4">产品</h4><ul class="space-y-2"><li><a href="../index.html#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li><li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li><li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">产品</h4><ul class="space-y-2"><li><a href="../index.html#hero" class="text-sm hover:text-white transition-colors">SudoWork</a></li><li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li><li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li></ul></div>
       <div><h4 class="text-white font-bold text-sm mb-4">场景</h4><ul class="space-y-2"><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li></ul></div>
       <div><h4 class="text-white font-bold text-sm mb-4">资源</h4><ul class="space-y-2"><li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li><li><a href="../docs.html" class="text-sm hover:text-white transition-colors">文档</a></li><li><a href="../blog.html" class="text-sm hover:text-white transition-colors">博客</a></li></ul></div>
       <div><h4 class="text-white font-bold text-sm mb-4">公司</h4><ul class="space-y-2"><li><a href="../index.html#about" class="text-sm hover:text-white transition-colors">关于我们</a></li><li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li><li><a href="../careers.html" class="text-sm hover:text-white transition-colors">加入我们</a></li><li><a href="../terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li><li><a href="../privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li></ul></div>

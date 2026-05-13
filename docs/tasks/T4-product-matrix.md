@@ -2,13 +2,13 @@
 
 > **依赖：** T0（设计规范）
 > **产出：** `<section id="products">` 完整 HTML
-> **内容来源：** `SudoClaw-宣传资料.md` 第 70-85 行
+> **内容来源：** `SudoWork-宣传资料.md` 第 70-85 行
 
 ---
 
 ## 目标
 
-展示 SudoClaw / Nexus OS / SudoRouter 三大产品的定位、特性和关系，让技术决策者理解整体架构。
+展示 SudoWork / Nexus OS / SudoRouter 三大产品的定位、特性和关系，让技术决策者理解整体架构。
 
 ## 设计
 
@@ -17,7 +17,7 @@
 
 ### 区块标题
 "产品矩阵" — `text-3xl md:text-4xl font-bold text-center`
-副标题："SudoClaw 不是单点工具，而是由三大核心组件构成的完整 AI 工作平台" — `text-secondary text-center mt-4`
+副标题："SudoWork 不是单点工具，而是由三大核心组件构成的完整 AI 工作平台" — `text-secondary text-center mt-4`
 
 ### 三栏布局
 - 桌面：`grid grid-cols-3 gap-8`
@@ -44,7 +44,7 @@
 
 ### 三个产品内容
 
-**🖥️ SudoClaw — 终端客户端**
+**🖥️ SudoWork — 终端客户端**
 定位：用户与 AI 职场搭子交互的入口
 特性：
 - 企业微信、Web、Telegram、钉钉、飞书多端接入

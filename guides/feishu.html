@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="SudoClaw 飞书接入指南 — 通过 WebSocket 长连接将 SudoClaw 接入飞书，随时随地远程操控完成任务" />
-  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoClaw, 飞书接入, Lark" />
+  <meta name="description" content="SudoWork 飞书接入指南 — 通过 WebSocket 长连接将 SudoWork 接入飞书，随时随地远程操控完成任务" />
+  <meta name="keywords" content="AI 劳动力, 企业 AI, SudoWork, 飞书接入, Lark" />
   <meta property="og:type" content="website" />
-  <meta property="og:site_name" content="SudoClaw" />
+  <meta property="og:site_name" content="SudoWork" />
   <link rel="icon" href="../assets/favicon.ico" />
   <meta name="theme-color" content="#FAF9F0" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -69,16 +69,16 @@
       html{scroll-behavior:auto}
     }
   </style>
-  <title>飞书接入指南 — SudoClaw</title>
+  <title>飞书接入指南 — SudoWork</title>
 </head>
 <body class="bg-page">
 
 <!-- NAV -->
 <header id="main-nav" class="fixed top-0 w-full z-50 h-16 border-b border-transparent">
   <div class="max-w-content mx-auto px-6 h-full flex items-center justify-between">
-    <a href="../index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoClaw 首页">
-      <img src="../assets/logo/app.png" alt="SudoClaw Logo" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'" />
-      <span class="font-heading font-black text-xl leading-none select-none"><span class="text-dark font-black">Sudo</span><span class="text-accent">Claw</span></span>
+    <a href="../index.html" class="flex items-center gap-2 shrink-0" aria-label="SudoWork 首页">
+      <img src="../assets/logo/app.png" alt="SudoWork Logo" class="h-8 w-8 rounded-lg object-contain" onerror="this.style.display='none'" />
+      <span class="font-heading font-black text-xl leading-none select-none"><span class="text-dark font-black">Sudo</span><span class="text-accent">Work</span></span>
     </a>
     <nav class="hidden md:flex items-center gap-8" aria-label="主导航">
       <a href="../index.html#products" class="nav-link text-sm font-medium text-white/80 hover:text-white transition-colors duration-200">产品</a>
@@ -114,7 +114,7 @@
   <section class="bg-dark py-20 text-center">
     <div class="max-w-content mx-auto px-6">
       <h1 class="text-4xl md:text-5xl font-black text-white">飞书接入指南</h1>
-      <p class="text-white/70 mt-4 text-lg">通过 SudoClaw 的飞书渠道配置，将 SudoClaw 接入飞书，随时随地远程操控完成任务</p>
+      <p class="text-white/70 mt-4 text-lg">通过 SudoWork 的飞书渠道配置，将 SudoWork 接入飞书，随时随地远程操控完成任务</p>
     </div>
   </section>
 
@@ -142,11 +142,11 @@
         <section>
           <h2 class="text-2xl font-bold text-dark mb-6">前提条件</h2>
           <ul class="space-y-3 text-gray-700">
-            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>已在电脑上安装并登录 <strong>SudoClaw</strong></span></li>
+            <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>已在电脑上安装并登录 <strong>SudoWork</strong></span></li>
             <li class="flex items-start gap-3"><span class="mt-1.5 w-2 h-2 rounded-full bg-accent shrink-0"></span><span>拥有一个飞书企业账号（需要有<strong>创建应用的权限</strong>）</span></li>
           </ul>
           <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg mt-5">
-            <p class="text-sm text-dark/80 m-0">SudoClaw 通过 <strong>WebSocket 长连接</strong>方式接入飞书，无需配置事件回调地址或 Webhook URL，只需填写 App ID 和 App Secret 即可完成连接。</p>
+            <p class="text-sm text-dark/80 m-0">SudoWork 通过 <strong>WebSocket 长连接</strong>方式接入飞书，无需配置事件回调地址或 Webhook URL，只需填写 App ID 和 App Secret 即可完成连接。</p>
           </div>
         </section>
 
@@ -165,7 +165,7 @@
             <table class="w-full border border-border text-sm">
               <thead><tr class="bg-gray-50"><th class="text-left px-4 py-3 font-bold text-dark border-b border-border">配置项</th><th class="text-left px-4 py-3 font-bold text-dark border-b border-border">说明</th></tr></thead>
               <tbody>
-                <tr><td class="px-4 py-3 border-b border-border text-gray-700">应用名称</td><td class="px-4 py-3 border-b border-border text-gray-700">给应用起一个名字，如「SudoClaw 助手」</td></tr>
+                <tr><td class="px-4 py-3 border-b border-border text-gray-700">应用名称</td><td class="px-4 py-3 border-b border-border text-gray-700">给应用起一个名字，如「SudoWork 助手」</td></tr>
                 <tr><td class="px-4 py-3 border-b border-border text-gray-700">应用描述</td><td class="px-4 py-3 border-b border-border text-gray-700">简单描述应用的功能</td></tr>
                 <tr><td class="px-4 py-3 text-gray-700">应用图标</td><td class="px-4 py-3 text-gray-700">上传一个应用图标</td></tr>
               </tbody>
@@ -329,22 +329,22 @@
             </table>
           </div>
           <div class="bg-accent-light border-l-4 border-accent p-4 rounded-r-lg">
-            <p class="text-sm text-dark/80 m-0">请务必妥善保管 App Secret，不要泄露给他人。Encrypt Key 和 Verification Token 为可选项，SudoClaw 不强制要求填写。</p>
+            <p class="text-sm text-dark/80 m-0">请务必妥善保管 App Secret，不要泄露给他人。Encrypt Key 和 Verification Token 为可选项，SudoWork 不强制要求填写。</p>
           </div>
         </section>
 
         <!-- 步骤五 -->
         <section>
-          <h2 class="text-2xl font-bold text-dark mb-6">步骤五：在 SudoClaw 中完成连接</h2>
+          <h2 class="text-2xl font-bold text-dark mb-6">步骤五：在 SudoWork 中完成连接</h2>
           <ol class="space-y-4">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开 <strong>SudoClaw</strong></p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">打开 <strong>SudoWork</strong></p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">2</div><p class="text-gray-700">进入 <strong>远程连接</strong> → <strong>渠道配置</strong></p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">3</div><p class="text-gray-700">在集成列表中找到 <strong>飞书</strong>，并点击</p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">4</div><p class="text-gray-700">填入 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">App ID</code> 和 <code class="bg-gray-100 text-dark px-1.5 py-0.5 rounded text-sm">App Secret</code></p></li>
             <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">5</div><p class="text-gray-700">点击 <strong>「测试并连接」</strong> 完成连接</p></li>
           </ol>
           <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg mt-5">
-            <p class="text-sm text-dark/80 m-0">SudoClaw 使用 WebSocket 长连接与飞书通信，无需在飞书开放平台配置事件回调地址。连接成功后，可在 飞书渠道配置中选择使用的 Agent（默认为 SudoClaw）。</p>
+            <p class="text-sm text-dark/80 m-0">SudoWork 使用 WebSocket 长连接与飞书通信，无需在飞书开放平台配置事件回调地址。连接成功后，可在 飞书渠道配置中选择使用的 Agent（默认为 SudoWork）。</p>
           </div>
           <img src="images/feishu-bind-config.png" alt="飞书渠道配置" class="w-full rounded-xl border border-border mt-5" />
         </section>
@@ -354,7 +354,7 @@
           <h2 class="text-2xl font-bold text-dark mb-6">步骤六：发布应用</h2>
           <p class="text-gray-700 mb-4">应用必须发布后才能在飞书中使用。</p>
           <ol class="space-y-4 mb-5">
-            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">点击页面上方的「创建版本」按钮，填写版本号和版本描述（如「集成 SudoClaw」）</p></li>
+            <li class="flex gap-4"><div class="flex-shrink-0 w-8 h-8 rounded-full bg-accent flex items-center justify-center font-bold text-dark text-sm">1</div><p class="text-gray-700">点击页面上方的「创建版本」按钮，填写版本号和版本描述（如「集成 SudoWork」）</p></li>
           </ol>
           <img src="images/feishu-create-release.DkAkt14R.png" alt="创建版本" class="w-full rounded-xl border border-border mb-4" />
           <ol class="space-y-4 mb-5">
@@ -371,7 +371,7 @@
           <img src="images/feishu-pairing-1.png" alt="开发者小助手通知应用发布成功" class="w-full rounded-xl border border-border mb-5" />
           <p class="text-gray-700 mb-4">打开飞书手机端找到机器人，发送消息，系统会提示配对信息，如下图：</p>
           <img src="images/feishu-pairing-2.png" alt="手机端配对界面" class="w-full rounded-xl border border-border mb-5" />
-          <p class="text-gray-700 mb-4">回到电脑端，进入 <strong>SudoClaw</strong> → <strong>远程连接</strong>，在「待批准」界面点击「授权」。</p>
+          <p class="text-gray-700 mb-4">回到电脑端，进入 <strong>SudoWork</strong> → <strong>远程连接</strong>，在「待批准」界面点击「授权」。</p>
           <img src="images/feishu-pairing-3.png" alt="电脑端待批准授权界面" class="w-full rounded-xl border border-border mb-5" />
           <div class="bg-teal/5 border-l-4 border-teal p-4 rounded-r-lg">
             <p class="text-sm text-dark/80 m-0">授权成功后，回到手机端飞书即可正常会话。</p>
@@ -386,7 +386,7 @@
               <h3 class="font-bold text-dark mb-2">机器人没有响应怎么办？</h3>
               <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
                 <li><strong>检查应用状态</strong>：确认应用已成功发布</li>
-                <li><strong>检查 SudoClaw</strong>：确保电脑上的 SudoClaw 正在运行，且渠道配置服务已开启</li>
+                <li><strong>检查 SudoWork</strong>：确保电脑上的 SudoWork 正在运行，且渠道配置服务已开启</li>
                 <li><strong>核对凭据</strong>：确认 App ID 和 App Secret 是否正确</li>
                 <li><strong>检查权限</strong>：确保消息相关权限已正确开通</li>
               </ol>
@@ -403,8 +403,8 @@
               <h3 class="font-bold text-dark mb-2">收不到消息怎么办？</h3>
               <ol class="text-gray-600 text-sm leading-relaxed space-y-1 list-decimal list-inside m-0">
                 <li>确认消息相关权限（如 im:message）已正确开通</li>
-                <li>确认 SudoClaw 与飞书的连接状态为已连接</li>
-                <li>尝试重新启动 SudoClaw 后再次测试</li>
+                <li>确认 SudoWork 与飞书的连接状态为已连接</li>
+                <li>尝试重新启动 SudoWork 后再次测试</li>
               </ol>
             </div>
           </div>
@@ -419,7 +419,7 @@
 <footer class="bg-[#111111] text-white/60 py-16">
   <div class="max-w-content mx-auto px-6 md:px-8">
     <div class="grid sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12">
-      <div><h4 class="text-white font-bold text-sm mb-4">产品</h4><ul class="space-y-2"><li><a href="../index.html#hero" class="text-sm hover:text-white transition-colors">SudoClaw</a></li><li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li><li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li></ul></div>
+      <div><h4 class="text-white font-bold text-sm mb-4">产品</h4><ul class="space-y-2"><li><a href="../index.html#hero" class="text-sm hover:text-white transition-colors">SudoWork</a></li><li><a href="https://github.com/nexi-lab/nexus" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">Nexus OS</a></li><li><a href="https://sudorouter.ai" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">SudoRouter</a></li></ul></div>
       <div><h4 class="text-white font-bold text-sm mb-4">场景</h4><ul class="space-y-2"><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">销售与获客</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">客户服务</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">金融与保险</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">财务与合规</a></li><li><a href="../index.html#scenarios" class="text-sm hover:text-white transition-colors">更多场景…</a></li></ul></div>
       <div><h4 class="text-white font-bold text-sm mb-4">资源</h4><ul class="space-y-2"><li><a href="https://github.com/sudoprivacy" target="_blank" rel="noopener noreferrer" class="text-sm hover:text-white transition-colors">GitHub</a></li><li><a href="../docs.html" class="text-sm hover:text-white transition-colors">文档</a></li><li><a href="../blog.html" class="text-sm hover:text-white transition-colors">博客</a></li></ul></div>
       <div><h4 class="text-white font-bold text-sm mb-4">公司</h4><ul class="space-y-2"><li><a href="../index.html#about" class="text-sm hover:text-white transition-colors">关于我们</a></li><li><a href="mailto:business@sudoprivacy.com" class="text-sm hover:text-white transition-colors">联系我们</a></li><li><a href="../careers.html" class="text-sm hover:text-white transition-colors">加入我们</a></li><li><a href="../terms.html" class="text-sm hover:text-white transition-colors">法律声明</a></li><li><a href="../privacy.html" class="text-sm hover:text-white transition-colors">隐私政策</a></li></ul></div>

@@ -1,4 +1,4 @@
-# SudoClaw Landing Page — 任务 DAG
+# SudoWork Landing Page — 任务 DAG
 
 ## 依赖关系图
 
@@ -98,7 +98,7 @@ landing-page/                        ← repo 根目录
 │       ├── product-router.jpg       ← 18 SudoRouter 路由图
 │       └── cta-bg.jpg               ← 19 底部 CTA 背景图
 ├── docs/
-│   ├── SudoClaw-宣传资料.md          ← 品牌文案主文档
+│   ├── SudoWork-宣传资料.md          ← 品牌文案主文档
 │   ├── image-prompts/               ← 图片生成 prompts（00-19）
 │   └── tasks/                       ← 本目录，开发任务规格
 └── README.md
