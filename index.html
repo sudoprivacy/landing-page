@@ -2276,7 +2276,8 @@
           <div>
             <p class="text-sm font-medium text-dark mb-2">一键安装</p>
             <div class="relative flex items-center gap-2 rounded-lg bg-dark px-4 py-3">
-              <code id="scode-install-cmd" class="flex-1 overflow-x-auto font-mono text-xs text-green-400 whitespace-nowrap select-all">SCODE_MIRROR=https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudocode/release/latest curl -fsSL https://raw.githubusercontent.com/sudoprivacy/sudocode/main/install.sh | sh</code>
+              <code id="scode-install-cmd" class="flex-1 overflow-x-auto font-mono text-xs text-green-400 whitespace-nowrap select-all">curl -fsSL https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudocode/release/latest/install.sh | \
+  SCODE_MIRROR=https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudocode/release/latest sh</code>
               <button
                 id="copy-scode-install"
                 class="shrink-0 ml-2 p-1 rounded text-gray-400 hover:text-white transition-colors"
@@ -2706,7 +2707,8 @@
   (function () {
     var btn = document.getElementById('copy-scode-install');
     if (!btn) return;
-    var cmd = 'SCODE_MIRROR=https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudocode/release/latest curl -fsSL https://raw.githubusercontent.com/sudoprivacy/sudocode/main/install.sh | sh';
+    var cmd = 'curl -fsSL https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudocode/release/latest/install.sh | \
+  SCODE_MIRROR=https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudocode/release/latest sh';
     btn.addEventListener('click', function () {
       navigator.clipboard.writeText(cmd).then(function () {
         var icon = document.getElementById('copy-scode-icon');
