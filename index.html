@@ -2190,23 +2190,35 @@
             <span class="text-2xl md:text-3xl font-bold font-heading tracking-wide text-dark">MAC</span>
           </div>
 
-          <div class="text-left max-w-sm mx-auto">
-            <p class="text-sm font-medium text-dark mb-2">.dmg（Apple 芯片）</p>
-            <a
-              id="download-macos-arm"
-              href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudowork/release/latest/Sudowork-latest-mac-arm64.dmg"
-              class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
-              aria-label="下载 macOS Apple 芯片版"
-              rel="noopener noreferrer"
-              target="_blank"
-            >
-              <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                <polyline points="7 10 12 15 17 10"/>
-                <line x1="12" y1="15" x2="12" y2="3"/>
-              </svg>
-              <span class="min-w-0 flex-1 text-center"><span class="dl-btn-text">点击下载</span></span>
-            </a>
+          <div class="text-left max-w-sm mx-auto space-y-4">
+            <div>
+              <p class="text-sm font-medium text-dark mb-2">.dmg（Apple 芯片）</p>
+              <a
+                id="download-macos-arm"
+                href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudowork/release/latest/Sudowork-latest-mac-arm64.dmg"
+                class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
+                aria-label="下载 macOS Apple 芯片版"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="min-w-0 flex-1 text-center"><span class="dl-btn-text">点击下载</span></span>
+              </a>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-dark mb-2">.dmg（Intel 芯片）</p>
+              <a
+                id="download-macos-x64"
+                href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/sudowork/release/latest/Sudowork-latest-mac-x64.dmg"
+                class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
+                aria-label="下载 macOS Intel 芯片版"
+                rel="noopener noreferrer"
+                target="_blank"
+              >
+                <svg class="h-4 w-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span class="min-w-0 flex-1 text-center"><span class="dl-btn-text">点击下载</span></span>
+              </a>
+            </div>
           </div>
         </div>
 
@@ -2594,6 +2606,9 @@
         { id: 'download-macos-arm', aria: '下载 macOS Apple 芯片版（推荐）' },
         { id: 'hydra-desktop-download', aria: '下载 Hydra macOS 桌面版（推荐）' }
       ],
+      'macos-x64': [
+        { id: 'download-macos-x64', aria: '下载 macOS Intel 芯片版（推荐）' }
+      ],
       windows: [
         { id: 'download-windows-x64', aria: '下载 Windows x64 版（推荐）' }
       ]
@@ -2645,6 +2660,7 @@
       if (/arm64|aarch64/i.test(ua)) return 'macos-arm';
       var arch = macArchFromWebGL();
       if (arch === 'arm') return 'macos-arm';
+      if (arch === 'intel') return 'macos-x64';
       return null;
     }
 
@@ -2662,6 +2678,7 @@
           return;
         }
         if (arch === 'x86' || arch === 'x86_64') {
+          apply('macos-x64');
           return;
         }
         apply(macVariantSync());
