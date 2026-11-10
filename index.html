@@ -2281,7 +2281,7 @@
             <p class="text-sm font-medium text-dark mb-2">.dmg（Apple 芯片）</p>
             <a
               id="mosswork-download-macos-arm"
-              href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/mosswork/release/releases/v0.0.5/mosswork-company-macos-arm64-0.0.5.dmg"
+              href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/mosswork/release/latest/mosswork-latest-macos-arm64.dmg"
               class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
               aria-label="下载 mosswork macOS Apple 芯片版"
               rel="noopener noreferrer"
@@ -2307,7 +2307,7 @@
             <p class="text-sm font-medium text-dark mb-2">Windows x64</p>
             <a
               id="mosswork-download-windows-x64"
-              href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/mosswork/release/releases/v0.0.5/mosswork-company-windows-amd64-0.0.5.exe"
+              href="https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/mosswork/release/latest/mosswork-latest-windows-amd64.exe"
               class="flex w-full items-center gap-2 rounded-lg bg-accent px-4 py-3 text-sm font-bold font-heading text-dark shadow-sm transition-colors duration-200 hover:bg-accent-hover"
               aria-label="下载 mosswork Windows x64 版"
               rel="noopener noreferrer"
@@ -2752,37 +2752,6 @@
     }
 
     apply(macVariantSync());
-  })();
-
-  // ── mosswork: 更新到最新稳定版客户端，静态链接作为回退 ──
-  (function () {
-    var mac = document.getElementById('mosswork-download-macos-arm');
-    var windows = document.getElementById('mosswork-download-windows-x64');
-    if (!mac || !windows || typeof window.fetch !== 'function') return;
-
-    fetch('https://api.github.com/repos/sudoprivacy/mosswork/releases/latest', {
-      headers: { 'Accept': 'application/vnd.github+json' }
-    })
-      .then(function (response) {
-        if (!response.ok) throw new Error('GitHub release request failed');
-        return response.json();
-      })
-      .then(function (release) {
-        var tag = release.tag_name || '';
-        if (!/^v[0-9]+\.[0-9]+\.[0-9]+$/.test(tag)) return;
-        var version = tag.slice(1);
-        var macName = 'mosswork-company-macos-arm64-' + version + '.dmg';
-        var windowsName = 'mosswork-company-windows-amd64-' + version + '.exe';
-        var assets = Array.isArray(release.assets) ? release.assets : [];
-        if (!assets.some(function (asset) { return asset.name === macName; }) ||
-            !assets.some(function (asset) { return asset.name === windowsName; })) return;
-        var base = 'https://sudowork-release-1309794936.cos.ap-beijing.myqcloud.com/mosswork/release/releases/' + tag + '/';
-        mac.href = base + macName;
-        windows.href = base + windowsName;
-      })
-      .catch(function () {
-        // 保留已发布版本的 COS 下载链接。
-      });
   })();
 
   // ── Hydra Desktop: 始终解析最新 Release 中的 Apple Silicon DMG ──
